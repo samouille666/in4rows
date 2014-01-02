@@ -99,12 +99,14 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		return firstInGame_ModeCol(this) == null;
 	}
 
-	private void wonGame(Move last, PlayerInGame p) {
-		// TODO notify and exit
+	private void wonGame(Move last, PlayerInGame playerInTurn) {
+		String msg = "The player " + playerInTurn.getId() + " has won the game.";
+		bgo.notifyObservers(new BasicGameEvent(GameEvent.Type.WIN, last, msg));		
 	}
 
 	private void drawGame(Move last, PlayerInGame p) {
-		// TODO notify and exit
+		String msg = "Player " + p1.getId() + " and player " + p2.getId() + " are draw";
+		bgo.notifyObservers(new BasicGameEvent(GameEvent.Type.DRAW, last, msg));
 	}
 
 	@Override
