@@ -11,6 +11,8 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class TestGame {
 
+	private In4RowsFactory f;
+	
 	@Test
 	public void testGame_01() {
 		In4RowsFactory f = new In4RowsFactory();

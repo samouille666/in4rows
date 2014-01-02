@@ -1,6 +1,7 @@
 package in4rows.game;
 
 import in4rows.model.Move;
+import in4rows.model.Player;
 
 public interface GameEvent {
 
@@ -13,5 +14,6 @@ public interface GameEvent {
 	public Move getMove();
 
 	public String getMsg();
-
+	
+	public Player getPlayer();
 }

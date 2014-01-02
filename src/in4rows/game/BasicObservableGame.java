@@ -38,9 +38,7 @@ public class BasicObservableGame extends Observable implements ObservableGame {
 		// TODO refine mechanism				
 		super.notifyObservers(arg);
 	}
-	
-	
-	
+
 	public void setChanged(){
 		//TODO protected have to reimplement
 		super.setChanged();

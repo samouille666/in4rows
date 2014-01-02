@@ -14,6 +14,8 @@ import in4rows.player.ServerPlayer;
 import java.util.UUID;
 
 public class In4RowsFactory {
+	public In4RowsFactory() {
+	}
 
 	public Player createPlayer() {
 		return new HumanPlayer(UUID.randomUUID().toString());
@@ -45,8 +47,8 @@ public class In4RowsFactory {
 		return new BasicGame(width, height, p1, p1c, p1t);
 	}
 
-	public GameEvent createStartEvent() {
-		return new BasicGameEvent(Type.START, null, null);
+	public GameEvent createStartEvent(Player p) {
+		return new BasicGameEvent(Type.START, null, null, p);
 	}
 
 }
