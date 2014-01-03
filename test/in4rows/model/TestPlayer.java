@@ -48,7 +48,7 @@ public class TestPlayer {
 		GameWritable g = f.createGame(p1);
 
 		ServerPlayer p2 = f.createServerPlayer();
-		p
+		
 		g.setPlayer2(p2);
 
 		Assert.assertEquals("not same game!", g, p1.getLastGame());
