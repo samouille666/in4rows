@@ -1,13 +1,11 @@
 package in4rows.model;
 
-import in4rows.GridHelper;
 import in4rows.In4RowsFactory;
 import in4rows.game.GameEvent;
 import in4rows.player.AbstractPlayer;
+import in4rows.player.Dispatcher;
 import in4rows.player.HumanPlayer;
-import in4rows.player.PlayerObserver;
 import in4rows.player.ServerPlayer;
-import in4rows.strategy.GameStrategy;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,71 +41,19 @@ public class TestPlayer {
 
 	@Test
 	public void testPlayer_03() {
+		Dispatcher d = f.createEventDispatcher();
+		
 		DummyPlayer p1 = new DummyPlayer("toto");
+		p1.setEventDispatcher(d);
 		GameWritable g = f.createGame(p1);
 
 		ServerPlayer p2 = f.createServerPlayer();
+		p
 		g.setPlayer2(p2);
 
 		Assert.assertEquals("not same game!", g, p1.getLastGame());
 		Assert.assertTrue("not event start",
 				GameEvent.Type.START.equals(p1.getLastEvent().getType()));
-	}
-
-	/**
-	 * @author ssayag
-	 * 
-	 *         To test all the observer/update/event mechanism.
-	 */
-	private class DummyPlayer extends AbstractPlayer {
-
-		private GameReadable game;
-
-		private GameEvent evt;
-
-		public DummyPlayer(String id) {
-			super(id);
-		}
-
-		@Override
-		public void update(GameReadable gr, GameEvent e) {
-			game = gr;
-			evt = e;
-		}
-
-		public GameEvent getLastEvent() {
-			return evt;
-		}
-
-		public GameReadable getLastGame() {
-			return game;
-		}
-		
-		@Override
-		public void addObs(PlayerObserver o) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-		@Override
-		public void delObs(PlayerObserver o) {
-			// TODO Auto-generated method stub
-			
-		}
-	}
-
-	private class DummyStrategy implements GameStrategy {
-
-		private int col = 0;
-
-		public DummyStrategy(int col) {
-			this.col = col;
-		}
-
-		@Override
-		public Move getMove(GameReadable g) {
-			return new BasicMove(GridHelper.firstInCol_ModeCol(g, col));
-		}
 	}
 
 }

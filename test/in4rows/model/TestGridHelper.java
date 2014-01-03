@@ -1,5 +1,13 @@
 package in4rows.model;
 
+import static in4rows.GridHelper.countDiagLeft;
+import static in4rows.GridHelper.countDiagRight;
+import static in4rows.GridHelper.countDown;
+import static in4rows.GridHelper.countLeft;
+import static in4rows.GridHelper.countRight;
+import static in4rows.GridHelper.countUp;
+import static in4rows.GridHelper.firstInCol_ModeCol;
+import static in4rows.GridHelper.firstInGame_ModeCol;
 import in4rows.GridHelper;
 
 import java.util.ArrayList;
@@ -9,8 +17,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-
-import static in4rows.GridHelper.*;
 
 @RunWith(JUnit4.class)
 public class TestGridHelper {

@@ -8,6 +8,7 @@ import in4rows.model.Disk;
 import in4rows.model.GameWritable;
 import in4rows.model.Player;
 import in4rows.model.PlayerTurn;
+import in4rows.player.Dispatcher;
 import in4rows.player.HumanPlayer;
 import in4rows.player.ServerPlayer;
 
@@ -51,4 +52,8 @@ public class In4RowsFactory {
 		return new BasicGameEvent(Type.START, null, null, p);
 	}
 
+	public Dispatcher createEventDispatcher(){
+		return new Dispatcher();
+	}
+	
 }

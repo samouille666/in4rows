@@ -5,6 +5,6 @@ import in4rows.model.Player;
 
 import java.util.Observer;
 
-public interface ServerPlayer extends GameObserver, Observer, Player , ObservablePlayer {
+public interface ServerPlayer extends GameObserver, Observer, Player , ObservablePlayer, Dispatchable{
 
 }

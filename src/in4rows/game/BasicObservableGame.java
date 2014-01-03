@@ -2,11 +2,14 @@ package in4rows.game;
 
 import in4rows.model.GameReadable;
 
+import java.util.List;
 import java.util.Observable;
 
 public class BasicObservableGame extends Observable implements ObservableGame {
 
 	private GameReadable g ;
+	
+	private List<GameObserver> observers;
 	
 	public BasicObservableGame(GameReadable g) {
 		this.g = g;
@@ -35,7 +38,7 @@ public class BasicObservableGame extends Observable implements ObservableGame {
 	
 	@Override
 	public void notifyObservers(Object arg) {
-		// TODO refine mechanism				
+		
 		super.notifyObservers(arg);
 	}
 

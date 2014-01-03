@@ -2,12 +2,13 @@ package in4rows.player;
 
 import in4rows.game.GameEvent;
 import in4rows.game.ObservableGame;
-import in4rows.model.GameReadable;
 import in4rows.strategy.GameStrategy;
 
 import java.util.Observable;
 
 public abstract class AbstractPlayer implements ServerPlayer {
+
+	private Dispatcher evtDispatch;
 
 	protected GameStrategy s;
 
@@ -27,28 +28,16 @@ public abstract class AbstractPlayer implements ServerPlayer {
 	}
 
 	@Override
+	public void setEventDispatcher(Dispatcher d) {
+		evtDispatch = d;
+	}
+
+	@Override
 	public void update(Observable arg0, Object arg1) {
 		if (!(arg0 instanceof ObservableGame) & !(arg1 instanceof GameEvent))
 			return;
-
-		update(((ObservableGame) arg0).getGame(), (GameEvent) arg1);
-	}
-
-	private class EventPerformer implements Runnable {
-		private ServerPlayer p;
-		private GameReadable g;
-		private GameEvent e;
-
-		public EventPerformer(ServerPlayer p, GameReadable g, GameEvent e) {
-			super();
-			this.p = p;
-			this.g = g;
-			this.e = e;
-		}
-
-		@Override
-		public void run() {
-			p.update(g, e);
-		}
+		evtDispatch.executeEvent(new EventWorker(this, ((ObservableGame) arg0)
+				.getGame(), (GameEvent) arg1));
+		//update(((ObservableGame) arg0).getGame(), (GameEvent) arg1);
 	}
 }

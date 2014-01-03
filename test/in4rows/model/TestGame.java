@@ -4,6 +4,7 @@ import in4rows.In4RowsFactory;
 import in4rows.player.ServerPlayer;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -12,15 +13,18 @@ import org.junit.runners.JUnit4;
 public class TestGame {
 
 	private In4RowsFactory f;
-	
+
+	@Before
+	public void setUp() {
+		f = new In4RowsFactory();
+	}
+
 	@Test
 	public void testGame_01() {
-		In4RowsFactory f = new In4RowsFactory();
 
 		ServerPlayer p1 = f.createServerPlayer();
 
-		GameReadable g = f.createGame(20, 10, p1, Disk.BLACK,
-				PlayerTurn.YES);
+		GameReadable g = f.createGame(20, 10, p1, Disk.BLACK, PlayerTurn.YES);
 
 		Assert.assertTrue("w = 20", 20 == g.getWidth());
 		Assert.assertTrue("h = 10", 10 == g.getHeight());
@@ -34,10 +38,9 @@ public class TestGame {
 
 	@Test
 	public void testGame_02() {
-		In4RowsFactory f = new In4RowsFactory();
 
 		ServerPlayer p1 = f.createServerPlayer();
-		
+
 		GameReadable g = f.createGame(p1);
 
 		Assert.assertTrue("h = 10", 10 == g.getHeight());
@@ -52,7 +55,6 @@ public class TestGame {
 
 	@Test
 	public void testGame_03() {
-		In4RowsFactory f = new In4RowsFactory();
 
 		ServerPlayer p1 = f.createServerPlayer();
 
@@ -69,6 +71,11 @@ public class TestGame {
 
 		g.setDisk(5, Disk.BLACK);
 		Assert.assertTrue("not BLACK !", Disk.BLACK.equals(g.getDisk(0, 5)));
+	}
+
+	@Test
+	public void testTwoSimpleComputerGame() {
+		
 	}
 
 }
