@@ -1,23 +1,24 @@
 package in4rows.player;
 
 import in4rows.game.GameEvent;
+import in4rows.game.GameObserver;
 import in4rows.model.GameReadable;
 
 public class EventWorker implements Runnable {
-	private ServerPlayer p;
+	private GameObserver o;
 	private GameReadable g;
 	private GameEvent e;
 
-	public EventWorker(ServerPlayer p, GameReadable g, GameEvent e) {
+	public EventWorker(GameObserver o, GameReadable g, GameEvent e) {
 		super();
-		this.p = p;
+		this.o = o;
 		this.g = g;
 		this.e = e;
 	}
 
 	@Override
 	public void run() {
-		p.update(g, e);
+		o.update(g, e);
 	}
 
 }

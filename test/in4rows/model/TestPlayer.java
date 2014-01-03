@@ -3,7 +3,7 @@ package in4rows.model;
 import in4rows.In4RowsFactory;
 import in4rows.game.GameEvent;
 import in4rows.player.AbstractPlayer;
-import in4rows.player.Dispatcher;
+import in4rows.player.EventDispatcher;
 import in4rows.player.HumanPlayer;
 import in4rows.player.ServerPlayer;
 
@@ -41,7 +41,7 @@ public class TestPlayer {
 
 	@Test
 	public void testPlayer_03() {
-		Dispatcher d = f.createEventDispatcher();
+		EventDispatcher d = f.createEventDispatcher();
 		
 		DummyPlayer p1 = new DummyPlayer("toto");
 		p1.setEventDispatcher(d);

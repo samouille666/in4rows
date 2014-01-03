@@ -1,50 +1,57 @@
 package in4rows.game;
 
 import in4rows.model.GameReadable;
+import in4rows.player.Dispatchable;
+import in4rows.player.EventDispatcher;
+import in4rows.player.EventWorker;
 
-import java.util.List;
-import java.util.Observable;
+import java.util.Vector;
 
-public class BasicObservableGame extends Observable implements ObservableGame {
+public class BasicObservableGame implements ObservableGame, Dispatchable {
 
-	private GameReadable g ;
+	//to dispatch the game events to observers
+	EventDispatcher dispatcher;
+	//we just want the observer to be able to read the game
+	private GameReadable g;
 	
-	private List<GameObserver> observers;
-	
+	// vector is synchronized => when notifying does not let update vector
+	private Vector<GameObserver> observers = new Vector<>();
+
+	private boolean changed = false;
+
 	public BasicObservableGame(GameReadable g) {
 		this.g = g;
+	}
+
+	@Override
+	public void setEventDispatcher(EventDispatcher d) {
+		dispatcher = d;
 	}
 	
 	@Override
 	public GameReadable getGame() {
 		return g;
 	}
-	
+
 	@Override
-	public void addObs(GameObserver o) {
-		addObserver(o);
+	public void attachObs(GameObserver o) {
+		observers.add(o);
 	}
 
 	@Override
-	public void delObs(GameObserver o) {
-		deleteObserver(o);
-	}	
-	
+	public void detachObs(GameObserver o) {
+		observers.remove(o);
+	}
+
 	@Override
 	public void notifyObs(GameEvent e) {
-		//TODO refine mechanism
-		notifyObservers(e);
+		if (!changed)
+			return;
+		for (GameObserver o : observers) 
+			dispatcher.executeEvent(new EventWorker(o, g, e));		
 	}
 	
-	@Override
-	public void notifyObservers(Object arg) {
-		
-		super.notifyObservers(arg);
+	public void setChanged() {
+		changed = true;
 	}
-
-	public void setChanged(){
-		//TODO protected have to reimplement
-		super.setChanged();
-	}
-
 }

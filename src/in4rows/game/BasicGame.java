@@ -37,7 +37,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 
 		p1.addObs(this);
 		bgo = new BasicObservableGame(this);
-		bgo.addObs(p1);
+		bgo.attachObs(p1);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 				: PlayerTurn.YES);
 
 		p2.addObs(this);
-		bgo.addObs(p2);
+		bgo.attachObs(p2);
 		bgo.setChanged();
 		bgo.notifyObservers(f.createStartEvent(playerInTurn()));
 	}

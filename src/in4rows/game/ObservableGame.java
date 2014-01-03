@@ -14,8 +14,8 @@ public interface ObservableGame {
 	//TODO check useful
 	public GameReadable getGame();
 	
-	public void addObs(GameObserver o);
-	public void delObs(GameObserver o);
+	public void attachObs(GameObserver o);
+	public void detachObs(GameObserver o);
 	public void notifyObs(GameEvent e);
 
 }
