@@ -44,7 +44,7 @@ public class TestPlayer {
 		EventDispatcher d = f.createEventDispatcher();
 		
 		DummyPlayer p1 = new DummyPlayer("toto");
-		p1.setEventDispatcher(d);
+
 		GameWritable g = f.createGame(p1);
 
 		ServerPlayer p2 = f.createServerPlayer();

@@ -28,6 +28,8 @@ public class DummyPlayer  extends AbstractPlayer{
 		return game;
 	}
 
+	
+	
 	@Override
 	public void addObs(PlayerObserver o) {
 		// TODO Auto-generated method stub

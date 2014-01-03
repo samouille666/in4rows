@@ -76,7 +76,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		p2.addObs(this);
 		bgo.attachObs(p2);
 		bgo.setChanged();
-		bgo.notifyObservers(f.createStartEvent(playerInTurn()));
+		bgo.notifyObs(f.createStartEvent(playerInTurn()));
 	}
 
 	private PlayerInGame playerInTurn() {
@@ -101,12 +101,12 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 
 	private void wonGame(Move last, PlayerInGame playerInTurn) {
 		String msg = "The player " + playerInTurn.getId() + " has won the game.";
-		bgo.notifyObservers(new BasicGameEvent(GameEvent.Type.WIN, last, msg, playerInTurn));		
+		bgo.notifyObs(new BasicGameEvent(GameEvent.Type.WIN, last, msg, playerInTurn));		
 	}
 
 	private void drawGame(Player p, Move last) {
 		String msg = "Player " + p1.getId() + " and player " + p2.getId() + " are draw";
-		bgo.notifyObservers(new BasicGameEvent(GameEvent.Type.DRAW, last, msg, p));
+		bgo.notifyObs(new BasicGameEvent(GameEvent.Type.DRAW, last, msg, p));
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		}
 		
 		PlayerTurn.exchangeTurn(p1, p2);
-		bgo.notifyObservers(new BasicGameEvent(GameEvent.Type.MOVE, last, p.getId() + " has moved.", p));
+		bgo.notifyObs(new BasicGameEvent(GameEvent.Type.MOVE, last, p.getId() + " has moved.", p));
 	}
 
 }
