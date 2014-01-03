@@ -100,13 +100,11 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 	}
 
 	private void wonGame(Move last, PlayerInGame playerInTurn) {
-		String msg = "The player " + playerInTurn.getId() + " has won the game.";
-		bgo.notifyObs(new BasicGameEvent(GameEvent.Type.WIN, last, msg, playerInTurn));		
+		bgo.notifyObs(f.createWinEvent(playerInTurn, last));
 	}
 
 	private void drawGame(Player p, Move last) {
-		String msg = "Player " + p1.getId() + " and player " + p2.getId() + " are draw";
-		bgo.notifyObs(new BasicGameEvent(GameEvent.Type.DRAW, last, msg, p));
+		bgo.notifyObs(f.createDrawEvent(p1, p2));
 	}
 
 	@Override
@@ -119,29 +117,27 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 			return;
 		// 2) move not possible notify error
 		if (firstInCol_ModeCol(this, e.getMove().getVertex().getCol()) == null) {
-			bgo.notifyObs(new BasicGameEvent(
-					GameEvent.Type.PRECEDING_MOVE_ERROR, null,
-					"Impossible move !", p));
+			bgo.notifyObs(f.createErrorEvent(p));
 			return;
 		}
 		// make it play
 		Move last = e.getMove();
 		setDisk(last.getVertex().getCol(), playerInTurn().getColor());
 		bgo.setChanged();
-		
+
 		// 3) has win ?
-		if (hasWin(last)){
+		if (hasWin(last)) {
 			wonGame(last, playerInTurn());
 			return;
 		}
 		// 4) is it draw ?
-		if (isDraw()){
+		if (isDraw()) {
 			drawGame(p, last);
 			return;
 		}
-		
+
 		PlayerTurn.exchangeTurn(p1, p2);
-		bgo.notifyObs(new BasicGameEvent(GameEvent.Type.MOVE, last, p.getId() + " has moved.", p));
+		bgo.notifyObs(f.createMoveEvent(p, last));
 	}
 
 }

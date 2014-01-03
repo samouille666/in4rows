@@ -9,6 +9,7 @@ import in4rows.player.ServerPlayer;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -40,10 +41,11 @@ public class TestPlayer {
 	}
 
 	@Test
+	@Ignore
 	public void testPlayer_03() {
 		EventDispatcher d = f.createEventDispatcher();
 		
-		DummyPlayer p1 = new DummyPlayer("toto");
+		DummyComputerPlayer p1 = new DummyComputerPlayer("toto");
 
 		GameWritable g = f.createGame(p1);
 

@@ -6,6 +6,7 @@ import in4rows.game.GameEvent;
 import in4rows.game.GameEvent.Type;
 import in4rows.model.Disk;
 import in4rows.model.GameWritable;
+import in4rows.model.Move;
 import in4rows.model.Player;
 import in4rows.model.PlayerTurn;
 import in4rows.player.EventDispatcher;
@@ -38,8 +39,7 @@ public class In4RowsFactory {
 		return createGame(p1, p1c, PlayerTurn.YES);
 	}
 
-	public GameWritable createGame(ServerPlayer p1, Disk p1c,
-			PlayerTurn p1t) {
+	public GameWritable createGame(ServerPlayer p1, Disk p1c, PlayerTurn p1t) {
 		return createGame(10, 10, p1, p1c, p1t);
 	}
 
@@ -52,8 +52,28 @@ public class In4RowsFactory {
 		return new BasicGameEvent(Type.START, null, null, p);
 	}
 
-	public EventDispatcher createEventDispatcher(){
+	public GameEvent createMoveEvent(Player p, Move last) {
+		return new BasicGameEvent(GameEvent.Type.MOVE, last, p.getId()
+				+ " has moved.", p);
+	}
+
+	public GameEvent createDrawEvent(Player p1, Player p2) {
+		String msg = "Player " + p1.getId() + " and player " + p2.getId() + " are draw";
+		return new BasicGameEvent(GameEvent.Type.DRAW, last, msg, p);
+	}
+
+	public GameEvent createWinEvent(Player playerInTurn, Move last) {
+		String msg = "The player " + playerInTurn.getId() + " has won the game.";
+		return new BasicGameEvent(GameEvent.Type.WIN, last, msg, playerInTurn);
+	}
+
+	public GameEvent createErrorEvent(Player p) {
+		return new BasicGameEvent(GameEvent.Type.PRECEDING_MOVE_ERROR, null,
+				"Impossible move !", p);
+	}
+
+	public EventDispatcher createEventDispatcher() {
 		return new EventDispatcher();
 	}
-	
+
 }
