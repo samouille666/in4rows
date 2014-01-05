@@ -16,6 +16,9 @@ public class ComputerPlayer extends AbstractPlayer {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
+		// check if it is its turn to play
+		if (!this.getId().equals(e.getOpponent().getId()))
+			return;
 		Move mv = s.getMove(gr);
 		po.update(this, new BasicPlayerEvent(Type.MOVE, mv, ""));
 	}

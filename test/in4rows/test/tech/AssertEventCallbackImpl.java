@@ -24,8 +24,8 @@ public class AssertEventCallbackImpl implements GameObserverCallBack {
 		GameEvent expected = l.poll();
 		Assert.assertEquals("event is not the same.", expected.getType(),
 				e.getType());
-		Assert.assertEquals("event is not the same.", expected.getMove()
-				.getVertex(), e.getMove().getVertex());
+		Assert.assertEquals("event is not the same.", expected.getLastMove()
+				.getVertex(), e.getLastMove().getVertex());
 		Assert.assertEquals("event is not the same.", expected.getMsg(),
 				e.getMsg());
 	}

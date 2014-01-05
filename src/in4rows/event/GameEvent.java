@@ -11,9 +11,11 @@ public interface GameEvent {
 
 	public Type getType();
 
-	public Move getMove();
+	public Move getLastMove();
 
 	public String getMsg();
 	
-	public Player getPlayer();
+	public Player getPlayerToPlay();
+	
+	public Player getOpponent();
 }

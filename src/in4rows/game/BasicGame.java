@@ -90,11 +90,19 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 		p2.addObs(this);
 		bgo.attachObs(p2);
 		bgo.setChanged();
-		bgo.notifyObs(f.createStartEvent(playerInTurn()));
+		bgo.notifyObs(f.createStartEvent(playerToPlay(), playerNotToPlay()));
 	}
 
-	private PlayerInGame playerInTurn() {
+	private PlayerInGame playerToPlay() {
 		return PlayerTurn.YES.equals(p1.getTurn()) ? p1 : p2;
+	}
+
+	private PlayerInGame playerNotToPlay() {
+		return PlayerTurn.NO.equals(p1.getTurn()) ? p1 : p2;
+	}
+
+	private PlayerInGame opponent(Player p) {
+		return p.getId().equals(p1.getId()) ? p2 : p1;
 	}
 
 	private boolean hasWin(Move last) {
@@ -127,21 +135,21 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 		if (!p.getId().equals(p1.getId()) && !p.getId().equals(p2.getId()))
 			return;
 		// 1) update comes from player to play
-		if (!p.getId().equals(playerInTurn().getId()))
+		if (!p.getId().equals(playerToPlay().getId()))
 			return;
 		// 2) move not possible notify error
 		if (firstInCol_ModeCol(this, e.getMove().getVertex().getCol()) == null) {
-			bgo.notifyObs(f.createErrorEvent(p));
+			bgo.notifyObs(f.createErrorEvent(p, opponent(p)));
 			return;
 		}
 		// make it play
 		Move last = e.getMove();
-		setDisk(last.getVertex().getCol(), playerInTurn().getColor());
+		setDisk(last.getVertex().getCol(), playerToPlay().getColor());
 		bgo.setChanged();
 
 		// 3) has win ?
 		if (hasWin(last)) {
-			wonGame(playerInTurn());
+			wonGame(playerToPlay());
 			return;
 		}
 		// 4) is it draw ?
@@ -151,7 +159,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 		}
 
 		PlayerTurn.exchangeTurn(p1, p2);
-		bgo.notifyObs(f.createMoveEvent(p, last));
+		bgo.notifyObs(f.createMoveEvent(playerToPlay(), playerNotToPlay(), last));
 	}
 
 	public void setF(In4RowsFactory f) {

@@ -32,7 +32,7 @@ public class AssertEventCallbackBuilder {
 	}
 
 	public void setStartingEvent(Player p) {
-		startingEvent = f.createStartEvent(p);
+		startingEvent = f.createStartEvent(p, null);
 	}
 
 	public void setEndingEvent(Player p) {
@@ -53,7 +53,7 @@ public class AssertEventCallbackBuilder {
 		
 		for (int i = 0; i < row.length; i++) {
 			q.add(new BasicGameEvent(Type.MOVE, new BasicMove(new BasicVertex(
-					row[i], col[i])), null, p));
+					row[i], col[i])), null, null , p));
 		}
 		q.add(endingEvent);
 		return new AssertEventCallbackImpl(q);

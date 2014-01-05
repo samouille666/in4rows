@@ -54,30 +54,30 @@ public class In4RowsFactory {
 		return new BasicGame(width, height, p1, p1c, p1t, this);
 	}
 
-	public GameEvent createStartEvent(Player p) {
-		return new BasicGameEvent(Type.START, null, null, p);
+	public GameEvent createStartEvent(Player toPlay, Player opponent) {
+		return new BasicGameEvent(Type.START, null, null, toPlay, opponent);
 	}
 
-	public GameEvent createMoveEvent(Player p, Move last) {
-		return new BasicGameEvent(GameEvent.Type.MOVE, last, p.getId()
-				+ " has moved.", p);
+	public GameEvent createMoveEvent(Player toPlay, Player opponent, Move last) {
+		return new BasicGameEvent(GameEvent.Type.MOVE, last, opponent.getId()
+				+ " has moved.", toPlay, opponent);
 	}
 
 	public GameEvent createDrawEvent(Player p1, Player p2, Move last) {
 		String msg = "Player " + p1.getId() + " and player " + p2.getId()
 				+ " are draw";
-		return new BasicGameEvent(GameEvent.Type.DRAW, last, msg, null);
+		return new BasicGameEvent(GameEvent.Type.DRAW, last, msg, null, null);
 	}
 
-	public GameEvent createWinEvent(Player playerInTurn) {
-		String msg = "The player " + playerInTurn.getId()
+	public GameEvent createWinEvent(Player winner) {
+		String msg = "The player " + winner.getId()
 				+ " has won the game.";
-		return new BasicGameEvent(GameEvent.Type.WIN, null, msg, playerInTurn);
+		return new BasicGameEvent(GameEvent.Type.WIN, null, msg, null, null);
 	}
 
-	public GameEvent createErrorEvent(Player p) {
+	public GameEvent createErrorEvent(Player toPlay, Player opponent) {
 		return new BasicGameEvent(GameEvent.Type.PRECEDING_MOVE_ERROR, null,
-				"Impossible move !", p);
+				"Impossible move !", toPlay, opponent);
 	}
 
 	public EventDispatcher createEventDispatcher() {

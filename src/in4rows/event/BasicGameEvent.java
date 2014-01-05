@@ -1,6 +1,5 @@
 package in4rows.event;
 
-import in4rows.event.GameEvent.Type;
 import in4rows.model.Move;
 import in4rows.model.Player;
 
@@ -9,23 +8,25 @@ public class BasicGameEvent implements GameEvent {
 	private Type type;
 	private Move m;
 	private String msg;
-	private Player p;
+	private Player toPlay;
+	private Player opponent;
 
-	public BasicGameEvent(Type type, Move m, String msg, Player p) {
+	public BasicGameEvent(Type type, Move m, String msg, Player toPlay, Player opponent) {
 		super();
 		this.type = type;
 		this.m = m;
 		this.msg = msg;
-		this.p = p;
+		this.toPlay = toPlay;
+		this.opponent = opponent;
 	}
 
 	@Override
 	public Type getType() {
 		return type;
 	}
-	
+
 	@Override
-	public Move getMove() {
+	public Move getLastMove() {
 		return m;
 	}
 
@@ -33,9 +34,14 @@ public class BasicGameEvent implements GameEvent {
 	public String getMsg() {
 		return msg;
 	}
-	
+
 	@Override
-	public Player getPlayer() {
-		return p;
+	public Player getPlayerToPlay() {
+		return toPlay;
+	}
+
+	@Override
+	public Player getOpponent() {
+		return opponent;
 	}
 }
