@@ -47,4 +47,9 @@ public class BasicVertex implements Vertex {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "BasicVertex [row=" + row + ", col=" + col + "]";
+	}
+
 }

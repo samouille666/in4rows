@@ -11,7 +11,8 @@ public class OnePlayerMovesTestCallback implements ExecuteCallback {
 
 	@Override
 	public boolean toBeTested(GameReadable g, GameEvent evt, Player p) {
-		return evt.getLastMove() != null;
+		return evt.getLastMove() != null
+				&& !evt.getPlayerToPlay().getId().equals(p.getId());
 	}
 
 }

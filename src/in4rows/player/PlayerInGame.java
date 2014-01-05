@@ -37,4 +37,10 @@ public class PlayerInGame implements Player {
 		this.turn = turn;
 	}
 
+	@Override
+	public String toString() {
+		return "PlayerInGame [p=" + p + ", color=" + color + ", turn=" + turn
+				+ "]";
+	}
+
 }

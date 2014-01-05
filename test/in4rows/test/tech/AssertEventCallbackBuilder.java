@@ -28,7 +28,7 @@ public class AssertEventCallbackBuilder {
 	private GameEvent endingEvent;
 
 	public AssertEventCallbackBuilder() {
-	
+
 	}
 
 	public void setStartingEvent(Player p) {
@@ -40,22 +40,26 @@ public class AssertEventCallbackBuilder {
 	}
 
 	public void addStartingEvent() {
-		q.add(startingEvent);
+		if (startingEvent != null)
+			q.add(startingEvent);
 	}
 
 	public void addEndingEvent(Player p) {
-		endingEvent = f.createWinEvent(p);
+		if (endingEvent != null)
+			endingEvent = f.createWinEvent(p);
 	}
 
-	
 	public GameObserverCallBack getCallback() {
 		q = new LinkedList<>();
-		
+
+		addStartingEvent();
+
 		for (int i = 0; i < row.length; i++) {
-			q.add(new BasicGameEvent(Type.MOVE, new BasicMove(new BasicVertex(
-					row[i], col[i])), null, null , p));
+			q.add(f.createMoveEvent(null, p, f.createMove(row[i], col[i])));
 		}
-		q.add(endingEvent);
+
+		addEndingEvent(p);
+
 		return new AssertEventCallbackImpl(q);
 	}
 
@@ -70,7 +74,7 @@ public class AssertEventCallbackBuilder {
 	public void setP(Player p) {
 		this.p = p;
 	}
-	
+
 	public void setBuildingElement(int[] rows, int[] cols, Player p) {
 		setP(p);
 		setCol(cols);

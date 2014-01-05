@@ -49,7 +49,7 @@ public class TestComputerGame {
 
 		// move list p2
 		callBackBuilder.setBuildingElement(p2RowsMove, p2ColsMove, p2);
-		p1.setEventCallback(callBackBuilder.getCallback());
+		p2.setEventCallback(callBackBuilder.getCallback());
 		s2.setMoves(p2RowsMove, p2ColsMove);
 
 		GameWritable g = f.createGame(p1);

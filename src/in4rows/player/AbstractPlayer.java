@@ -20,4 +20,9 @@ public abstract class AbstractPlayer implements ServerPlayer {
 	public String getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "AbstractPlayer [id=" + id + "]";
+	}
 }

@@ -5,6 +5,7 @@ import in4rows.event.EventDispatcher;
 import in4rows.event.GameEvent;
 import in4rows.event.GameEvent.Type;
 import in4rows.game.BasicGame;
+import in4rows.model.BasicMove;
 import in4rows.model.Disk;
 import in4rows.model.GameWritable;
 import in4rows.model.Move;
@@ -63,6 +64,9 @@ public class In4RowsFactory {
 				+ " has moved.", toPlay, opponent);
 	}
 
+	public Move createMove(int row, int col) {
+		return new BasicMove(row, col);
+	}
 	public GameEvent createDrawEvent(Player p1, Player p2, Move last) {
 		String msg = "Player " + p1.getId() + " and player " + p2.getId()
 				+ " are draw";
@@ -72,7 +76,7 @@ public class In4RowsFactory {
 	public GameEvent createWinEvent(Player winner) {
 		String msg = "The player " + winner.getId()
 				+ " has won the game.";
-		return new BasicGameEvent(GameEvent.Type.WIN, null, msg, null, null);
+		return new BasicGameEvent(GameEvent.Type.WIN, null, msg, null, winner);
 	}
 
 	public GameEvent createErrorEvent(Player toPlay, Player opponent) {
