@@ -1,6 +1,9 @@
-package in4rows.model;
+package in4rows.test.tech;
 
 import in4rows.GridHelper;
+import in4rows.model.BasicMove;
+import in4rows.model.GameReadable;
+import in4rows.model.Move;
 import in4rows.strategy.GameStrategy;
 
 public class DummyStrategy implements GameStrategy {

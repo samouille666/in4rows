@@ -1,23 +1,25 @@
-package in4rows.model;
+package in4rows.test;
 
 import in4rows.In4RowsFactory;
+import in4rows.model.Disk;
+import in4rows.model.GameReadable;
+import in4rows.model.GameWritable;
+import in4rows.model.PlayerTurn;
 import in4rows.player.ServerPlayer;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(JUnit4.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("TestGame-context.xml")
 public class TestGame {
 
+	@Autowired
 	private In4RowsFactory f;
-
-	@Before
-	public void setUp() {
-		f = new In4RowsFactory();
-	}
 
 	@Test
 	public void testGame_01() {
@@ -75,7 +77,7 @@ public class TestGame {
 
 	@Test
 	public void testTwoSimpleComputerGame() {
-		
+
 	}
 
 }

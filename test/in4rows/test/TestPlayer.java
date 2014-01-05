@@ -1,29 +1,29 @@
-package in4rows.model;
+package in4rows.test;
 
 import in4rows.In4RowsFactory;
 import in4rows.game.GameEvent;
+import in4rows.model.GameWritable;
+import in4rows.model.Player;
 import in4rows.player.AbstractPlayer;
 import in4rows.player.EventDispatcher;
 import in4rows.player.HumanPlayer;
 import in4rows.player.ServerPlayer;
+import in4rows.test.tech.DummyComputerPlayer;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@RunWith(JUnit4.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("TestPLayer-context.xml")
 public class TestPlayer {
 
+	@Autowired
 	In4RowsFactory f;
-
-	@Before
-	public void setup() {
-		f = new In4RowsFactory();
-
-	}
 
 	@Test
 	public void testPlayer_01() {
@@ -44,13 +44,13 @@ public class TestPlayer {
 	@Ignore
 	public void testPlayer_03() {
 		EventDispatcher d = f.createEventDispatcher();
-		
+
 		DummyComputerPlayer p1 = new DummyComputerPlayer("toto");
 
 		GameWritable g = f.createGame(p1);
 
 		ServerPlayer p2 = f.createServerPlayer();
-		
+
 		g.setPlayer2(p2);
 
 		Assert.assertEquals("not same game!", g, p1.getLastGame());
