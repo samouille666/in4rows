@@ -26,7 +26,7 @@ public class TestGame {
 
 		ServerPlayer p1 = f.createServerPlayer();
 
-		GameReadable g = f.createGame(20, 10, p1, Disk.BLACK, PlayerTurn.YES);
+		GameWritable g = f.createGame(20, 10, p1, Disk.BLACK, PlayerTurn.YES);
 
 		Assert.assertTrue("w = 20", 20 == g.getWidth());
 		Assert.assertTrue("h = 10", 10 == g.getHeight());
@@ -75,9 +75,5 @@ public class TestGame {
 		Assert.assertTrue("not BLACK !", Disk.BLACK.equals(g.getDisk(0, 5)));
 	}
 
-	@Test
-	public void testTwoSimpleComputerGame() {
-
-	}
 
 }

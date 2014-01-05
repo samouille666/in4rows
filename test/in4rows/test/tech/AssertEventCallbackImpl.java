@@ -1,6 +1,6 @@
 package in4rows.test.tech;
 
-import in4rows.game.GameEvent;
+import in4rows.event.GameEvent;
 
 import java.util.Deque;
 

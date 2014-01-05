@@ -1,6 +1,5 @@
-package in4rows.player;
+package in4rows.event;
 
-import in4rows.game.GameEvent;
 import in4rows.game.GameObserver;
 import in4rows.model.GameReadable;
 

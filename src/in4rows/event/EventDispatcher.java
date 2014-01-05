@@ -1,4 +1,4 @@
-package in4rows.player;
+package in4rows.event;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

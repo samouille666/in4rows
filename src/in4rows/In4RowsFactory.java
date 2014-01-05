@@ -1,21 +1,27 @@
 package in4rows;
 
+import in4rows.event.BasicGameEvent;
+import in4rows.event.EventDispatcher;
+import in4rows.event.GameEvent;
+import in4rows.event.GameEvent.Type;
 import in4rows.game.BasicGame;
-import in4rows.game.BasicGameEvent;
-import in4rows.game.GameEvent;
-import in4rows.game.GameEvent.Type;
 import in4rows.model.Disk;
 import in4rows.model.GameWritable;
 import in4rows.model.Move;
 import in4rows.model.Player;
 import in4rows.model.PlayerTurn;
-import in4rows.player.EventDispatcher;
 import in4rows.player.HumanPlayer;
 import in4rows.player.ServerPlayer;
 
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class In4RowsFactory {
+
+	@Autowired
+	private EventDispatcher dispatcher;
+
 	public In4RowsFactory() {
 	}
 
@@ -45,7 +51,7 @@ public class In4RowsFactory {
 
 	public GameWritable createGame(int width, int height, ServerPlayer p1,
 			Disk p1c, PlayerTurn p1t) {
-		return new BasicGame(width, height, p1, p1c, p1t);
+		return new BasicGame(width, height, p1, p1c, p1t, this);
 	}
 
 	public GameEvent createStartEvent(Player p) {
@@ -58,13 +64,15 @@ public class In4RowsFactory {
 	}
 
 	public GameEvent createDrawEvent(Player p1, Player p2, Move last) {
-		String msg = "Player " + p1.getId() + " and player " + p2.getId() + " are draw";
+		String msg = "Player " + p1.getId() + " and player " + p2.getId()
+				+ " are draw";
 		return new BasicGameEvent(GameEvent.Type.DRAW, last, msg, null);
 	}
 
-	public GameEvent createWinEvent(Player playerInTurn, Move last) {
-		String msg = "The player " + playerInTurn.getId() + " has won the game.";
-		return new BasicGameEvent(GameEvent.Type.WIN, last, msg, playerInTurn);
+	public GameEvent createWinEvent(Player playerInTurn) {
+		String msg = "The player " + playerInTurn.getId()
+				+ " has won the game.";
+		return new BasicGameEvent(GameEvent.Type.WIN, null, msg, playerInTurn);
 	}
 
 	public GameEvent createErrorEvent(Player p) {
@@ -73,7 +81,10 @@ public class In4RowsFactory {
 	}
 
 	public EventDispatcher createEventDispatcher() {
-		return new EventDispatcher();
+		return dispatcher;
 	}
 
+	public void setDispatcher(EventDispatcher dispatcher) {
+		this.dispatcher = dispatcher;
+	}
 }

@@ -1,9 +1,10 @@
 package in4rows.player;
 
-import in4rows.game.GameEvent;
+import in4rows.event.BasicPlayerEvent;
+import in4rows.event.GameEvent;
+import in4rows.event.PlayerEvent.Type;
 import in4rows.model.GameReadable;
 import in4rows.model.Move;
-import in4rows.player.PlayerEvent.Type;
 
 public class ComputerPlayer extends AbstractPlayer {
 

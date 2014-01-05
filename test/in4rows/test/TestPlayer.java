@@ -1,17 +1,18 @@
 package in4rows.test;
 
 import in4rows.In4RowsFactory;
-import in4rows.game.GameEvent;
+import in4rows.event.EventDispatcher;
+import in4rows.event.GameEvent;
 import in4rows.model.GameWritable;
 import in4rows.model.Player;
 import in4rows.player.AbstractPlayer;
-import in4rows.player.EventDispatcher;
 import in4rows.player.HumanPlayer;
 import in4rows.player.ServerPlayer;
+import in4rows.test.tech.DefaultTestingCallback;
 import in4rows.test.tech.DummyComputerPlayer;
+import in4rows.test.tech.DummyStrategy;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +42,13 @@ public class TestPlayer {
 	}
 
 	@Test
-	@Ignore
 	public void testPlayer_03() {
 		EventDispatcher d = f.createEventDispatcher();
 
 		DummyComputerPlayer p1 = new DummyComputerPlayer("toto");
-
+		p1.setEventTestingCondition(new DefaultTestingCallback());
+		p1.setStrategy(new DummyStrategy());
+		
 		GameWritable g = f.createGame(p1);
 
 		ServerPlayer p2 = f.createServerPlayer();

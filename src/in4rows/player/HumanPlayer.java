@@ -1,6 +1,6 @@
 package in4rows.player;
 
-import in4rows.game.GameEvent;
+import in4rows.event.GameEvent;
 import in4rows.model.GameReadable;
 
 public class HumanPlayer extends AbstractPlayer {

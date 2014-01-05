@@ -1,4 +1,4 @@
-package in4rows.player;
+package in4rows.event;
 
 import in4rows.model.Move;
 

@@ -1,5 +1,6 @@
 package in4rows.player;
 
+import in4rows.event.PlayerEvent;
 import in4rows.model.Player;
 
 public interface PlayerObserver {

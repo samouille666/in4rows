@@ -8,7 +8,11 @@ import static in4rows.GridHelper.countRight;
 import static in4rows.GridHelper.countUp;
 import static in4rows.GridHelper.firstInCol_ModeCol;
 import static in4rows.GridHelper.firstInGame_ModeCol;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import in4rows.In4RowsFactory;
+import in4rows.event.PlayerEvent;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
 import in4rows.model.GameWritable;
@@ -16,14 +20,13 @@ import in4rows.model.Move;
 import in4rows.model.Player;
 import in4rows.model.PlayerTurn;
 import in4rows.model.Vertex;
-import in4rows.player.PlayerEvent;
 import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerObserver;
 import in4rows.player.ServerPlayer;
 
 public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 
-	// TODO inject by means of container if possible
+	@Autowired
 	private In4RowsFactory f = new In4RowsFactory();
 
 	private BasicObservableGame bgo;
@@ -35,15 +38,18 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 	private Disk[][] grid;
 
 	public BasicGame(int width, int height, ServerPlayer p1, Disk p1c,
-			PlayerTurn p1t) {
+			PlayerTurn p1t, In4RowsFactory f) {
 		super();
+
+		this.f = f;
+
 		this.p1 = new PlayerInGame(p1);
 		this.p1.setColor(p1c);
 		this.p1.setTurn(p1t);
 		grid = new Disk[height][width];
 
 		p1.addObs(this);
-		bgo = new BasicObservableGame(this);
+		bgo = new BasicObservableGame(this, f.createEventDispatcher());
 		bgo.attachObs(p1);
 	}
 
@@ -106,8 +112,8 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		return firstInGame_ModeCol(this) == null;
 	}
 
-	private void wonGame(Move last, PlayerInGame playerInTurn) {
-		bgo.notifyObs(f.createWinEvent(playerInTurn, last));
+	private void wonGame(PlayerInGame playerInTurn) {
+		bgo.notifyObs(f.createWinEvent(playerInTurn));
 	}
 
 	private void drawGame(Player p1, Player p2, Move last) {
@@ -134,7 +140,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 
 		// 3) has win ?
 		if (hasWin(last)) {
-			wonGame(last, playerInTurn());
+			wonGame(playerInTurn());
 			return;
 		}
 		// 4) is it draw ?
@@ -145,6 +151,10 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 
 		PlayerTurn.exchangeTurn(p1, p2);
 		bgo.notifyObs(f.createMoveEvent(p, last));
+	}
+
+	public void setF(In4RowsFactory f) {
+		this.f = f;
 	}
 
 }

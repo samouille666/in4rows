@@ -1,6 +1,8 @@
 package in4rows.test.tech;
 
-import in4rows.game.GameEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import in4rows.event.GameEvent;
 import in4rows.model.GameReadable;
 import in4rows.player.ComputerPlayer;
 
@@ -8,18 +10,24 @@ public class DummyComputerPlayer extends ComputerPlayer {
 
 	private GameReadable game;
 	private GameEvent lastEvt;
-	private AssertEventCallBack c;
+		
+	private AssertEventCallBack assertCallback;
 	
+	@Autowired
+	private TestingCallback testCallback;
+
 	public DummyComputerPlayer(String id) {
 		super(id);
 	}
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
-		super.update(gr, e);
 		game = gr;
 		lastEvt = e;
-
+		if (testCallback.toBeTested(gr, e, this))
+			assertCallback.assertEvent(e);
+		//the classical code after
+		super.update(gr, e);
 	}
 
 	public GameEvent getLastEvent() {
@@ -31,10 +39,10 @@ public class DummyComputerPlayer extends ComputerPlayer {
 	}
 
 	public void setEventCallback(AssertEventCallBack c) {
-		this.c = c; 
+		this.assertCallback = c;
 	}
-	
-	public void setEventTestingCondition(){
-		
+
+	public void setEventTestingCondition(TestingCallback c) {
+		testCallback = c;
 	}
 }
