@@ -30,4 +30,8 @@
 		<property name="strategy" ref="strategyP2" />
 	</bean>
 
+	<bean id="gameObserver" class="in4rows.test.tech.DummyGameObserver" />
+	
+	<bean id="notFinishedGame" class="in4rows.test.tech.WaitForFinishedGameObserver" />
+
 </beans>

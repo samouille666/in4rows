@@ -4,6 +4,6 @@ import in4rows.event.GameEvent;
 import in4rows.model.GameReadable;
 import in4rows.model.Player;
 
-public interface TestingCallback {
+public interface ExecuteCallback {
 	public boolean toBeTested(GameReadable g, GameEvent evt, Player p);
 }

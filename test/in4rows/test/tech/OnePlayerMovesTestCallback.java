@@ -4,7 +4,7 @@ import in4rows.event.GameEvent;
 import in4rows.model.GameReadable;
 import in4rows.model.Player;
 
-public class OnePlayerMovesTestCallback implements TestingCallback {
+public class OnePlayerMovesTestCallback implements ExecuteCallback {
 
 	public OnePlayerMovesTestCallback() {
 	}

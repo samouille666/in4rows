@@ -4,7 +4,9 @@ import in4rows.In4RowsFactory;
 import in4rows.model.GameWritable;
 import in4rows.test.tech.AssertEventCallbackBuilder;
 import in4rows.test.tech.DummyComputerPlayer;
+import in4rows.test.tech.DummyGameObserver;
 import in4rows.test.tech.DummyStrategy;
+import in4rows.test.tech.WaitForFinishedGameObserver;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,10 @@ public class TestComputerGame {
 	private DummyStrategy s1;
 	@Autowired
 	private DummyStrategy s2;
+	@Autowired
+	private DummyGameObserver dummyGo;
+	@Autowired
+	private WaitForFinishedGameObserver finishedCallback;
 
 	@Test
 	public void testTwoSimpleComputerGame() {
@@ -47,8 +53,12 @@ public class TestComputerGame {
 		s2.setMoves(p2RowsMove, p2ColsMove);
 
 		GameWritable g = f.createGame(p1);
+		dummyGo.setCallback(finishedCallback);
+		g.attachObs(dummyGo);
 		g.setPlayer2(p2);
-		// g.setPlayer2(p2);
+
+		while (!finishedCallback.isGameFinished())
+			;
 	}
 
 }

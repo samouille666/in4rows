@@ -11,10 +11,10 @@ public class DummyComputerPlayer extends ComputerPlayer {
 	private GameReadable game;
 	private GameEvent lastEvt;
 		
-	private AssertEventCallBack assertCallback;
+	private GameObserverCallBack assertCallback;
 	
 	@Autowired
-	private TestingCallback testCallback;
+	private ExecuteCallback testCallback;
 
 	public DummyComputerPlayer(String id) {
 		super(id);
@@ -25,7 +25,7 @@ public class DummyComputerPlayer extends ComputerPlayer {
 		game = gr;
 		lastEvt = e;
 		if (testCallback.toBeTested(gr, e, this))
-			assertCallback.assertEvent(e);
+			assertCallback.execute(gr, e);
 		//the classical code after
 		super.update(gr, e);
 	}
@@ -38,11 +38,11 @@ public class DummyComputerPlayer extends ComputerPlayer {
 		return game;
 	}
 
-	public void setEventCallback(AssertEventCallBack c) {
+	public void setEventCallback(GameObserverCallBack c) {
 		this.assertCallback = c;
 	}
 
-	public void setEventTestingCondition(TestingCallback c) {
+	public void setEventTestingCondition(ExecuteCallback c) {
 		testCallback = c;
 	}
 }

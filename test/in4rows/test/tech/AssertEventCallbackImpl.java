@@ -1,12 +1,13 @@
 package in4rows.test.tech;
 
 import in4rows.event.GameEvent;
+import in4rows.model.GameReadable;
 
 import java.util.Deque;
 
 import org.junit.Assert;
 
-public class AssertEventCallbackImpl implements AssertEventCallBack {
+public class AssertEventCallbackImpl implements GameObserverCallBack {
 
 	private Deque<GameEvent> l;
 
@@ -19,7 +20,7 @@ public class AssertEventCallbackImpl implements AssertEventCallBack {
 	}
 
 	@Override
-	public void assertEvent(GameEvent e) {
+	public void execute(GameReadable gr, GameEvent e) {
 		GameEvent expected = l.poll();
 		Assert.assertEquals("event is not the same.", expected.getType(),
 				e.getType());

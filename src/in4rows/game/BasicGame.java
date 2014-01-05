@@ -24,7 +24,8 @@ import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerObserver;
 import in4rows.player.ServerPlayer;
 
-public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
+public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
+		ObservableGame {
 
 	@Autowired
 	private In4RowsFactory f = new In4RowsFactory();
@@ -123,7 +124,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 	@Override
 	public void update(Player p, PlayerEvent e) {
 		// 0) Check player's identity
-		if (!p.getId().equals(p1) && !p.getId().equals(p2))
+		if (!p.getId().equals(p1.getId()) && !p.getId().equals(p2.getId()))
 			return;
 		// 1) update comes from player to play
 		if (!p.getId().equals(playerInTurn().getId()))
@@ -157,4 +158,18 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		this.f = f;
 	}
 
+	@Override
+	public void attachObs(GameObserver o) {
+		bgo.attachObs(o);
+	}
+
+	@Override
+	public void detachObs(GameObserver o) {
+		bgo.detachObs(o);
+	}
+
+	@Override
+	public GameReadable getGame() {
+		return this;
+	}
 }

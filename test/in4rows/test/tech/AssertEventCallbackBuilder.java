@@ -48,7 +48,7 @@ public class AssertEventCallbackBuilder {
 	}
 
 	
-	public AssertEventCallBack getCallback() {
+	public GameObserverCallBack getCallback() {
 		q = new LinkedList<>();
 		
 		for (int i = 0; i < row.length; i++) {

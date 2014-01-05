@@ -4,7 +4,7 @@ import in4rows.event.GameEvent;
 import in4rows.model.GameReadable;
 import in4rows.model.Player;
 
-public class DefaultTestingCallback implements TestingCallback {
+public class NotExecuteCallback implements ExecuteCallback {
 
 	@Override
 	public boolean toBeTested(GameReadable g, GameEvent evt, Player p) {

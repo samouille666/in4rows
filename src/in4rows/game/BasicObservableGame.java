@@ -44,7 +44,6 @@ public class BasicObservableGame implements ObservableGame, Dispatchable {
 		observers.remove(o);
 	}
 
-	@Override
 	public void notifyObs(GameEvent e) {
 		if (!changed)
 			return;

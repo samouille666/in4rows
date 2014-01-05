@@ -1,6 +1,5 @@
 package in4rows.game;
 
-import in4rows.event.GameEvent;
 import in4rows.model.GameReadable;
 
 /**
@@ -17,6 +16,5 @@ public interface ObservableGame {
 	
 	public void attachObs(GameObserver o);
 	public void detachObs(GameObserver o);
-	public void notifyObs(GameEvent e);
 
 }

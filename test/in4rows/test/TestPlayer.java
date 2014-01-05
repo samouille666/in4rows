@@ -8,7 +8,7 @@ import in4rows.model.Player;
 import in4rows.player.AbstractPlayer;
 import in4rows.player.HumanPlayer;
 import in4rows.player.ServerPlayer;
-import in4rows.test.tech.DefaultTestingCallback;
+import in4rows.test.tech.NotExecuteCallback;
 import in4rows.test.tech.DummyComputerPlayer;
 import in4rows.test.tech.DummyStrategy;
 
@@ -46,7 +46,7 @@ public class TestPlayer {
 		EventDispatcher d = f.createEventDispatcher();
 
 		DummyComputerPlayer p1 = new DummyComputerPlayer("toto");
-		p1.setEventTestingCondition(new DefaultTestingCallback());
+		p1.setEventTestingCondition(new NotExecuteCallback());
 		p1.setStrategy(new DummyStrategy());
 		
 		GameWritable g = f.createGame(p1);
