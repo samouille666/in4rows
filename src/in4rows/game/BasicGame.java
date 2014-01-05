@@ -1,5 +1,13 @@
 package in4rows.game;
 
+import static in4rows.GridHelper.countDiagLeft;
+import static in4rows.GridHelper.countDiagRight;
+import static in4rows.GridHelper.countDown;
+import static in4rows.GridHelper.countLeft;
+import static in4rows.GridHelper.countRight;
+import static in4rows.GridHelper.countUp;
+import static in4rows.GridHelper.firstInCol_ModeCol;
+import static in4rows.GridHelper.firstInGame_ModeCol;
 import in4rows.In4RowsFactory;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
@@ -12,7 +20,6 @@ import in4rows.player.PlayerEvent;
 import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerObserver;
 import in4rows.player.ServerPlayer;
-import static in4rows.GridHelper.*;
 
 public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 
@@ -103,8 +110,8 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		bgo.notifyObs(f.createWinEvent(playerInTurn, last));
 	}
 
-	private void drawGame(Player p, Move last) {
-		bgo.notifyObs(f.createDrawEvent(p1, p2));
+	private void drawGame(Player p1, Player p2, Move last) {
+		bgo.notifyObs(f.createDrawEvent(p1, p2, last));
 	}
 
 	@Override
@@ -132,7 +139,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver {
 		}
 		// 4) is it draw ?
 		if (isDraw()) {
-			drawGame(p, last);
+			drawGame(p1, p2, last);
 			return;
 		}
 

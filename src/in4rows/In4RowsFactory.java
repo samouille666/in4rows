@@ -57,9 +57,9 @@ public class In4RowsFactory {
 				+ " has moved.", p);
 	}
 
-	public GameEvent createDrawEvent(Player p1, Player p2) {
+	public GameEvent createDrawEvent(Player p1, Player p2, Move last) {
 		String msg = "Player " + p1.getId() + " and player " + p2.getId() + " are draw";
-		return new BasicGameEvent(GameEvent.Type.DRAW, last, msg, p);
+		return new BasicGameEvent(GameEvent.Type.DRAW, last, msg, null);
 	}
 
 	public GameEvent createWinEvent(Player playerInTurn, Move last) {
