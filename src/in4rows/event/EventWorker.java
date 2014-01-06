@@ -3,7 +3,9 @@ package in4rows.event;
 import in4rows.game.GameObserver;
 import in4rows.model.GameReadable;
 
-public class EventWorker implements Runnable {
+import java.util.concurrent.Callable;
+
+public class EventWorker implements Callable<Boolean>, Runnable {
 	private GameObserver o;
 	private GameReadable g;
 	private GameEvent e;
@@ -13,6 +15,11 @@ public class EventWorker implements Runnable {
 		this.o = o;
 		this.g = g;
 		this.e = e;
+	}
+
+	public Boolean call() throws Exception {
+		o.update(g, e);
+		return true;
 	}
 
 	@Override

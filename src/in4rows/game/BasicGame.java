@@ -8,9 +8,6 @@ import static in4rows.GridHelper.countRight;
 import static in4rows.GridHelper.countUp;
 import static in4rows.GridHelper.firstInCol_ModeCol;
 import static in4rows.GridHelper.firstInGame_ModeCol;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import in4rows.In4RowsFactory;
 import in4rows.event.PlayerEvent;
 import in4rows.model.Disk;
@@ -23,6 +20,8 @@ import in4rows.model.Vertex;
 import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerObserver;
 import in4rows.player.ServerPlayer;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 		ObservableGame {
@@ -51,7 +50,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 
 		p1.addObs(this);
 		bgo = new BasicObservableGame(this, f.createEventDispatcher());
-		bgo.attachObs(p1);
+		bgo.setP1(this.p1);
 	}
 
 	@Override
@@ -88,7 +87,7 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 				: PlayerTurn.YES);
 
 		p2.addObs(this);
-		bgo.attachObs(p2);
+		bgo.setP2(this.p2);
 		bgo.setChanged();
 		bgo.notifyObs(f.createStartEvent(playerToPlay(), playerNotToPlay()));
 	}
@@ -159,7 +158,8 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 		}
 
 		PlayerTurn.exchangeTurn(p1, p2);
-		bgo.notifyObs(f.createMoveEvent(playerToPlay(), playerNotToPlay(), last));
+		bgo.notifyObs(f
+				.createMoveEvent(playerToPlay(), playerNotToPlay(), last));
 	}
 
 	public void setF(In4RowsFactory f) {

@@ -1,13 +1,16 @@
 package in4rows.test;
 
 import in4rows.In4RowsFactory;
+import in4rows.event.EventDispatcher;
 import in4rows.model.GameWritable;
 import in4rows.test.tech.AssertEventCallbackBuilder;
+import in4rows.test.tech.AssertEventCallbackImpl;
 import in4rows.test.tech.DummyComputerPlayer;
-import in4rows.test.tech.DummyGameObserver;
 import in4rows.test.tech.DummyStrategy;
+import in4rows.test.tech.NotExecuteCallback;
 import in4rows.test.tech.WaitForFinishedGameObserver;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +34,45 @@ public class TestComputerGame {
 	@Autowired
 	private DummyStrategy s2;
 	@Autowired
-	private DummyGameObserver dummyGo;
+	private AssertEventCallbackImpl assertEventCallback;
 	@Autowired
 	private WaitForFinishedGameObserver finishedCallback;
+	@Autowired
+	private NotExecuteCallback noActionCallBack;
+	@Autowired
+	private EventDispatcher dispatcher;
 
 	@Test
-	public void testTwoSimpleComputerGame() {
+	public void testTwoSimpleComputerGame_01() {
+
+		// preparing assert - first player win (but we assert all the sequence)
+		int[] rowsMove = new int[] { 0, 0, 1, 1, 2, 2, 3 };
+		int[] colsMove = new int[] { 0, 1, 0, 1, 0, 1, 0 };
+		callBackBuilder.setBuildingElement(rowsMove, colsMove, p1);
+		callBackBuilder.setStartingEvent(p1);
+		callBackBuilder.setEndingEvent(p1);
+		assertEventCallback.setL(callBackBuilder.getCallback());
+
+		// set no particular additive action player
+		p1.setEventCallback(noActionCallBack);
+		s1.setMoves(new int[] { 0, 1, 2, 3 }, new int[] { 0, 0, 0, 0 });
+		p2.setEventCallback(noActionCallBack);
+		s2.setMoves(new int[] { 0, 1, 2 }, new int[] { 1, 1, 1 });
+
+		GameWritable g = f.createGame(p1);
+		g.attachObs(assertEventCallback);
+		g.attachObs(finishedCallback);
+
+		// start game
+		g.setPlayer2(p2);
+
+		while (!finishedCallback.isGameFinished())
+			;
+	}
+
+	@Test
+	@Ignore
+	public void testTwoSimpleComputerGame_02() {
 		int[] p1RowsMove = new int[] { 0, 1, 2, 3 };
 		int[] p1ColsMove = new int[] { 0, 0, 0, 0 };
 		int[] p2RowsMove = new int[] { 0, 1, 2 };
@@ -44,21 +80,22 @@ public class TestComputerGame {
 
 		// move list p1
 		callBackBuilder.setBuildingElement(p1RowsMove, p1ColsMove, p1);
-		p1.setEventCallback(callBackBuilder.getCallback());
+		// p1.setEventCallback(callBackBuilder.getCallback());
 		s1.setMoves(p1RowsMove, p1ColsMove);
 
 		// move list p2
 		callBackBuilder.setBuildingElement(p2RowsMove, p2ColsMove, p2);
-		p2.setEventCallback(callBackBuilder.getCallback());
+		// p2.setEventCallback(callBackBuilder.getCallback());
 		s2.setMoves(p2RowsMove, p2ColsMove);
 
 		GameWritable g = f.createGame(p1);
-		dummyGo.setCallback(finishedCallback);
-		g.attachObs(dummyGo);
+		// dummyGo.setCallback(finishedCallback);
+		// g.attachObs(dummyGo);
 		g.setPlayer2(p2);
 
 		while (!finishedCallback.isGameFinished())
 			;
 	}
+
 
 }

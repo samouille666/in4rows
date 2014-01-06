@@ -6,7 +6,9 @@
 
 	<bean id="in4rowsFActory" class="in4rows.In4RowsFactory" />
 
-	<bean id="testCallback" class="in4rows.test.tech.OnePlayerMovesTestCallback" />
+	<bean id="assertCallBack" class="in4rows.test.tech.AssertEventCallbackImpl">
+		<constructor-arg name="dispatcher" ref="evtDispatcher" />
+	</bean>
 
 	<bean id="assertCallbackBuilder" class="in4rows.test.tech.AssertEventCallbackBuilder" />
 
@@ -30,8 +32,7 @@
 		<property name="strategy" ref="strategyP2" />
 	</bean>
 
-	<bean id="gameObserver" class="in4rows.test.tech.DummyGameObserver" />
-	
 	<bean id="notFinishedGame" class="in4rows.test.tech.WaitForFinishedGameObserver" />
 
+	<bean id="testCallback2" class="in4rows.test.tech.NotExecuteCallback" />
 </beans>

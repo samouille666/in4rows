@@ -11,7 +11,8 @@ public class BasicGameEvent implements GameEvent {
 	private Player toPlay;
 	private Player opponent;
 
-	public BasicGameEvent(Type type, Move m, String msg, Player toPlay, Player opponent) {
+	public BasicGameEvent(Type type, Move m, String msg, Player toPlay,
+			Player opponent) {
 		super();
 		this.type = type;
 		this.m = m;
@@ -44,4 +45,11 @@ public class BasicGameEvent implements GameEvent {
 	public Player getOpponent() {
 		return opponent;
 	}
+
+	@Override
+	public String toString() {
+		return "BasicGameEvent [type=" + type + ", m=" + m + ", msg=" + msg
+				+ ", toPlay=" + toPlay + ", opponent=" + opponent + "]";
+	}
+
 }

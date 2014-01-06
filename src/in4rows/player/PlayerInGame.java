@@ -1,18 +1,19 @@
 package in4rows.player;
 
+import in4rows.event.GameEvent;
 import in4rows.model.Disk;
-import in4rows.model.Player;
+import in4rows.model.GameReadable;
 import in4rows.model.PlayerTurn;
 
-public class PlayerInGame implements Player {
+public class PlayerInGame implements ServerPlayer{
 
-	private Player p = null;
+	private ServerPlayer p = null;
 	
 	private Disk color = null;
 	
 	private PlayerTurn turn = null;
 	
-	public PlayerInGame(Player p) {
+	public PlayerInGame(ServerPlayer p) {
 		this.p = p;
 	}
 	
@@ -37,6 +38,21 @@ public class PlayerInGame implements Player {
 		this.turn = turn;
 	}
 
+	@Override
+	public void addObs(PlayerObserver o) {
+		p.addObs(o);
+	}
+	
+	@Override
+	public void delObs(PlayerObserver o) {
+		p.delObs(o);
+	}
+	
+	@Override
+	public void update(GameReadable gr, GameEvent e) {
+		p.update(gr, e);
+	}
+	
 	@Override
 	public String toString() {
 		return "PlayerInGame [p=" + p + ", color=" + color + ", turn=" + turn

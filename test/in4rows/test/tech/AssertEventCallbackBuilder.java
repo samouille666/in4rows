@@ -1,11 +1,7 @@
 package in4rows.test.tech;
 
 import in4rows.In4RowsFactory;
-import in4rows.event.BasicGameEvent;
 import in4rows.event.GameEvent;
-import in4rows.event.GameEvent.Type;
-import in4rows.model.BasicMove;
-import in4rows.model.BasicVertex;
 import in4rows.model.Player;
 
 import java.util.Deque;
@@ -31,11 +27,11 @@ public class AssertEventCallbackBuilder {
 
 	}
 
-	public void setStartingEvent(Player p) {
+	public void setStartingEvent(Player startingPlayer) {
 		startingEvent = f.createStartEvent(p, null);
 	}
 
-	public void setEndingEvent(Player p) {
+	public void setEndingEvent(Player winner) {
 		endingEvent = f.createWinEvent(p);
 	}
 
@@ -46,10 +42,10 @@ public class AssertEventCallbackBuilder {
 
 	public void addEndingEvent(Player p) {
 		if (endingEvent != null)
-			endingEvent = f.createWinEvent(p);
+			q.add(endingEvent);
 	}
 
-	public GameObserverCallBack getCallback() {
+	public Deque<GameEvent> getCallback() {
 		q = new LinkedList<>();
 
 		addStartingEvent();
@@ -60,7 +56,7 @@ public class AssertEventCallbackBuilder {
 
 		addEndingEvent(p);
 
-		return new AssertEventCallbackImpl(q);
+		return q;
 	}
 
 	public void setRow(int[] row) {

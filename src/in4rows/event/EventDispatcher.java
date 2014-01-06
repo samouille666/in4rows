@@ -1,19 +1,35 @@
 package in4rows.event;
 
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class EventDispatcher {
 
-	private ExecutorService executor = Executors.newFixedThreadPool(3);
-
 	public void executeEvent(EventWorker w) {
-		executor.execute(w);
+		ExecutorService s = Executors.newFixedThreadPool(4);
+		s.execute(w);
+		s.shutdown();
 	}
 
-	@Override
-	protected void finalize() throws Throwable {
-		super.finalize();
-		executor.shutdown();
+	public void executeUntilEnd(List<EventWorker> l) {
+		ExecutorService s = Executors.newFixedThreadPool(4);
+		ExecutorCompletionService<Boolean> exec = new ExecutorCompletionService<>(
+				s);
+		for (EventWorker eventWorker : l) {
+			exec.submit(eventWorker);
+		}
+
+		for (int i = 0; i < l.size(); i++) {
+			try {
+				exec.take().get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+				System.exit(-1);
+			}
+		}
+		s.shutdown();
 	}
 }

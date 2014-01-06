@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="testCallback" class="in4rows.test.tech.DefaultTestingCallback" />
+	<bean id="testCallback" class="in4rows.test.tech.NotExecuteCallback" />
 	<bean id="evtDispatcher" class="in4rows.event.EventDispatcher" />
 
 	<bean id="in4rowsFActory" class="in4rows.In4RowsFactory" scope="singleton">
