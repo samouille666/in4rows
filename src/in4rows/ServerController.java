@@ -27,7 +27,8 @@ public class ServerController implements IController {
 			throws ExistingPlayerException {
 		if (players.get(id) != null)
 			throw new ExistingPlayerException("PLayer already exist !");
-		return players.put(id, factory.createPlayer(t, id));
+		players.put(id, factory.createPlayer(t, id));
+		return players.get(id);
 	}
 
 	public void setFactory(In4RowsFactory factory) {
