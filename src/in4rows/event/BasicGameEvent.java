@@ -1,7 +1,7 @@
 package in4rows.event;
 
 import in4rows.model.Move;
-import in4rows.model.Player;
+import in4rows.player.Player;
 
 public class BasicGameEvent implements GameEvent {
 

@@ -1,27 +1,27 @@
 package in4rows.game;
 
-import static in4rows.GridHelper.countDiagLeft;
-import static in4rows.GridHelper.countDiagRight;
-import static in4rows.GridHelper.countDown;
-import static in4rows.GridHelper.countLeft;
-import static in4rows.GridHelper.countRight;
-import static in4rows.GridHelper.countUp;
-import static in4rows.GridHelper.deepCopy;
-import static in4rows.GridHelper.firstDiskInColFromUp;
-import static in4rows.GridHelper.firstInCol_ModeCol;
-import static in4rows.GridHelper.firstInGame_ModeCol;
-import in4rows.event.ErroneousPlayerEventException;
+import static in4rows.helper.GridHelper.countDiagLeft;
+import static in4rows.helper.GridHelper.countDiagRight;
+import static in4rows.helper.GridHelper.countDown;
+import static in4rows.helper.GridHelper.countLeft;
+import static in4rows.helper.GridHelper.countRight;
+import static in4rows.helper.GridHelper.countUp;
+import static in4rows.helper.GridHelper.deepCopy;
+import static in4rows.helper.GridHelper.firstDiskInColFromUp;
+import static in4rows.helper.GridHelper.firstInCol_ModeCol;
+import static in4rows.helper.GridHelper.firstInGame_ModeCol;
 import in4rows.event.PlayerEvent;
+import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.model.Disk;
 import in4rows.model.GameRW;
 import in4rows.model.GameReadable;
 import in4rows.model.GameWritable;
 import in4rows.model.Move;
-import in4rows.model.Player;
-import in4rows.model.PlayerTurn;
 import in4rows.model.Vertex;
 import in4rows.player.BasicPlayerInGame;
+import in4rows.player.Player;
 import in4rows.player.PlayerInGame;
+import in4rows.player.PlayerTurn;
 
 public class BasicGame implements GameRW, GameReadable, GameWritable {
 	private String id;

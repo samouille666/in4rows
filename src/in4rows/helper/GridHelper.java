@@ -1,4 +1,4 @@
-package in4rows;
+package in4rows.helper;
 
 import in4rows.model.BasicVertex;
 import in4rows.model.Disk;

@@ -1,18 +1,18 @@
 package in4rows.game;
 
 import in4rows.event.Dispatchable;
-import in4rows.event.ErroneousPlayerEventException;
 import in4rows.event.EventDispatcher;
 import in4rows.event.EventWorker;
 import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
+import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.model.Disk;
 import in4rows.model.GameRW;
 import in4rows.model.GameReadable;
 import in4rows.model.GameWritable;
-import in4rows.model.Player;
-import in4rows.model.PlayerTurn;
+import in4rows.player.Player;
 import in4rows.player.PlayerInGame;
+import in4rows.player.PlayerTurn;
 
 import java.util.ArrayList;
 import java.util.List;

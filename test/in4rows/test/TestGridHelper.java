@@ -1,38 +1,48 @@
 package in4rows.test;
 
-import static in4rows.GridHelper.countDiagLeft;
-import static in4rows.GridHelper.countDiagRight;
-import static in4rows.GridHelper.countDown;
-import static in4rows.GridHelper.countLeft;
-import static in4rows.GridHelper.countRight;
-import static in4rows.GridHelper.countUp;
-import static in4rows.GridHelper.firstDiskInColFromUp;
-import static in4rows.GridHelper.firstInCol_ModeCol;
-import static in4rows.GridHelper.firstInGame_ModeCol;
-import in4rows.GridHelper;
+import static in4rows.helper.GridHelper.countDiagLeft;
+import static in4rows.helper.GridHelper.countDiagRight;
+import static in4rows.helper.GridHelper.countDown;
+import static in4rows.helper.GridHelper.countLeft;
+import static in4rows.helper.GridHelper.countRight;
+import static in4rows.helper.GridHelper.countUp;
+import static in4rows.helper.GridHelper.firstDiskInColFromUp;
+import static in4rows.helper.GridHelper.firstInCol_ModeCol;
+import static in4rows.helper.GridHelper.firstInGame_ModeCol;
 import in4rows.event.BasicPlayerEvent;
-import in4rows.event.ErroneousPlayerEventException;
 import in4rows.event.PlayerEvent;
 import in4rows.event.PlayerEvent.Type;
+import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.game.BasicGame;
+import in4rows.helper.GridHelper;
 import in4rows.model.BasicMove;
 import in4rows.model.BasicVertex;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
 import in4rows.model.GameWritable;
-import in4rows.model.Player;
-import in4rows.model.PlayerTurn;
 import in4rows.model.Vertex;
 import in4rows.player.BasicPlayer;
+import in4rows.player.Player;
 import in4rows.player.PlayerInGame;
+import in4rows.player.PlayerTurn;
+import in4rows.player.PlayerType;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestGridHelper {
+	Player p1;
+	Player p2;
+
+	@Before
+	public void setup() {
+		p1 = new BasicPlayer("p1", PlayerType.HUMAN);
+		p2 = new BasicPlayer("p2", PlayerType.MACHINE);
+	}
 
 	@Test
 	public void testGridHelper_01() {
@@ -152,8 +162,6 @@ public class TestGridHelper {
 
 	@Test
 	public void testGridHelper_08() throws ErroneousPlayerEventException {
-		Player p1 = new BasicPlayer("p1");
-		Player p2 = new BasicPlayer("p2");
 
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
 		g.setPlayer2(p2);
@@ -238,7 +246,7 @@ public class TestGridHelper {
 			// TODO Auto-generated method stub
 			return null;
 		}
-		
+
 		@Override
 		public String getId() {
 			// TODO Auto-generated method stub

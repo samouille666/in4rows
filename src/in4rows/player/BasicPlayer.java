@@ -1,18 +1,22 @@
 package in4rows.player;
 
-import in4rows.model.Player;
-
 public class BasicPlayer implements Player {
 	private String id;
+	private PlayerType type;
 
-	public BasicPlayer(String id) {
+	public BasicPlayer(String id, PlayerType type) {
 		super();
 		this.id = id;
+		this.type = type;
 	}
 
 	@Override
 	public String getId() {
 		return id;
+	}
+
+	public PlayerType getType() {
+		return type;
 	}
 
 	@Override
@@ -42,7 +46,7 @@ public class BasicPlayer implements Player {
 
 	@Override
 	public String toString() {
-		return "BasicPlayer [id=" + id + "]";
+		return "BasicPlayer [id=" + id + ", type=" + type + "]";
 	}
 
 }

@@ -1,8 +1,6 @@
 package in4rows.player;
 
 import in4rows.model.Disk;
-import in4rows.model.Player;
-import in4rows.model.PlayerTurn;
 
 public class BasicPlayerInGame implements Player, PlayerInGame {
 

@@ -1,7 +1,9 @@
 package in4rows.model;
 
-import in4rows.event.ErroneousPlayerEventException;
 import in4rows.event.PlayerEvent;
+import in4rows.exception.ErroneousPlayerEventException;
+import in4rows.player.Player;
+import in4rows.player.PlayerTurn;
 
 public interface GameWritable extends GameReadable {
 

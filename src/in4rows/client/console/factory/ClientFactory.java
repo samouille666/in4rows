@@ -1,6 +1,7 @@
 package in4rows.client.console.factory;
 
 import in4rows.client.IClientController;
+import in4rows.client.console.actions.InputPlayerAction;
 import in4rows.client.console.actions.Screen1Action;
 import in4rows.client.console.views.ChoicesView;
 import in4rows.client.console.views.ClientConsoleScreen;
@@ -12,6 +13,8 @@ public class ClientFactory {
 	
 	private ClientConsoleScreen startingScreen;
 	private ClientConsoleScreen startingScreenError; 
+	private ClientConsoleScreen inputPlayerIdScreen; 
+	private ClientConsoleScreen inputPlayerIdScreenError; 
 	
 	public ClientConsoleScreen createStartingScreen(IClientController controller) {
 		if(startingScreen == null){
@@ -53,5 +56,37 @@ public class ClientFactory {
 		}
 		return startingScreenError;
 	}
+		
+	public ClientConsoleScreen createInputPlayerScreen(IClientController controller) {
+		if(inputPlayerIdScreen == null){
+			inputPlayerIdScreen = new ClientConsoleScreen();
+			inputPlayerIdScreen.addView(new ConsoleInfoView("****************************************************************"));
+			inputPlayerIdScreen.addView(new ChoicesView("Enter your player name : "));
+			inputPlayerIdScreen.addView(new LineFeedView(""));
+			ConsoleInputNumberView input = new ConsoleInputNumberView();
+			InputPlayerAction action = new InputPlayerAction(controller);
+			input.setAction(action);
+			inputPlayerIdScreen.addView(input);			
+		}
+		return inputPlayerIdScreen;
+	}
+	
+	
+	public ClientConsoleScreen createInputPlayerScreenError(IClientController controller) {
+		if(inputPlayerIdScreenError == null){
+			inputPlayerIdScreenError = new ClientConsoleScreen();
+			inputPlayerIdScreenError.addView(new ConsoleInfoView("****************************************************************"));
+			startingScreenError.addView(new LineFeedView(""));
+			startingScreenError.addView(new ConsoleInfoView("PLAYER ALREADY EXIST PLEASE REENTER..."));
+			startingScreenError.addView(new LineFeedView(""));			
+			inputPlayerIdScreenError.addView(new ChoicesView("Enter your player name : "));
+			inputPlayerIdScreenError.addView(new LineFeedView(""));
+			ConsoleInputNumberView input = new ConsoleInputNumberView();
+			InputPlayerAction action = new InputPlayerAction(controller);
+			input.setAction(action);
+			inputPlayerIdScreenError.addView(input);			
+		}
+		return inputPlayerIdScreenError;
+	}	
 	
 }

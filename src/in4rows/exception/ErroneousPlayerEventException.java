@@ -1,4 +1,4 @@
-package in4rows.event;
+package in4rows.exception;
 
 public class ErroneousPlayerEventException extends Exception {
 

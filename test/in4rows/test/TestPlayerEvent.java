@@ -5,6 +5,7 @@ import in4rows.event.PlayerEvent;
 import in4rows.event.PlayerEvent.Type;
 import in4rows.model.BasicMove;
 import in4rows.player.BasicPlayer;
+import in4rows.player.PlayerType;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,9 +18,9 @@ public class TestPlayerEvent {
 	@Test
 	public void testPlayerEvent() {
 		PlayerEvent actual = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
-				"this is a move", new BasicPlayer("anId"));
+				"this is a move", new BasicPlayer("anId", PlayerType.HUMAN));
 		PlayerEvent expected = new BasicPlayerEvent(Type.MOVE,
-				new BasicMove(0), "this is a move", new BasicPlayer("anId"));
+				new BasicMove(0), "this is a move", new BasicPlayer("anId", PlayerType.HUMAN));
 		Assert.assertEquals("not equal", expected, actual);
 	}
 }
