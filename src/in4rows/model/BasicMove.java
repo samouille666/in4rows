@@ -2,27 +2,26 @@ package in4rows.model;
 
 public class BasicMove implements Move {
 
-	private Vertex v = null;
+	private int col = 0;
 
-	public BasicMove(int row, int col) {
-		v = new BasicVertex(row, col);
+	public BasicMove(int col) {
+		this.col = col;
 	}
 
 	public BasicMove(Vertex v) {
-		this(v.getRow(), v.getCol());
-
+		this(v.getCol());
 	}
 
 	@Override
-	public Vertex getVertex() {
-		return v;
+	public int getCol() {
+		return col;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((v == null) ? 0 : v.hashCode());
+		result = prime * result + col;
 		return result;
 	}
 
@@ -35,17 +34,14 @@ public class BasicMove implements Move {
 		if (getClass() != obj.getClass())
 			return false;
 		BasicMove other = (BasicMove) obj;
-		if (v == null) {
-			if (other.v != null)
-				return false;
-		} else if (!v.equals(other.v))
+		if (col != other.col)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "BasicMove [v=" + v + "]";
+		return "BasicMove [col=" + col + "]";
 	}
 
 }

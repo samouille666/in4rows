@@ -11,7 +11,8 @@ public class EventDispatcher {
 	public void executeEvent(EventWorker w) {
 		ExecutorService s = Executors.newFixedThreadPool(4);
 		s.execute(w);
-		s.shutdown();
+		while (!s.isTerminated())
+			;
 	}
 
 	public void executeUntilEnd(List<EventWorker> l) {

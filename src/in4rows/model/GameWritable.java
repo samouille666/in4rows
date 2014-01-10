@@ -1,12 +1,14 @@
 package in4rows.model;
 
-import in4rows.game.ObservableGame;
-import in4rows.player.ServerPlayer;
+import in4rows.event.ErroneousPlayerEventException;
+import in4rows.event.PlayerEvent;
 
-public interface GameWritable extends GameReadable, ObservableGame {
+public interface GameWritable extends GameReadable {
+
+	public void setPlayer1(Player p1, Disk d, PlayerTurn t);
+
+	public void setPlayer2(Player p2);
 	
-	public void setDisk(int col, Disk d);
-	
-	public void setPlayer2(ServerPlayer p2);
+	public void play(PlayerEvent evt) throws ErroneousPlayerEventException;
 
 }

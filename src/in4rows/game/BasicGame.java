@@ -6,51 +6,46 @@ import static in4rows.GridHelper.countDown;
 import static in4rows.GridHelper.countLeft;
 import static in4rows.GridHelper.countRight;
 import static in4rows.GridHelper.countUp;
+import static in4rows.GridHelper.deepCopy;
+import static in4rows.GridHelper.firstDiskInColFromUp;
 import static in4rows.GridHelper.firstInCol_ModeCol;
 import static in4rows.GridHelper.firstInGame_ModeCol;
-import in4rows.In4RowsFactory;
+import in4rows.event.ErroneousPlayerEventException;
 import in4rows.event.PlayerEvent;
 import in4rows.model.Disk;
+import in4rows.model.GameRW;
 import in4rows.model.GameReadable;
 import in4rows.model.GameWritable;
 import in4rows.model.Move;
 import in4rows.model.Player;
 import in4rows.model.PlayerTurn;
 import in4rows.model.Vertex;
+import in4rows.player.BasicPlayerInGame;
 import in4rows.player.PlayerInGame;
-import in4rows.player.PlayerObserver;
-import in4rows.player.ServerPlayer;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
-		ObservableGame {
-
-	@Autowired
-	private In4RowsFactory f = new In4RowsFactory();
-
-	private BasicObservableGame bgo;
-
+public class BasicGame implements GameRW, GameReadable, GameWritable {
 	private PlayerInGame p1;
-
 	private PlayerInGame p2;
-
 	private Disk[][] grid;
 
-	public BasicGame(int width, int height, ServerPlayer p1, Disk p1c,
-			PlayerTurn p1t, In4RowsFactory f) {
+	// private PlayerEvent lastPlayerEvent;
+	private boolean gameStopped = false;
+	private boolean gameWon = false;
+
+	public BasicGame(Player p1, Disk color, PlayerTurn t, int width, int height) {
 		super();
-
-		this.f = f;
-
-		this.p1 = new PlayerInGame(p1);
-		this.p1.setColor(p1c);
-		this.p1.setTurn(p1t);
+		setPlayer1(p1, color, t);
 		grid = new Disk[height][width];
+	}
 
-		p1.addObs(this);
-		bgo = new BasicObservableGame(this, f.createEventDispatcher());
-		bgo.setP1(this.p1);
+	@Override
+	public Disk getDisk(int row, int col) {
+		return grid[row][col];
+	}
+
+	private void setDisk(int col, Disk d) {
+		Vertex v = firstInCol_ModeCol(this, col);
+		grid[v.getRow()][col] = d;
 	}
 
 	@Override
@@ -64,32 +59,18 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 	}
 
 	@Override
-	public Disk getDisk(int row, int col) {
-		return grid[row][col];
+	public void setPlayer1(Player p1, Disk d, PlayerTurn t) {
+		this.p1 = new BasicPlayerInGame(p1, d, t);
 	}
 
 	@Override
-	public void setDisk(int col, Disk d) {
-		// TODO Application Exception in case of row/col not in the grid
-		Vertex v = firstInCol_ModeCol(this, col);
-		if (v != null) {
-			grid[v.getRow()][col] = d;
-		}
-	}
-
-	@Override
-	public void setPlayer2(ServerPlayer p2) {
-		// TODO start the game
-		this.p2 = new PlayerInGame(p2);
-		this.p2.setColor(Disk.BLACK.equals(p1.getColor()) ? Disk.WHITE
-				: Disk.BLACK);
-		this.p2.setTurn(PlayerTurn.YES.equals(p1.getTurn()) ? PlayerTurn.NO
-				: PlayerTurn.YES);
-
-		p2.addObs(this);
-		bgo.setP2(this.p2);
-		bgo.setChanged();
-		bgo.notifyObs(f.createStartEvent(playerToPlay(), playerNotToPlay()));
+	public void setPlayer2(Player p2) {
+		if (p1 == null)
+			return;
+		this.p2 = new BasicPlayerInGame(p2,
+				Disk.BLACK.equals(p1.getColor()) ? Disk.WHITE : Disk.BLACK,
+				PlayerTurn.YES.equals(p1.getTurn()) ? PlayerTurn.NO
+						: PlayerTurn.YES);
 	}
 
 	private PlayerInGame playerToPlay() {
@@ -104,80 +85,111 @@ public class BasicGame implements GameReadable, GameWritable, PlayerObserver,
 		return p.getId().equals(p1.getId()) ? p2 : p1;
 	}
 
-	private boolean hasWin(Move last) {
-		Vertex v = last.getVertex();
-		if (1 + countUp(this, v) + countDown(this, v) >= 4) {
-			return true;
-		} else if (1 + countRight(this, v) + countLeft(this, v) >= 4) {
-			return true;
-		} else if (1 + countDiagRight(this, v) + countDiagLeft(this, v) >= 4) {
-			return true;
-		}
-		return false;
+	@Override
+	public Disk[][] getState() {
+		return (Disk[][]) deepCopy(grid);
 	}
 
-	private boolean isDraw() {
+	@Override
+	public boolean isWon() {
+		return gameWon;
+	}
+
+	private boolean isWon(Move last) {
+		Vertex v = firstDiskInColFromUp(this, last.getCol());
+		boolean vertical = 1 + countUp(this, v) + countDown(this, v) >= 4;
+		boolean horizontal = 1 + countRight(this, v) + countLeft(this, v) >= 4;
+		boolean diagonal = 1 + countDiagRight(this, v) + countDiagLeft(this, v) >= 4;
+		if (vertical || horizontal || diagonal) {
+			gameWon = true;
+			return isWon();
+		}
+		return isWon();
+	}
+
+	@Override
+	public boolean isDraw() {
 		return firstInGame_ModeCol(this) == null;
 	}
 
-	private void wonGame(PlayerInGame playerInTurn) {
-		bgo.notifyObs(f.createWinEvent(playerInTurn));
-	}
-
-	private void drawGame(Player p1, Player p2, Move last) {
-		bgo.notifyObs(f.createDrawEvent(p1, p2, last));
+	@Override
+	public PlayerInGame getP1() {
+		return p1;
 	}
 
 	@Override
-	public void update(Player p, PlayerEvent e) {
-		// 0) Check player's identity
-		if (!p.getId().equals(p1.getId()) && !p.getId().equals(p2.getId()))
-			return;
-		// 1) update comes from player to play
-		if (!p.getId().equals(playerToPlay().getId()))
-			return;
-		// 2) move not possible notify error
-		if (firstInCol_ModeCol(this, e.getMove().getVertex().getCol()) == null) {
-			bgo.notifyObs(f.createErrorEvent(p, opponent(p)));
-			return;
+	public PlayerInGame getP2() {
+		return p2;
+	}
+
+	private boolean checks(PlayerEvent evt)
+			throws ErroneousPlayerEventException {
+		if (p2 == null)
+			throw new ErroneousPlayerEventException("No player 2 registered !");
+
+		if (!evt.getPlayer().getId().equals(p1.getId())
+				&& !evt.getPlayer().getId().equals(p2.getId()))
+			throw new ErroneousPlayerEventException("Unknown player.");
+
+		if (PlayerEvent.Type.END.equals(evt.getType())) {
+			gameStopped = true;
+			return false;
 		}
+
+		if (gameStopped)
+			throw new ErroneousPlayerEventException("Game stopped.");
+
+		if (!evt.getPlayer().getId().equals(playerToPlay().getId()))
+			throw new ErroneousPlayerEventException("Not player "
+					+ evt.getPlayer().getId() + " to play.");
+
+		if (evt.getMove().getCol() < 0 || evt.getMove().getCol() >= getWidth())
+			throw new ErroneousPlayerEventException("Erroneous move.");
+
+		// move not possible notify error
+		if (firstInCol_ModeCol(this, evt.getMove().getCol()) == null) {
+			throw new ErroneousPlayerEventException("Erroneous move.");
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean isStopped() {
+		return gameStopped;
+	}
+
+	@Override
+	public void play(PlayerEvent evt) throws ErroneousPlayerEventException {
+
+		if (!checks(evt))
+			return;
+
 		// make it play
-		Move last = e.getMove();
-		setDisk(last.getVertex().getCol(), playerToPlay().getColor());
-		bgo.setChanged();
+		Move last = evt.getMove();
+		setDisk(last.getCol(), playerToPlay().getColor());
+		// bgo.setChanged();
 
-		// 3) has win ?
-		if (hasWin(last)) {
-			wonGame(playerToPlay());
+		if (isWon(last)) {
+			gameStopped = true;
+			// wonGame(playerToPlay());
 			return;
 		}
-		// 4) is it draw ?
+
 		if (isDraw()) {
-			drawGame(p1, p2, last);
+			gameStopped = true;
+			// drawGame(p1, p2, last);
 			return;
 		}
 
-		PlayerTurn.exchangeTurn(p1, p2);
-		bgo.notifyObs(f
-				.createMoveEvent(playerToPlay(), playerNotToPlay(), last));
+		exchangeTurn(p1, p2);
+		// bgo.notifyObs(f
+		// .createMoveEvent(playerToPlay(), playerNotToPlay(), last));
 	}
 
-	public void setF(In4RowsFactory f) {
-		this.f = f;
-	}
-
-	@Override
-	public void attachObs(GameObserver o) {
-		bgo.attachObs(o);
-	}
-
-	@Override
-	public void detachObs(GameObserver o) {
-		bgo.detachObs(o);
-	}
-
-	@Override
-	public GameReadable getGame() {
-		return this;
+	private static void exchangeTurn(PlayerInGame p1, PlayerInGame p2) {
+		PlayerTurn p = p1.getTurn();
+		p1.setTurn(p2.getTurn());
+		p2.setTurn(p);
 	}
 }

@@ -1,30 +1,34 @@
 package in4rows.game;
 
+import in4rows.event.Dispatchable;
+import in4rows.event.ErroneousPlayerEventException;
 import in4rows.event.EventDispatcher;
 import in4rows.event.EventWorker;
 import in4rows.event.GameEvent;
+import in4rows.event.PlayerEvent;
+import in4rows.model.Disk;
+import in4rows.model.GameRW;
 import in4rows.model.GameReadable;
+import in4rows.model.GameWritable;
+import in4rows.model.Player;
 import in4rows.model.PlayerTurn;
-import in4rows.player.Dispatchable;
 import in4rows.player.PlayerInGame;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BasicObservableGame implements ObservableGame, Dispatchable {
+public class BasicObservableGame implements ObservableGame, Dispatchable,
+		GameReadable, GameWritable {
 
 	private EventDispatcher dispatcher;
 	// we just want the observer to be able to read the game
-	private GameReadable g;
+	private GameRW g;
 	// not player observers
 	private ArrayList<GameObserver> observers = new ArrayList<>();
 
 	private boolean changed = false;
 
-	private PlayerInGame p1;
-	private PlayerInGame p2;
-
-	public BasicObservableGame(GameReadable g, EventDispatcher dispatcher) {
+	public BasicObservableGame(GameRW g, EventDispatcher dispatcher) {
 		this.g = g;
 		this.dispatcher = dispatcher;
 	}
@@ -35,8 +39,53 @@ public class BasicObservableGame implements ObservableGame, Dispatchable {
 	}
 
 	@Override
-	public GameReadable getGame() {
-		return g;
+	public Disk[][] getState() {
+		return g.getState();
+	}
+
+	@Override
+	public Disk getDisk(int row, int col) {
+		return g.getDisk(row, col);
+	}
+
+	@Override
+	public int getHeight() {
+		return g.getHeight();
+	}
+
+	@Override
+	public int getWidth() {
+		return g.getWidth();
+	}
+
+	@Override
+	public boolean isDraw() {
+		return g.isDraw();
+	}
+
+	@Override
+	public boolean isStopped() {
+		return g.isStopped();
+	}
+
+	@Override
+	public boolean isWon() {
+		return g.isWon();
+	}
+
+	@Override
+	public void play(PlayerEvent evt) throws ErroneousPlayerEventException {
+		g.play(evt);
+	}
+
+	@Override
+	public void setPlayer1(Player p1, Disk d, PlayerTurn t) {
+		g.setPlayer1(p1, d, t);
+	}
+
+	@Override
+	public void setPlayer2(Player p2) {
+		g.setPlayer2(p2);
 	}
 
 	@Override
@@ -58,10 +107,7 @@ public class BasicObservableGame implements ObservableGame, Dispatchable {
 		List<EventWorker> l = new ArrayList<>();
 		for (GameObserver o : observers)
 			l.add(new EventWorker(o, g, e));
-		l.add(new EventWorker(PlayerTurn.NO.equals(p1) ? p1 : p2, g, e));
 		dispatcher.executeUntilEnd(l);
-		dispatcher.executeEvent(new EventWorker(PlayerTurn.YES.equals(p1) ? p1 : p2,
-				g, e));
 		changed = false;
 	}
 
@@ -69,12 +115,14 @@ public class BasicObservableGame implements ObservableGame, Dispatchable {
 		changed = true;
 	}
 
-	public void setP1(PlayerInGame p1) {
-		this.p1 = p1;
+	@Override
+	public PlayerInGame getP1() {
+		return g.getP1();
 	}
 
-	public void setP2(PlayerInGame p2) {
-		this.p2 = p2;
+	@Override
+	public PlayerInGame getP2() {
+		return g.getP2();
 	}
 
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- services -->
+
+	<!-- <bean id="petStore" class="org.springframework.samples.jpetstore.services.PetStoreServiceImpl"> -->
+	<!-- <property name="accountDao" ref="accountDao"/> -->
+	<!-- <property name="itemDao" ref="itemDao"/> -->
+	<!-- additional collaborators and configuration for this bean go here -->
+	<!-- </bean> -->
+
+	<bean id="clientfactory" class="in4rows.client.console.factory.ClientFactory"
+		scope="singleton"/>
+
+
+	<bean id="clientcontroller" class="in4rows.In4RowsController"
+		scope="singleton">
+		<constructor-arg ref="clientfactory"/>
+	</bean>
+
+	<bean id="consoleclient" class="in4rows.client.console.ConsoleClient">
+		<property name="controller" ref="clientcontroller" />
+	</bean>
+
+</beans>

@@ -6,13 +6,25 @@ import static in4rows.GridHelper.countDown;
 import static in4rows.GridHelper.countLeft;
 import static in4rows.GridHelper.countRight;
 import static in4rows.GridHelper.countUp;
+import static in4rows.GridHelper.firstDiskInColFromUp;
 import static in4rows.GridHelper.firstInCol_ModeCol;
 import static in4rows.GridHelper.firstInGame_ModeCol;
 import in4rows.GridHelper;
+import in4rows.event.BasicPlayerEvent;
+import in4rows.event.ErroneousPlayerEventException;
+import in4rows.event.PlayerEvent;
+import in4rows.event.PlayerEvent.Type;
+import in4rows.game.BasicGame;
+import in4rows.model.BasicMove;
 import in4rows.model.BasicVertex;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
+import in4rows.model.GameWritable;
+import in4rows.model.Player;
+import in4rows.model.PlayerTurn;
 import in4rows.model.Vertex;
+import in4rows.player.BasicPlayer;
+import in4rows.player.PlayerInGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +131,7 @@ public class TestGridHelper {
 		d.setDisk(6, 5, Disk.WHITE);
 		countVertical = 1 + countRight(d, v) + countLeft(d, v);
 		Assert.assertEquals("not 3 !! ", 3, countVertical);
-	}	
+	}
 
 	@Test
 	public void testGridHelper_07() {
@@ -136,7 +148,34 @@ public class TestGridHelper {
 		d.setDisk(3, 0, Disk.WHITE);
 		countVertical = 1 + countDiagRight(d, v) + countDiagLeft(d, v);
 		Assert.assertEquals("not 3 !! ", 3, countVertical);
-	}		
+	}
+
+	@Test
+	public void testGridHelper_08() throws ErroneousPlayerEventException {
+		Player p1 = new BasicPlayer("p1");
+		Player p2 = new BasicPlayer("p2");
+
+		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
+		g.setPlayer2(p2);
+
+		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
+				"one move", p1);
+		g.play(e);
+		Assert.assertEquals("not v(0,0) !", new BasicVertex(0, 0),
+				firstDiskInColFromUp(g, 0));
+
+		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p2);
+		g.play(e);
+
+		Assert.assertEquals("not v(1,0) !", new BasicVertex(1, 0),
+				firstDiskInColFromUp(g, 0));
+
+		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		g.play(e);
+		Assert.assertEquals("not v(2,0) !", new BasicVertex(2, 0),
+				firstDiskInColFromUp(g, 0));
+	}
+
 	private class DummyGrid implements GameReadable {
 
 		private Disk[][] grid;
@@ -162,6 +201,42 @@ public class TestGridHelper {
 
 		public void setDisk(int row, int col, Disk d) {
 			grid[row][col] = d;
+		}
+
+		@Override
+		public Disk[][] getState() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean isDraw() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isStopped() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isWon() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public PlayerInGame getP1() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public PlayerInGame getP2() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 	}
 

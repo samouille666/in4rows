@@ -5,6 +5,11 @@ import in4rows.model.Disk;
 import in4rows.model.GameReadable;
 import in4rows.model.Vertex;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +41,34 @@ public class GridHelper {
 		return first;
 	}
 
+	/**
+	 * @param g
+	 * @param col
+	 * @return first empty place in the column and null if ain't
+	 */
 	public static Vertex firstInCol_ModeCol(GameReadable g, int col) {
-
 		int cptRow = g.getHeight() - 1;
 		while (cptRow >= 0 && g.getDisk(cptRow, col) == null)
 			cptRow--;
 
 		if (cptRow > -2 && cptRow < g.getHeight() - 1)
 			return new BasicVertex(cptRow + 1, col);
+		else
+			return null;
+	}
+
+	/**
+	 * @param g
+	 * @param col
+	 * @return first disk encounter in the column and null if ain't
+	 */
+	public static Vertex firstDiskInColFromUp(GameReadable g, int col) {
+		int cptRow = g.getHeight() - 1;
+		while (cptRow >= 0 && g.getDisk(cptRow, col) == null)
+			cptRow--;
+
+		if (cptRow > -1 && cptRow <= g.getHeight() - 1)
+			return new BasicVertex(cptRow, col);
 		else
 			return null;
 	}
@@ -86,7 +111,8 @@ public class GridHelper {
 		boolean inBoard = row >= 0 && row < g.getHeight() && col >= 0
 				&& col < g.getWidth();
 
-		while (inBoard && g.getDisk(row, col)!= null && currDisk.equals(g.getDisk(row, col))) {
+		while (inBoard && g.getDisk(row, col) != null
+				&& currDisk.equals(g.getDisk(row, col))) {
 			cptDisk++;
 			row += coefRow;
 			col += coefCol;
@@ -95,6 +121,40 @@ public class GridHelper {
 		}
 
 		return cptDisk;
+	}
+
+	static public Object deepCopy(Object oldObj) {
+		ObjectOutputStream oos = null;
+		ObjectInputStream ois = null;
+		try {
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(); // A
+			oos = new ObjectOutputStream(bos); // B
+			// serialize and pass the object
+			oos.writeObject(oldObj); // C
+			oos.flush(); // D
+			ByteArrayInputStream bin = new ByteArrayInputStream(
+					bos.toByteArray()); // E
+			ois = new ObjectInputStream(bin); // F
+			// return the new object
+			return ois.readObject(); // G
+		} catch (Exception e) {
+			// System.out.println("Exception in ObjectCloner = " + e);
+			// throw (e);
+		} finally {
+			try {
+				oos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+			}
+			try {
+				ois.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				// e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 }

@@ -1,6 +1,5 @@
 package in4rows.game;
 
-import in4rows.model.GameReadable;
 
 /**
  * @author ssayag
@@ -10,10 +9,7 @@ import in4rows.model.GameReadable;
  * (jdk Observable = thread safe, heavy...)
  */
 public interface ObservableGame {
-	
-	//TODO check useful
-	public GameReadable getGame();
-	
+		
 	public void attachObs(GameObserver o);
 	public void detachObs(GameObserver o);
 

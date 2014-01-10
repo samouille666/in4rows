@@ -7,5 +7,5 @@ package in4rows.model;
  */
 public interface Move {
 	
-	Vertex getVertex();
+	int getCol();
 }
