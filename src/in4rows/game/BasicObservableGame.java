@@ -124,5 +124,10 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 	public PlayerInGame getP2() {
 		return g.getP2();
 	}
+	
+	@Override
+	public String getId() {
+		return g.getId();
+	}
 
 }

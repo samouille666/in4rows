@@ -16,7 +16,7 @@
 		scope="singleton"/>
 
 
-	<bean id="clientcontroller" class="in4rows.In4RowsController"
+	<bean id="clientcontroller" class="in4rows.In4RowsClientProxyController"
 		scope="singleton">
 		<constructor-arg ref="clientfactory"/>
 	</bean>

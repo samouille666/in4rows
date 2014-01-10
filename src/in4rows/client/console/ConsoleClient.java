@@ -1,13 +1,13 @@
 package in4rows.client.console;
 
-import in4rows.IController;
+import in4rows.client.IClientController;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class ConsoleClient {
 
-	IController controller;
+	IClientController controller;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class ConsoleClient {
 		controller.startApp();
 	}
 
-	public void setController(IController controller) {
+	public void setController(IClientController controller) {
 		this.controller = controller;
 	}
 

@@ -6,6 +6,8 @@ import in4rows.player.PlayerInGame;
 
 public interface GameReadable {
 	
+	public String getId();
+	
 	public int getWidth();
 	
 	public int getHeight();

@@ -24,6 +24,8 @@ import in4rows.player.BasicPlayerInGame;
 import in4rows.player.PlayerInGame;
 
 public class BasicGame implements GameRW, GameReadable, GameWritable {
+	private String id;
+	
 	private PlayerInGame p1;
 	private PlayerInGame p2;
 	private Disk[][] grid;
@@ -191,5 +193,10 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		PlayerTurn p = p1.getTurn();
 		p1.setTurn(p2.getTurn());
 		p2.setTurn(p);
+	}
+	
+	@Override
+	public String getId() {
+		return id;
 	}
 }

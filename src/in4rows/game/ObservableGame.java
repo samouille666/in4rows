@@ -1,5 +1,7 @@
 package in4rows.game;
 
+import in4rows.model.GameReadable;
+
 
 /**
  * @author ssayag
@@ -8,7 +10,7 @@ package in4rows.game;
  * constrain by any implementation of the JDK
  * (jdk Observable = thread safe, heavy...)
  */
-public interface ObservableGame {
+public interface ObservableGame extends GameReadable {
 		
 	public void attachObs(GameObserver o);
 	public void detachObs(GameObserver o);

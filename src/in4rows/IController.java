@@ -1,11 +1,10 @@
 package in4rows;
 
+import in4rows.game.ObservableGame;
+import in4rows.model.PlayerType;
+
 public interface IController {
-
-	public String getScreen1UserInput();
-
-	public void setScreen1UserInput(String screen1choice);
-
-	public void startApp();
+	
+	public ObservableGame openGame(PlayerType p1, PlayerType p2);
 
 }

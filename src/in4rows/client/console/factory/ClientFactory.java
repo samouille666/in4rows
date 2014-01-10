@@ -1,6 +1,6 @@
 package in4rows.client.console.factory;
 
-import in4rows.IController;
+import in4rows.client.IClientController;
 import in4rows.client.console.actions.Screen1Action;
 import in4rows.client.console.views.ChoicesView;
 import in4rows.client.console.views.ClientConsoleScreen;
@@ -13,7 +13,7 @@ public class ClientFactory {
 	private ClientConsoleScreen startingScreen;
 	private ClientConsoleScreen startingScreenError; 
 	
-	public ClientConsoleScreen createStartingScreen(IController controller) {
+	public ClientConsoleScreen createStartingScreen(IClientController controller) {
 		if(startingScreen == null){
 			startingScreen = new ClientConsoleScreen();
 			startingScreen.addView(new ConsoleInfoView("****************************************************************"));
@@ -32,7 +32,7 @@ public class ClientFactory {
 		return startingScreen;
 	}
 	
-	public ClientConsoleScreen createStartingScreenError(IController controller) {
+	public ClientConsoleScreen createStartingScreenError(IClientController controller) {
 		if(startingScreenError == null){
 			startingScreenError = new ClientConsoleScreen();
 			startingScreenError.addView(new ConsoleInfoView("****************************************************************"));

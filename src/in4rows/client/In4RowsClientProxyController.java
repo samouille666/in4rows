@@ -1,9 +1,14 @@
-package in4rows;
+package in4rows.client;
 
+import in4rows.IController;
 import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.view.composite.IView;
+import in4rows.game.ObservableGame;
+import in4rows.model.PlayerType;
 
-public class In4RowsController implements IController {
+public class In4RowsClientProxyController implements IClientController,
+		IController {
+	private IController distantController;
 
 	private ClientFactory factory;
 
@@ -12,11 +17,11 @@ public class In4RowsController implements IController {
 
 	private String screen1UserInput;
 
-	public In4RowsController(ClientFactory factory) {
-		screen1 = factory.createStartingScreen(this);           
-		screen1Error = factory.createStartingScreenError(this); 
+	public In4RowsClientProxyController(ClientFactory factory) {
+		screen1 = factory.createStartingScreen(this);
+		screen1Error = factory.createStartingScreenError(this);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -61,4 +66,8 @@ public class In4RowsController implements IController {
 		this.factory = factory;
 	}
 
+	@Override
+	public ObservableGame openGame(PlayerType p1, PlayerType p2) {
+		return distantController.openGame(p1, p2);
+	}
 }

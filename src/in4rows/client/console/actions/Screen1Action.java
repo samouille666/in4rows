@@ -1,12 +1,12 @@
 package in4rows.client.console.actions;
 
-import in4rows.IController;
+import in4rows.client.IClientController;
 
 public class Screen1Action implements Action {
 
-	IController controller;
+	IClientController controller;
 
-	public Screen1Action(IController controller) {
+	public Screen1Action(IClientController controller) {
 		super();
 		this.controller = controller;
 	}
@@ -16,7 +16,7 @@ public class Screen1Action implements Action {
 		controller.setScreen1UserInput(input);
 	}
 
-	public void setController(IController controller) {
+	public void setController(IClientController controller) {
 		this.controller = controller;
 	}
 
