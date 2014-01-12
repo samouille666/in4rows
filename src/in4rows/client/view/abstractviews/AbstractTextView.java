@@ -3,11 +3,11 @@ package in4rows.client.view.abstractviews;
 import in4rows.client.view.composite.IViewInstruction;
 
 
-public abstract class InfoView implements IViewInstruction {
+public abstract class AbstractTextView implements IViewInstruction {
 
 	private String info;
 
-	public InfoView(String info) {
+	public AbstractTextView(String info) {
 		super();
 		this.info = info;
 	}

@@ -10,8 +10,14 @@ import static in4rows.helper.GridHelper.deepCopy;
 import static in4rows.helper.GridHelper.firstDiskInColFromUp;
 import static in4rows.helper.GridHelper.firstInCol_ModeCol;
 import static in4rows.helper.GridHelper.firstInGame_ModeCol;
+
+import java.util.UUID;
+
+import in4rows.In4RowsServerFactory;
+import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
 import in4rows.exception.ErroneousPlayerEventException;
+import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.model.Disk;
 import in4rows.model.GameRW;
 import in4rows.model.GameReadable;
@@ -24,13 +30,16 @@ import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerTurn;
 
 public class BasicGame implements GameRW, GameReadable, GameWritable {
+	private In4RowsServerFactory factory;
+
 	private String id;
-	
+
 	private PlayerInGame p1;
 	private PlayerInGame p2;
 	private Disk[][] grid;
 
 	// private PlayerEvent lastPlayerEvent;
+	private boolean gameStarted = false;
 	private boolean gameStopped = false;
 	private boolean gameWon = false;
 
@@ -38,6 +47,7 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		super();
 		setPlayer1(p1, color, t);
 		grid = new Disk[height][width];
+		id = UUID.randomUUID().toString();
 	}
 
 	@Override
@@ -194,9 +204,56 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		p1.setTurn(p2.getTurn());
 		p2.setTurn(p);
 	}
-	
+
 	@Override
 	public String getId() {
 		return id;
 	}
+
+	@Override
+	public GameEvent start() throws GameNotProperlyInitializedException {
+		if (gameStarted)
+			throw new GameNotProperlyInitializedException(
+					"Game already started !");
+		boolean sizeGame = getHeight() < 4 && getWidth() < 4;
+		boolean enoughPlayers = p1 != null && p2 != null;
+		if (!sizeGame || !enoughPlayers)
+			throw new GameNotProperlyInitializedException(
+					"Game not properly initialized !");
+		return factory.createStartEvent(this, playerNotToPlay(),
+				playerNotToPlay());
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BasicGame other = (BasicGame) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "BasicGame [id=" + id + ", p1=" + p1 + ", p2=" + p2
+				+ ", gameStarted=" + gameStarted + ", gameStopped="
+				+ gameStopped + ", gameWon=" + gameWon + "]";
+	}
+
 }

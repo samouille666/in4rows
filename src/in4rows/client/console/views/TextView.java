@@ -1,10 +1,10 @@
 package in4rows.client.console.views;
 
-import in4rows.client.view.abstractviews.InfoView;
+import in4rows.client.view.abstractviews.AbstractTextView;
 
-public class ChoicesView extends InfoView {
+public class TextView extends AbstractTextView {
 
-	public ChoicesView(String info) {
+	public TextView(String info) {
 		super(info);
 	}
 

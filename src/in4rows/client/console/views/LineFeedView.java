@@ -1,8 +1,8 @@
 package in4rows.client.console.views;
 
-import in4rows.client.view.abstractviews.InfoView;
+import in4rows.client.view.abstractviews.AbstractTextView;
 
-public class LineFeedView extends InfoView {
+public class LineFeedView extends AbstractTextView {
 
 	public LineFeedView(String info) {
 		super("");

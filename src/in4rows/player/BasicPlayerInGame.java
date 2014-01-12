@@ -22,11 +22,6 @@ public class BasicPlayerInGame implements Player, PlayerInGame {
 		return p.getId();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see in4rows.player.PLayerInGame#getColor()
-	 */
 	@Override
 	public Disk getColor() {
 		return color;
@@ -36,11 +31,6 @@ public class BasicPlayerInGame implements Player, PlayerInGame {
 		this.color = color;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see in4rows.player.PLayerInGame#getTurn()
-	 */
 	@Override
 	public PlayerTurn getTurn() {
 		return turn;
@@ -87,6 +77,5 @@ public class BasicPlayerInGame implements Player, PlayerInGame {
 			return false;
 		return true;
 	}
-	
-	
+
 }

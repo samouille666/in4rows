@@ -1,15 +1,21 @@
 package in4rows.client;
 
+import java.util.List;
+
 import in4rows.IController;
 import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.view.composite.IView;
+import in4rows.event.GameEvent;
 import in4rows.exception.ExistingPlayerException;
+import in4rows.exception.GameNotProperlyInitializedException;
+import in4rows.game.GameObserver;
 import in4rows.game.ObservableGame;
+import in4rows.model.GameReadable;
 import in4rows.player.Player;
 import in4rows.player.PlayerType;
 
 public class In4RowsClientProxyController implements IClientController,
-		IController {
+		IController, GameObserver{
 	private IController distantController;
 
 	private ClientFactory factory;
@@ -18,11 +24,13 @@ public class In4RowsClientProxyController implements IClientController,
 	private IView screen1Error = null;
 	private IView registerPLayer = null;
 	private IView registerPLayerError = null;
+	private IView gameView = null;
 
 	private String screen1UserInput;
 	private String playerName;
-	
+
 	private Player playingPlayer;
+	private GameReadable openGame;
 
 	public In4RowsClientProxyController(ClientFactory f) {
 		factory = f;
@@ -97,19 +105,36 @@ public class In4RowsClientProxyController implements IClientController,
 
 	private void registerPlayer() {
 		registerPLayer.display();
-		while (! isPlayerRegister()) {
+		while (!isPlayerRegister()) {
 			registerPLayerError.display();
 		}
-		System.out.println(playingPlayer);
 	}
 
+	private void play(){
+		//openGame = openGame(playingPlayer, null);
+	}
+
+	@Override
+	public void update(GameReadable gr, GameEvent e) {
+		
+		
+	}
+	
 	public void setFactory(ClientFactory factory) {
 		this.factory = factory;
 	}
 
 	@Override
-	public ObservableGame openGame(PlayerType p1, PlayerType p2) {
-		return distantController.openGame(p1, p2);
+	public ObservableGame openGame(Player p1, List<GameObserver> l)
+			throws GameNotProperlyInitializedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public ObservableGame openGame(Player p1, Player p2, List<GameObserver> l)
+			throws GameNotProperlyInitializedException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -121,5 +146,5 @@ public class In4RowsClientProxyController implements IClientController,
 	public void setDistantController(IController distantController) {
 		this.distantController = distantController;
 	}
-		
+
 }

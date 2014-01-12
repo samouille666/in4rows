@@ -26,9 +26,9 @@ public class TestGameEvent {
 
 	@Test
 	public void testGameEvent() {
-		BasicGameEvent bge = new BasicGameEvent(Type.START, new BasicMove(0),
-				"start", p1, p2);
-		BasicGameEvent expectedBge = new BasicGameEvent(Type.START,
+		BasicGameEvent bge = new BasicGameEvent(Type.START, null,
+				new BasicMove(0), "start", p1, p2);
+		BasicGameEvent expectedBge = new BasicGameEvent(Type.START, null,
 				new BasicMove(0), "start", p1, p2);
 		Assert.assertEquals("event not equals", expectedBge, bge);
 	}

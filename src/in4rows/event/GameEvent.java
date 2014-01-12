@@ -1,5 +1,6 @@
 package in4rows.event;
 
+import in4rows.model.GameReadable;
 import in4rows.model.Move;
 import in4rows.player.Player;
 
@@ -18,4 +19,6 @@ public interface GameEvent {
 	public Player getPlayerToPlay();
 	
 	public Player getOpponent();
+	
+	public GameReadable getGame();
 }

@@ -6,6 +6,7 @@ import in4rows.event.EventWorker;
 import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
 import in4rows.exception.ErroneousPlayerEventException;
+import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.model.Disk;
 import in4rows.model.GameRW;
 import in4rows.model.GameReadable;
@@ -124,10 +125,16 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 	public PlayerInGame getP2() {
 		return g.getP2();
 	}
-	
+
 	@Override
 	public String getId() {
 		return g.getId();
 	}
 
+	@Override
+	public GameEvent start() throws GameNotProperlyInitializedException {
+		GameEvent e = g.start();
+		notifyObs(e);
+		return e;
+	}
 }
