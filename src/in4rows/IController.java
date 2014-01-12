@@ -1,5 +1,6 @@
 package in4rows;
 
+import in4rows.event.PlayerEvent;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
@@ -21,5 +22,7 @@ public interface IController {
 
 	public Player createPlayer(PlayerType t, String id)
 			throws ExistingPlayerException;
+	
+	public void playMove(PlayerEvent e);
 
 }

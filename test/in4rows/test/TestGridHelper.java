@@ -9,13 +9,12 @@ import static in4rows.helper.GridHelper.countUp;
 import static in4rows.helper.GridHelper.firstDiskInColFromUp;
 import static in4rows.helper.GridHelper.firstInCol_ModeCol;
 import static in4rows.helper.GridHelper.firstInGame_ModeCol;
-import in4rows.event.BasicPlayerEvent;
+import in4rows.In4RowsServerFactory;
+import in4rows.PlayerEventFactory;
 import in4rows.event.PlayerEvent;
-import in4rows.event.PlayerEvent.Type;
 import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.game.BasicGame;
 import in4rows.helper.GridHelper;
-import in4rows.model.BasicMove;
 import in4rows.model.BasicVertex;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
@@ -37,11 +36,15 @@ import org.junit.Test;
 public class TestGridHelper {
 	Player p1;
 	Player p2;
+	In4RowsServerFactory f;
 
 	@Before
 	public void setup() {
 		p1 = new BasicPlayer("p1", PlayerType.HUMAN);
 		p2 = new BasicPlayer("p2", PlayerType.MACHINE);
+
+		f = new In4RowsServerFactory();
+		f.setPlayerEventFactory(new PlayerEventFactory());
 	}
 
 	@Test
@@ -166,19 +169,19 @@ public class TestGridHelper {
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
 		g.setPlayer2(p2);
 
-		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
-				"one move", p1);
+		PlayerEvent e = f.createPlayerMoveEvent(g, p1, f.createMove(0),
+				"one move");
 		g.play(e);
 		Assert.assertEquals("not v(0,0) !", new BasicVertex(0, 0),
 				firstDiskInColFromUp(g, 0));
 
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(0), "one move");
 		g.play(e);
 
 		Assert.assertEquals("not v(1,0) !", new BasicVertex(1, 0),
 				firstDiskInColFromUp(g, 0));
 
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
 		g.play(e);
 		Assert.assertEquals("not v(2,0) !", new BasicVertex(2, 0),
 				firstDiskInColFromUp(g, 0));

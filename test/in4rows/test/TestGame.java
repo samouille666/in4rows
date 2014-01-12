@@ -1,11 +1,10 @@
 package in4rows.test;
 
-import in4rows.event.BasicPlayerEvent;
+import in4rows.In4RowsServerFactory;
+import in4rows.PlayerEventFactory;
 import in4rows.event.PlayerEvent;
-import in4rows.event.PlayerEvent.Type;
 import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.game.BasicGame;
-import in4rows.model.BasicMove;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
 import in4rows.model.GameWritable;
@@ -25,11 +24,15 @@ public class TestGame {
 
 	Player p1;
 	Player p2;
+	In4RowsServerFactory f;
 
 	@Before
 	public void setup() {
 		p1 = new BasicPlayer("p1", PlayerType.HUMAN);
 		p2 = new BasicPlayer("p2", PlayerType.MACHINE);
+
+		f = new In4RowsServerFactory();
+		f.setPlayerEventFactory(new PlayerEventFactory());
 	}
 
 	@Test
@@ -45,8 +48,10 @@ public class TestGame {
 	@Test(expected = ErroneousPlayerEventException.class)
 	public void testBasicGame_03() throws ErroneousPlayerEventException {
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
-		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
-				"one move", p1);
+
+		PlayerEvent e = f.createPlayerMoveEvent(g, p1, f.createMove(0),
+				"one move");
+
 		g.play(e);
 	}
 
@@ -57,9 +62,9 @@ public class TestGame {
 		g.setPlayer2(p2);
 
 		Player outsider = new BasicPlayer("outsider", PlayerType.HUMAN);
+		PlayerEvent e = f.createPlayerMoveEvent(g, outsider, f.createMove(0),
+				"one move");
 
-		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
-				"one move", outsider);
 		g.play(e);
 	}
 
@@ -68,9 +73,12 @@ public class TestGame {
 
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
 		g.setPlayer2(p2);
-		PlayerEvent e = new BasicPlayerEvent(Type.END, null, null, p2);
+
+		PlayerEvent e = f.createPlayerEndEvent(g, p2, null);
+
 		g.play(e);
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
+
 		g.play(e);
 	}
 
@@ -80,18 +88,19 @@ public class TestGame {
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
 		g.setPlayer2(p2);
 
-		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
-				"one move", p1);
+		PlayerEvent e = f.createPlayerMoveEvent(g, p1, f.createMove(0),
+				"one move");
+
 		g.play(e);
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(0), "one move");
 		g.play(e);
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
 		g.play(e);
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(0), "one move");
 		g.play(e);
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
 		g.play(e);
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(0), "one move");
 		g.play(e);
 	}
 
@@ -101,8 +110,8 @@ public class TestGame {
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
 		g.setPlayer2(p2);
 
-		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(7),
-				"one move", p1);
+		PlayerEvent e = f.createPlayerMoveEvent(g, p2, f.createMove(0),
+				"one move");
 		g.play(e);
 	}
 
@@ -111,32 +120,32 @@ public class TestGame {
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
 		g.setPlayer2(p2);
 
-		PlayerEvent e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0),
-				"one move", p1);
+		PlayerEvent e = f.createPlayerMoveEvent(g, p1, f.createMove(0),
+				"one move");
 		g.play(e);
 		Assert.assertFalse("not equal", g.isWon());
 		Assert.assertFalse("not equal", g.isStopped());
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(1), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(1), "one move");
 		g.play(e);
 		Assert.assertFalse("not equal", g.isWon());
 		Assert.assertFalse("not equal", g.isStopped());
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
 		g.play(e);
 		Assert.assertFalse("not equal", g.isWon());
 		Assert.assertFalse("not equal", g.isStopped());
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(1), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(1), "one move");
 		g.play(e);
 		Assert.assertFalse("not equal", g.isWon());
 		Assert.assertFalse("not equal", g.isStopped());
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
 		g.play(e);
 		Assert.assertFalse("not equal", g.isWon());
 		Assert.assertFalse("not equal", g.isStopped());
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(1), "one move", p2);
+		e = f.createPlayerMoveEvent(g, p2, f.createMove(1), "one move");
 		g.play(e);
 		Assert.assertFalse("not equal", g.isWon());
 		Assert.assertFalse("not equal", g.isStopped());
-		e = new BasicPlayerEvent(Type.MOVE, new BasicMove(0), "one move", p1);
+		e = f.createPlayerMoveEvent(g, p1, f.createMove(0), "one move");
 		g.play(e);
 
 		Assert.assertTrue("not equal", g.isWon());

@@ -1,5 +1,6 @@
 package in4rows;
 
+import in4rows.event.PlayerEvent;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
@@ -61,6 +62,12 @@ public class ServerController implements IController {
 
 	public void setFactory(In4RowsFactory factory) {
 		this.factory = factory;
+	}
+	
+	@Override
+	public void playMove(PlayerEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

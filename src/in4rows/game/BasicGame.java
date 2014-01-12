@@ -138,8 +138,8 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		if (p2 == null)
 			throw new ErroneousPlayerEventException("No player 2 registered !");
 
-		if (!evt.getPlayer().getId().equals(p1.getId())
-				&& !evt.getPlayer().getId().equals(p2.getId()))
+		if (!evt.getPlayerId().equals(p1.getId())
+				&& !evt.getPlayerId().equals(p2.getId()))
 			throw new ErroneousPlayerEventException("Unknown player.");
 
 		if (PlayerEvent.Type.END.equals(evt.getType())) {
@@ -150,9 +150,9 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		if (gameStopped)
 			throw new ErroneousPlayerEventException("Game stopped.");
 
-		if (!evt.getPlayer().getId().equals(playerToPlay().getId()))
+		if (!evt.getPlayerId().equals(playerToPlay().getId()))
 			throw new ErroneousPlayerEventException("Not player "
-					+ evt.getPlayer().getId() + " to play.");
+					+ evt.getPlayerId() + " to play.");
 
 		if (evt.getMove().getCol() < 0 || evt.getMove().getCol() >= getWidth())
 			throw new ErroneousPlayerEventException("Erroneous move.");
@@ -214,13 +214,17 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		if (gameStarted)
 			throw new GameNotProperlyInitializedException(
 					"Game already started !");
-		boolean sizeGame = getHeight() < 4 && getWidth() < 4;
+		boolean sizeGame = getHeight() > 4 && getWidth() > 4;
 		boolean enoughPlayers = p1 != null && p2 != null;
 		if (!sizeGame || !enoughPlayers)
 			throw new GameNotProperlyInitializedException(
 					"Game not properly initialized !");
-		return factory.createStartEvent(this, playerNotToPlay(),
+		return factory.createStartEvent(this, playerToPlay(),
 				playerNotToPlay());
+	}
+
+	public void setFactory(In4RowsServerFactory factory) {
+		this.factory = factory;
 	}
 
 	@Override

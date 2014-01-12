@@ -130,7 +130,9 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 	@Override
 	public GameEvent start() throws GameNotProperlyInitializedException {
 		GameEvent e = g.start();
+		setChanged();
 		notifyObs(e);
 		return e;
 	}
+
 }

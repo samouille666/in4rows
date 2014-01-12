@@ -41,7 +41,7 @@ public class GameSession implements IGameSession, GameObserver {
 		screen1 = factory.createStartingScreen(this);
 		screen1Error = factory.createStartingScreenError(this);
 		registerPLayer = factory.createInputPlayerScreen(this);
-		registerPLayer = factory.createInputPlayerScreenError(this);
+		registerPLayerError = factory.createInputPlayerScreenError(this);
 		gameView = factory.createBoardView(this);
 	}
 

@@ -60,4 +60,59 @@ public class BasicGameEvent implements GameEvent {
 				+ ", toPlay=" + toPlay + ", opponent=" + opponent + ", game="
 				+ game + "]";
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((game == null) ? 0 : game.hashCode());
+		result = prime * result + ((m == null) ? 0 : m.hashCode());
+		result = prime * result + ((msg == null) ? 0 : msg.hashCode());
+		result = prime * result
+				+ ((opponent == null) ? 0 : opponent.hashCode());
+		result = prime * result + ((toPlay == null) ? 0 : toPlay.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BasicGameEvent other = (BasicGameEvent) obj;
+		if (game == null) {
+			if (other.game != null)
+				return false;
+		} else if (!game.equals(other.game))
+			return false;
+		if (m == null) {
+			if (other.m != null)
+				return false;
+		} else if (!m.equals(other.m))
+			return false;
+		if (msg == null) {
+			if (other.msg != null)
+				return false;
+		} else if (!msg.equals(other.msg))
+			return false;
+		if (opponent == null) {
+			if (other.opponent != null)
+				return false;
+		} else if (!opponent.equals(other.opponent))
+			return false;
+		if (toPlay == null) {
+			if (other.toPlay != null)
+				return false;
+		} else if (!toPlay.equals(other.toPlay))
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
+	}
+	
+	
 }

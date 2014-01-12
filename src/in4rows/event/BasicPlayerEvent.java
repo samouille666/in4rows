@@ -1,21 +1,23 @@
 package in4rows.event;
 
 import in4rows.model.Move;
-import in4rows.player.Player;
 
 public class BasicPlayerEvent implements PlayerEvent {
 
 	private PlayerEvent.Type t = null;
 	private Move m = null;
 	private String msg = null;
-	private Player p = null;
+	private String pId = null;
+	private String gameId = null;
 
-	public BasicPlayerEvent(Type t, Move m, String msg, Player p) {
+	public BasicPlayerEvent(Type t, Move m, String msg, String pId,
+			String gameId) {
 		super();
 		this.t = t;
 		this.m = m;
 		this.msg = msg;
-		this.p = p;
+		this.pId = pId;
+		this.gameId = gameId;
 	}
 
 	@Override
@@ -34,17 +36,29 @@ public class BasicPlayerEvent implements PlayerEvent {
 	}
 
 	@Override
-	public Player getPlayer() {
-		return p;
+	public String getPlayerId() {
+		return pId;
+	}
+
+	@Override
+	public String getGameId() {
+		return gameId;
+	}
+
+	@Override
+	public String toString() {
+		return "BasicPlayerEvent [t=" + t + ", m=" + m + ", msg=" + msg
+				+ ", pId=" + pId + ", gameId=" + gameId + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((gameId == null) ? 0 : gameId.hashCode());
 		result = prime * result + ((m == null) ? 0 : m.hashCode());
 		result = prime * result + ((msg == null) ? 0 : msg.hashCode());
-		result = prime * result + ((p == null) ? 0 : p.hashCode());
+		result = prime * result + ((pId == null) ? 0 : pId.hashCode());
 		result = prime * result + ((t == null) ? 0 : t.hashCode());
 		return result;
 	}
@@ -58,6 +72,11 @@ public class BasicPlayerEvent implements PlayerEvent {
 		if (getClass() != obj.getClass())
 			return false;
 		BasicPlayerEvent other = (BasicPlayerEvent) obj;
+		if (gameId == null) {
+			if (other.gameId != null)
+				return false;
+		} else if (!gameId.equals(other.gameId))
+			return false;
 		if (m == null) {
 			if (other.m != null)
 				return false;
@@ -68,20 +87,14 @@ public class BasicPlayerEvent implements PlayerEvent {
 				return false;
 		} else if (!msg.equals(other.msg))
 			return false;
-		if (p == null) {
-			if (other.p != null)
+		if (pId == null) {
+			if (other.pId != null)
 				return false;
-		} else if (!p.equals(other.p))
+		} else if (!pId.equals(other.pId))
 			return false;
 		if (t != other.t)
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "BasicPlayerEvent [t=" + t + ", m=" + m + ", msg=" + msg
-				+ ", p=" + p + "]";
 	}
 
 }
