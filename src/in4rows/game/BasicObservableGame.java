@@ -9,8 +9,6 @@ import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.model.Disk;
 import in4rows.model.GameRW;
-import in4rows.model.GameReadable;
-import in4rows.model.GameWritable;
 import in4rows.player.Player;
 import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerTurn;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BasicObservableGame implements ObservableGame, Dispatchable,
-		GameReadable, GameWritable {
+		GameRW {
 
 	private EventDispatcher dispatcher;
 	// we just want the observer to be able to read the game
@@ -91,9 +89,7 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 
 	@Override
 	public void attachObs(GameObserver o) {
-		synchronized (observers) {
-			observers.add(o);
-		}
+		observers.add(o);
 	}
 
 	@Override

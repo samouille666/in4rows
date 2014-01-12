@@ -42,6 +42,11 @@ public class BasicPlayerInGame implements Player, PlayerInGame {
 	}
 
 	@Override
+	public PlayerType getType() {
+		return p.getType();
+	}
+	
+	@Override
 	public String toString() {
 		return "BasicPlayerInGame [p=" + p + ", color=" + color + ", turn="
 				+ turn + "]";

@@ -10,9 +10,6 @@ import static in4rows.helper.GridHelper.deepCopy;
 import static in4rows.helper.GridHelper.firstDiskInColFromUp;
 import static in4rows.helper.GridHelper.firstInCol_ModeCol;
 import static in4rows.helper.GridHelper.firstInGame_ModeCol;
-
-import java.util.UUID;
-
 import in4rows.In4RowsServerFactory;
 import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
@@ -28,6 +25,8 @@ import in4rows.player.BasicPlayerInGame;
 import in4rows.player.Player;
 import in4rows.player.PlayerInGame;
 import in4rows.player.PlayerTurn;
+
+import java.util.UUID;
 
 public class BasicGame implements GameRW, GameReadable, GameWritable {
 	private In4RowsServerFactory factory;

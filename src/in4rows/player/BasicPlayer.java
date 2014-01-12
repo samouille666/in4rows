@@ -15,6 +15,7 @@ public class BasicPlayer implements Player {
 		return id;
 	}
 
+	@Override
 	public PlayerType getType() {
 		return type;
 	}

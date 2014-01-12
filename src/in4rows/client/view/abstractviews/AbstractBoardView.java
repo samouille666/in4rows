@@ -1,26 +1,28 @@
 package in4rows.client.view.abstractviews;
 
-import in4rows.client.graphical.Board;
-import in4rows.client.view.composite.IView;
+import in4rows.client.graphical.decorator.IGraphicalComponent;
+import in4rows.client.view.composite.IBoardView;
 
-public abstract class AbstractBoardView implements IView {
+public abstract class AbstractBoardView implements IBoardView {
 
-	private Board board;
+	private IGraphicalComponent board;
 
 	public AbstractBoardView() {
-
+		this(null);
 	}
-	
+
+	public AbstractBoardView(IGraphicalComponent board) {
+		super();
+		this.board = board;
+	}
+
 	@Override
 	public void display() {
 		board.draw();
 	}
 
-	public AbstractBoardView(Board board) {
-		this.board = board;
-	}
-
-	public void setBoard(Board board) {
+	@Override
+	public void setBoard(IGraphicalComponent board) {
 		this.board = board;
 	}
 

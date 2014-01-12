@@ -8,21 +8,23 @@ import in4rows.game.BasicObservableGame;
 import in4rows.game.ObservableGame;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
-import in4rows.model.Move;
+import in4rows.player.BasicComputerPlayer;
 import in4rows.player.BasicPlayer;
+import in4rows.player.ComputerPlayer;
 import in4rows.player.Player;
 import in4rows.player.PlayerTurn;
 import in4rows.player.PlayerType;
+import in4rows.player.strategy.AgressiveStrategy;
+import in4rows.player.strategy.AverageStrategy;
+import in4rows.player.strategy.BasicStrategy;
+import in4rows.player.strategy.ExperimentedStrategy;
+import in4rows.player.strategy.GameStrategy;
+import in4rows.player.strategy.GameStrategy.Type;
+import in4rows.player.strategy.NaiveStrategy;
 
 public class In4RowsServerFactory implements In4RowsFactory {
 
 	private EventDispatcher dispatcher;
-
-	@Override
-	public Move createMove(int col) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Player createHumanPlayer(PlayerType type, String identifier) {
@@ -65,5 +67,28 @@ public class In4RowsServerFactory implements In4RowsFactory {
 				+ toPlay.getId() + " to play.";
 		return new BasicGameEvent(GameEvent.Type.START, g, null, msg, toPlay,
 				opponent);
+	}
+
+	@Override
+	public GameStrategy createStrategy(Type t) {
+		switch (t) {
+		case AGRESSIVE:
+			return new AgressiveStrategy();
+		case AVERAGE:
+			return new AverageStrategy();
+		case BASIC:
+			return new BasicStrategy();
+		case EXPERIMENTED:
+			return new ExperimentedStrategy();
+		case NAIVE:
+			return new NaiveStrategy();
+		default:
+			return new BasicStrategy();
+		}
+	}
+
+	@Override
+	public ComputerPlayer createMachinePlayer(Type t) {
+		return new BasicComputerPlayer(String.valueOf(t), createStrategy(t));
 	}
 }

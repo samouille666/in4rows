@@ -13,27 +13,34 @@
 	<!-- </bean> -->
 
 	<bean id="clientfactory" class="in4rows.client.console.factory.ClientFactory"
-		scope="singleton"/>
-
-
-	<bean id="clientcontroller" class="in4rows.client.In4RowsClientProxyController"
-		scope="singleton">
-		<constructor-arg ref="clientfactory"/>
-		<property name="distantController" ref="servercontroller" />
-	</bean>
-
-	<bean id="consoleclient" class="in4rows.client.console.ConsoleClient">
-		<property name="controller" ref="clientcontroller" />
-	</bean>
+		scope="singleton" />
 
 	<bean id="serverfactory" class="in4rows.In4RowsServerFactory"
-		scope="singleton"/>
-
+		scope="singleton" />
 
 	<bean id="servercontroller" class="in4rows.ServerController"
 		scope="singleton">
 		<property name="factory" ref="serverfactory" />
 	</bean>
+
+	<bean id="gamesession" class="in4rows.client.console.GameSession"
+		scope="singleton">
+		<constructor-arg ref="clientfactory" />
+		<constructor-arg ref="clientcontroller" />
+	</bean>
+
+
+	<bean id="clientcontroller" class="in4rows.client.In4RowsClientProxyController"
+		scope="singleton">
+		<constructor-arg ref="servercontroller" />
+	</bean>
+
+	<bean id="consoleclient" class="in4rows.client.console.ConsoleClient">
+		<property name="gameSession" ref="gamesession" />
+	</bean>
+
+
+
 
 
 </beans>

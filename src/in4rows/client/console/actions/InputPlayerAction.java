@@ -1,23 +1,16 @@
 package in4rows.client.console.actions;
 
-import in4rows.client.IClientController;
+import in4rows.client.IGameSession;
 
-public class InputPlayerAction implements Action {
+public class InputPlayerAction extends Action<String> {
 
-	IClientController controller;
-
-	public InputPlayerAction(IClientController controller) {
-		super();
-		this.controller = controller;
+	public InputPlayerAction(IGameSession controller) {
+		super(controller);
 	}
 
 	@Override
 	public void performAction(String input) {
 		controller.setInputPlayer(input);
-	}
-
-	public void setController(IClientController controller) {
-		this.controller = controller;
 	}
 
 }
