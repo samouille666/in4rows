@@ -35,4 +35,10 @@ public class BasicComputerPlayer implements ComputerPlayer {
 	public Move getMove(GameReadable g, Disk colorToPlay) {
 		return strategy.getMove(g, colorToPlay);
 	}
+
+	@Override
+	public String toString() {
+		return "BasicComputerPlayer [id=" + id + ", strategy=" + strategy + "]";
+	}
+
 }

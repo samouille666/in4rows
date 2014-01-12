@@ -88,6 +88,7 @@ public class GameSession implements IGameSession, GameObserver {
 		switch (choice) {
 		case 1:
 			registerPlayer();
+			play();
 			break;
 		case 2:
 
@@ -145,8 +146,7 @@ public class GameSession implements IGameSession, GameObserver {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
-		// TODO Auto-generated method stub
-
+		System.out.println(e);
 	}
 
 }

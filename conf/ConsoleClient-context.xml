@@ -23,7 +23,8 @@
 		<property name="factory" ref="serverfactory" />
 	</bean>
 
-	<bean id="gamesession" class="in4rows.client.GameSession" scope="singleton">
+	<bean id="gamesession" class="in4rows.client.console.GameSession"
+		scope="singleton">
 		<constructor-arg ref="clientfactory" />
 		<constructor-arg ref="clientcontroller" />
 	</bean>
@@ -31,11 +32,15 @@
 
 	<bean id="clientcontroller" class="in4rows.client.In4RowsClientProxyController"
 		scope="singleton">
-		<property name="distantController" ref="servercontroller" />
+		<constructor-arg ref="servercontroller" />
 	</bean>
 
 	<bean id="consoleclient" class="in4rows.client.console.ConsoleClient">
-		<property name="gamesession" ref="gamesession" />
+		<property name="gameSession" ref="gamesession" />
 	</bean>
+
+
+
+
 
 </beans>

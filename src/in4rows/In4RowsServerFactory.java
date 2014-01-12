@@ -26,6 +26,10 @@ public class In4RowsServerFactory implements In4RowsFactory {
 
 	private EventDispatcher dispatcher;
 
+	public void setDispatcher(EventDispatcher dispatcher) {
+		this.dispatcher = dispatcher;
+	}
+
 	@Override
 	public Player createHumanPlayer(PlayerType type, String identifier) {
 		return new BasicPlayer(identifier, type);

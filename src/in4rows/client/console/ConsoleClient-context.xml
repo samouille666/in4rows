@@ -12,11 +12,16 @@
 	<!-- additional collaborators and configuration for this bean go here -->
 	<!-- </bean> -->
 
+	<bean id="eventdispatcher" class="in4rows.event.EventDispatcher"
+		scope="singleton" />
+
 	<bean id="clientfactory" class="in4rows.client.console.factory.ClientFactory"
 		scope="singleton" />
 
 	<bean id="serverfactory" class="in4rows.In4RowsServerFactory"
-		scope="singleton" />
+		scope="singleton">
+		<property name="dispatcher" ref="eventdispatcher" />
+	</bean>
 
 	<bean id="servercontroller" class="in4rows.ServerController"
 		scope="singleton">

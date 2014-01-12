@@ -22,9 +22,9 @@ public class ServerController implements IController {
 	private Map<GameStrategy.Type, Player> computerPlayers = new HashMap<>();
 
 	@Override
-	public void openGame(Player p1, Type strategyType,
-			List<GameObserver> l) throws GameNotProperlyInitializedException {
-		
+	public void openGame(Player p1, Type strategyType, List<GameObserver> l)
+			throws GameNotProperlyInitializedException {
+
 		if (p1 == null || strategyType == null || l == null || l.isEmpty())
 			throw new GameNotProperlyInitializedException(
 					"Parameter(s) to open game not consistent.");
@@ -39,8 +39,8 @@ public class ServerController implements IController {
 		for (GameObserver o : l)
 			g.attachObs(o);
 		games.put(g.getId(), g);
-
-		//return games.get(g.getId());
+		
+		g.start();
 	}
 
 	@Override

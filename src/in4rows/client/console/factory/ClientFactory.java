@@ -66,7 +66,6 @@ public class ClientFactory {
 		inputPlayerIdScreen.addView(new TextView(
 				"*******************************************"));
 		inputPlayerIdScreen.addView(new TextView("Enter your player name : "));
-		inputPlayerIdScreen.addView(new LineFeedView(""));
 		UserInputView input = new UserInputView();
 		InputPlayerAction action = new InputPlayerAction(session);
 		input.setAction(action);
@@ -87,7 +86,6 @@ public class ClientFactory {
 		inputPlayerIdScreenError.addView(new LineFeedView(""));
 		inputPlayerIdScreenError.addView(new TextView(
 				"Enter your player name : "));
-		inputPlayerIdScreenError.addView(new LineFeedView(""));
 		UserInputView input = new UserInputView();
 		InputPlayerAction action = new InputPlayerAction(session);
 		input.setAction(action);
