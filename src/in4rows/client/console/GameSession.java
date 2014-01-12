@@ -35,7 +35,9 @@ public class GameSession implements IGameSession, GameObserver {
 	private Integer move;
 
 	public GameSession(ClientFactory f, IController controller) {
-		factory = f;
+		setFactory(f);
+		setController(controller);
+		
 		screen1 = factory.createStartingScreen(this);
 		screen1Error = factory.createStartingScreenError(this);
 		registerPLayer = factory.createInputPlayerScreen(this);
