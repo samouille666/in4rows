@@ -46,7 +46,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
-		if (localPlayer.getId().equals(e.getPlayerToPlay().getId()))
+		if (!localPlayer.getId().equals(e.getPlayerToPlay().getId()))
 			return;
 
 		if (GameEvent.Type.WIN.equals(e.getType())

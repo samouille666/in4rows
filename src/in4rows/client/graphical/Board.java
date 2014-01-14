@@ -5,6 +5,7 @@ import in4rows.client.graphical.border.vert.VerticalBorder;
 import in4rows.client.graphical.border.vert.VerticalBorder1;
 import in4rows.client.graphical.decorator.EmptyComponent;
 import in4rows.client.graphical.decorator.IGraphicalComponent;
+import in4rows.client.graphical.disk.DiskEmpty;
 import in4rows.client.graphical.disk.DiskO;
 import in4rows.client.graphical.disk.DiskX;
 import in4rows.client.graphical.separator.Separator;
@@ -17,6 +18,7 @@ public class Board implements IGraphicalComponent {
 
 	private IGraphicalComponent diskO = new DiskO();
 	private IGraphicalComponent diskX = new DiskX();
+	private IGraphicalComponent diskEmpty = new DiskEmpty();
 	private IGraphicalComponent side = new VerticalBorder1(new VerticalBorder(
 			new EmptyComponent()));
 	private IGraphicalComponent separator = new Separator1(new Separator());
@@ -25,7 +27,7 @@ public class Board implements IGraphicalComponent {
 	public Board() {
 		this(null);
 	}
-	
+
 	public Board(Disk[][] grid) {
 		super();
 		this.grid = grid;
@@ -57,7 +59,16 @@ public class Board implements IGraphicalComponent {
 	}
 
 	private IGraphicalComponent disk(Disk d) {
-		return Disk.BLACK.equals(d) ? diskO : diskX;
+		switch (d) {
+		case EMPTY:
+			return diskEmpty;
+		case BLACK:
+			return diskX;
+		case WHITE:
+			return diskO;
+		default:
+			return diskEmpty;
+		}
 	}
 
 	private void drawUpBorder() {

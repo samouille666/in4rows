@@ -46,8 +46,17 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 	public BasicGame(Player p1, Disk color, PlayerTurn t, int width, int height) {
 		super();
 		setPlayer1(p1, color, t);
-		grid = new Disk[height][width];
+		initGrid(height, width);
 		id = UUID.randomUUID().toString();
+	}
+
+	private void initGrid(int height, int width) {
+		grid = new Disk[height][width];
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				grid[i][j] = Disk.EMPTY;
+			}
+		}
 	}
 
 	@Override
@@ -187,7 +196,7 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		if (isWon(last)) {
 			gameStopped = true;
 			return new BasicGameEvent(GameEvent.Type.WIN, this, last, "",
-					playerToPlay(), playerNotToPlay());			
+					playerToPlay(), playerNotToPlay());
 		}
 
 		if (isDraw()) {
@@ -222,6 +231,7 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		if (!sizeGame || !enoughPlayers)
 			throw new GameNotProperlyInitializedException(
 					"Game not properly initialized !");
+		gameStarted = true;
 		return factory.createStartEvent(this);
 	}
 

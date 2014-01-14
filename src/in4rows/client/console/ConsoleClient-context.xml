@@ -15,8 +15,13 @@
 	<bean id="eventdispatcher" class="in4rows.event.EventDispatcher"
 		scope="singleton" />
 
-	<bean id="clientfactory" class="in4rows.client.console.factory.ClientFactory"
+	<bean id="playereventfactory" class="in4rows.PlayerEventFactory"
 		scope="singleton" />
+
+	<bean id="clientfactory" class="in4rows.client.console.factory.ClientFactory"
+		scope="singleton">
+		<property ref="playereventfactory" name="playerEventFactory" />
+	</bean>
 
 	<bean id="serverfactory" class="in4rows.In4RowsServerFactory"
 		scope="singleton">

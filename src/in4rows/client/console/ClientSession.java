@@ -9,7 +9,6 @@ import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.view.composite.IView;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
-import in4rows.model.GameReadable;
 import in4rows.player.Player;
 import in4rows.player.PlayerType;
 
@@ -26,9 +25,6 @@ public class ClientSession implements IClientSession {
 	private String playerName;
 
 	private Player currentPlayer;
-	private GameReadable openGame;
-	private boolean gameIsFinished;
-	private Integer move;
 
 	public ClientSession(ClientFactory f, IController controller) {
 		setFactory(f);
@@ -55,11 +51,6 @@ public class ClientSession implements IClientSession {
 	@Override
 	public void setInputPlayer(String playerId) {
 		this.playerName = playerId;
-	}
-
-	@Override
-	public void setMove(Integer move) {
-		this.move = move;
 	}
 
 	@Override

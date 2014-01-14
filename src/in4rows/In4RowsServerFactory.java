@@ -74,39 +74,43 @@ public class In4RowsServerFactory implements In4RowsFactory,
 	public GameEvent createStartEvent(GameReadable g) {
 		String msg = "Game " + g.getId() + " started. " + "Player "
 				+ g.playerToPlay().getId() + " to play.";
-		return new BasicGameEvent(GameEvent.Type.START, g, null, msg, g.playerToPlay(),
-				g.playerNotToPlay());
+		return new BasicGameEvent(GameEvent.Type.START, g, null, msg,
+				g.playerToPlay(), g.playerNotToPlay());
 	}
 
 	@Override
 	public GameEvent createEndEvent(GameReadable g) {
 		String msg = "Game ended.";
-		return new BasicGameEvent(GameEvent.Type.END, g, null, msg, g.playerToPlay(),
-				g.playerNotToPlay());
+		return new BasicGameEvent(GameEvent.Type.END, g, null, msg,
+				g.playerToPlay(), g.playerNotToPlay());
 	}
-	
-	
+
 	@Override
 	public GameStrategy createStrategy(Type t) {
 		switch (t) {
 		case NAIVE:
-			//return new NaiveStrategy();
+			// return new NaiveStrategy();
 		case EXPERIMENTED:
-			//return new ExperimentedStrategy();
+			// return new ExperimentedStrategy();
 		case AGRESSIVE:
-			//return new AgressiveStrategy();
+			// return new AgressiveStrategy();
 		case AVERAGE:
-			//return new AverageStrategy();
+			// return new AverageStrategy();
 		case BASIC:
-			//return new BasicStrategy();
+			// return new BasicStrategy();
 		default:
-			return new BasicStrategy();
+			BasicStrategy s = new BasicStrategy();
+			s.setFactory(this);
+			return s;
+			
 		}
 	}
 
 	@Override
-	public ComputerPlayer createMachinePlayer(Type t, IController controller, GameStopper s) {
-		BasicComputerPlayer p = new BasicComputerPlayer(String.valueOf(t), createStrategy(t));
+	public ComputerPlayer createMachinePlayer(Type t, IController controller,
+			GameStopper s) {
+		BasicComputerPlayer p = new BasicComputerPlayer(String.valueOf(t),
+				createStrategy(t));
 		p.setFactory(this);
 		p.setController(controller);
 		p.setGameStopper(s);

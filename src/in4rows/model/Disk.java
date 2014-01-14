@@ -6,6 +6,6 @@ package in4rows.model;
  */
 public enum Disk {
 
-	BLACK, WHITE
+	EMPTY, BLACK, WHITE
 
 }

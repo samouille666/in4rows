@@ -6,8 +6,6 @@ public interface IClientSession {
 
 	public void setInputPlayer(String playerId);
 
-	public void setMove(Integer move);
-
 	public void startApp();
 
 }
