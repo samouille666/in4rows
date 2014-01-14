@@ -1,22 +1,19 @@
 package in4rows.client.console;
 
 import in4rows.IController;
-import in4rows.client.IGameSession;
+import in4rows.client.IClientSession;
+import in4rows.client.console.actions.AbstractActionListener;
+import in4rows.client.console.actions.Action;
+import in4rows.client.console.actions.ActionListener;
 import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.view.composite.IView;
-import in4rows.event.GameEvent;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
-import in4rows.game.GameObserver;
 import in4rows.model.GameReadable;
 import in4rows.player.Player;
 import in4rows.player.PlayerType;
-import in4rows.player.strategy.GameStrategy.Type;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class GameSession implements IGameSession, GameObserver {
+public class ClientSession implements IClientSession {
 	private ClientFactory factory;
 	private IController controller;
 
@@ -24,25 +21,27 @@ public class GameSession implements IGameSession, GameObserver {
 	private IView screen1Error = null;
 	private IView registerPLayer = null;
 	private IView registerPLayerError = null;
-	private IView gameView = null;
 
 	private String screen1UserInput;
 	private String playerName;
 
-	private Player playingPlayer;
+	private Player currentPlayer;
 	private GameReadable openGame;
 	private boolean gameIsFinished;
 	private Integer move;
 
-	public GameSession(ClientFactory f, IController controller) {
+	public ClientSession(ClientFactory f, IController controller) {
 		setFactory(f);
 		setController(controller);
-		
-		screen1 = factory.createStartingScreen(this);
-		screen1Error = factory.createStartingScreenError(this);
-		registerPLayer = factory.createInputPlayerScreen(this);
-		registerPLayerError = factory.createInputPlayerScreenError(this);
-		gameView = factory.createBoardView(this);
+
+		Screen1ActionListener l1 = new Screen1ActionListener(this);
+		screen1 = factory.createStartingScreen(l1);
+		screen1Error = factory.createStartingScreenError(l1);
+
+		RegisterUserNameListener l2 = new RegisterUserNameListener(this);
+		registerPLayer = factory.createInputPlayerScreen(l2);
+		registerPLayerError = factory.createInputPlayerScreenError(l2);
+
 	}
 
 	public void setFactory(ClientFactory factory) {
@@ -101,6 +100,15 @@ public class GameSession implements IGameSession, GameObserver {
 		}
 	}
 
+	private void play() {
+		IMatch m = new ComputerHumanMatch(factory, controller, currentPlayer);
+		try {
+			m.init();
+		} catch (GameNotProperlyInitializedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private int userChoice1() {
 		Integer res = null;
 		try {
@@ -119,7 +127,7 @@ public class GameSession implements IGameSession, GameObserver {
 		} catch (ExistingPlayerException e) {
 			return false;
 		}
-		playingPlayer = registerPLayer;
+		currentPlayer = registerPLayer;
 		return true;
 	}
 
@@ -130,23 +138,39 @@ public class GameSession implements IGameSession, GameObserver {
 		}
 	}
 
-	private void play() {
-		List<GameObserver> lo = new ArrayList<>();
-		lo.add(this);
-		try {
-			controller.openGame(playingPlayer, Type.BASIC, lo);
-		} catch (GameNotProperlyInitializedException e) {
-			e.printStackTrace();
-			gameIsFinished = true;
+	public class InputTextAction extends Action<String> {
+		public InputTextAction(ActionListener<String> actionListener) {
+			super(actionListener);
 		}
 
-		while (!gameIsFinished)
-			;
+		public void performAction(String intput) {
+			actionListener.setInput(intput);
+		};
 	}
 
-	@Override
-	public void update(GameReadable gr, GameEvent e) {
-		System.out.println(e);
+	private class Screen1ActionListener extends AbstractActionListener<String> {
+
+		public Screen1ActionListener(IClientSession session) {
+			super(session);
+		}
+
+		@Override
+		public void setInput(String input) {
+			session.setScreen1UserInput(input);
+		}
+	}
+
+	private class RegisterUserNameListener extends
+			AbstractActionListener<String> {
+
+		public RegisterUserNameListener(IClientSession session) {
+			super(session);
+		}
+
+		@Override
+		public void setInput(String input) {
+			session.setInputPlayer(input);
+		}
 	}
 
 }

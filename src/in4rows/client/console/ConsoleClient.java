@@ -1,13 +1,13 @@
 package in4rows.client.console;
 
-import in4rows.client.IGameSession;
+import in4rows.client.IClientSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class ConsoleClient {
 
-	IGameSession session;
+	IClientSession session;
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class ConsoleClient {
 		session.startApp();
 	}
 
-	public void setGameSession(IGameSession gamesession) {
+	public void setClientSession(IClientSession gamesession) {
 		this.session = gamesession;
 	}
 

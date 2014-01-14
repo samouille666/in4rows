@@ -1,9 +1,8 @@
 package in4rows.client.console.factory;
 
 import in4rows.IPlayerEventFactory;
-import in4rows.client.IGameSession;
-import in4rows.client.console.actions.InputPlayerAction;
-import in4rows.client.console.actions.Screen1Action;
+import in4rows.client.console.actions.ActionListener;
+import in4rows.client.console.actions.InputTextAction;
 import in4rows.client.console.views.BasicViewContainer;
 import in4rows.client.console.views.CompositeBoardView;
 import in4rows.client.console.views.LineFeedView;
@@ -24,7 +23,8 @@ public class ClientFactory implements IPlayerEventFactory {
 		this.playerEventFactory = playerEventFactory;
 	}
 
-	public BasicViewContainer createStartingScreen(IGameSession session) {
+	public BasicViewContainer createStartingScreen(
+			ActionListener<String> actionListener) {
 
 		BasicViewContainer startingScreen = new BasicViewContainer();
 		startingScreen.addView(new TextView(
@@ -38,14 +38,15 @@ public class ClientFactory implements IPlayerEventFactory {
 		startingScreen.addView(new TextView(
 				"Input the number of corresponding to your choice:"));
 		UserInputView input = new UserInputView();
-		Screen1Action action = new Screen1Action(session);
+		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
 		startingScreen.addView(input);
 
 		return startingScreen;
 	}
 
-	public BasicViewContainer createStartingScreenError(IGameSession session) {
+	public BasicViewContainer createStartingScreenError(
+			ActionListener<String> actionListener) {
 
 		BasicViewContainer startingScreenError = new BasicViewContainer();
 		startingScreenError.addView(new TextView(
@@ -64,27 +65,28 @@ public class ClientFactory implements IPlayerEventFactory {
 		startingScreenError.addView(new TextView(
 				"Input the number of corresponding to your choice:"));
 		UserInputView input = new UserInputView();
-		Screen1Action action = new Screen1Action(session);
+		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
 		startingScreenError.addView(input);
 
 		return startingScreenError;
 	}
 
-	public BasicViewContainer createInputPlayerScreen(IGameSession session) {
+	public BasicViewContainer createInputPlayerScreen(ActionListener<String> actionListener) {
 		BasicViewContainer inputPlayerIdScreen = new BasicViewContainer();
 		inputPlayerIdScreen.addView(new TextView(
 				"*******************************************"));
 		inputPlayerIdScreen.addView(new TextView("Enter your player name : "));
 		UserInputView input = new UserInputView();
-		InputPlayerAction action = new InputPlayerAction(session);
+		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
 		inputPlayerIdScreen.addView(input);
 
 		return inputPlayerIdScreen;
 	}
 
-	public BasicViewContainer createInputPlayerScreenError(IGameSession session) {
+	public BasicViewContainer createInputPlayerScreenError(
+			ActionListener<String> actionListener) {
 
 		BasicViewContainer inputPlayerIdScreenError = new BasicViewContainer();
 		inputPlayerIdScreenError.addView(new TextView(
@@ -96,20 +98,26 @@ public class ClientFactory implements IPlayerEventFactory {
 		inputPlayerIdScreenError.addView(new TextView(
 				"Enter your player name : "));
 		UserInputView input = new UserInputView();
-		InputPlayerAction action = new InputPlayerAction(session);
+		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
 		inputPlayerIdScreenError.addView(input);
 
 		return inputPlayerIdScreenError;
 	}
 
-	public CompositeBoardView createBoardView(IGameSession session) {
+	public CompositeBoardView createBoardView(
+			ActionListener<String> actionListener) {
 		CompositeBoardView boardScreen = new CompositeBoardView();
 		boardScreen.addView(new TextView(
 				"*******************************************"));
 		boardScreen.addView(new LineFeedView(""));
 		boardScreen.setBoardView(new SimpleBoardView());
-
+		
+		UserInputView input = new UserInputView();
+		InputTextAction action = new InputTextAction(actionListener);
+		input.setAction(action);
+		boardScreen.addView(input);
+		
 		return boardScreen;
 	}
 

@@ -86,16 +86,16 @@ public class In4RowsServerFactory implements In4RowsFactory,
 	@Override
 	public GameStrategy createStrategy(Type t) {
 		switch (t) {
-		case AGRESSIVE:
-			return new AgressiveStrategy();
-		case AVERAGE:
-			return new AverageStrategy();
-		case BASIC:
-			return new BasicStrategy();
-		case EXPERIMENTED:
-			return new ExperimentedStrategy();
 		case NAIVE:
-			return new NaiveStrategy();
+			//return new NaiveStrategy();
+		case EXPERIMENTED:
+			//return new ExperimentedStrategy();
+		case AGRESSIVE:
+			//return new AgressiveStrategy();
+		case AVERAGE:
+			//return new AverageStrategy();
+		case BASIC:
+			//return new BasicStrategy();
 		default:
 			return new BasicStrategy();
 		}

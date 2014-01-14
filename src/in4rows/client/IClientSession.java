@@ -1,6 +1,6 @@
 package in4rows.client;
 
-public interface IGameSession {
+public interface IClientSession {
 
 	public void setScreen1UserInput(String screen1choice);
 

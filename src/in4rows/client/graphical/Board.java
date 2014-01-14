@@ -22,6 +22,10 @@ public class Board implements IGraphicalComponent {
 	private IGraphicalComponent separator = new Separator1(new Separator());
 	private IGraphicalComponent upside = new HorizontalBorder2();
 
+	public Board() {
+		this(null);
+	}
+	
 	public Board(Disk[][] grid) {
 		super();
 		this.grid = grid;

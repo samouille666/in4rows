@@ -28,7 +28,7 @@
 		<property name="factory" ref="serverfactory" />
 	</bean>
 
-	<bean id="gamesession" class="in4rows.client.console.GameSession"
+	<bean id="clientsession" class="in4rows.client.console.ClientSession"
 		scope="singleton">
 		<constructor-arg ref="clientfactory" />
 		<constructor-arg ref="clientcontroller" />
@@ -41,7 +41,7 @@
 	</bean>
 
 	<bean id="consoleclient" class="in4rows.client.console.ConsoleClient">
-		<property name="gameSession" ref="gamesession" />
+		<property name="clientSession" ref="clientsession" />
 	</bean>
 
 

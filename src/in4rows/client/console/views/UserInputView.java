@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class UserInputView extends AbstractUserInputView {
 
 	@Override
+	@SuppressWarnings("resource")
 	public void display() {
 		String sWhatever;
 		Scanner in = new Scanner(System.in);
@@ -15,9 +16,9 @@ public class UserInputView extends AbstractUserInputView {
 		action.performAction(sWhatever);
 	}
 
-	private Action action;
+	private Action<String> action;
 
-	public void setAction(Action action) {
+	public void setAction(Action<String> action) {
 		this.action = action;
 	}
 }
