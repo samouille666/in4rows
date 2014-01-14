@@ -10,6 +10,8 @@ public abstract class AbstractUserInputView implements IViewInput {
 	@Override
 	public abstract void display();
 
+	public abstract void setWorking(boolean w_r);
+	
 	@Override
 	public void setChoice(String choice) {
 		this.choice = choice;

@@ -81,7 +81,6 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 		if (GameEvent.Type.WIN.equals(e.getType())
 				|| GameEvent.Type.DRAW.equals(e.getType()))
 			finishGame();
-
 		return e;
 	}
 

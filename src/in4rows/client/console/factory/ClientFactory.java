@@ -114,20 +114,26 @@ public class ClientFactory implements IPlayerEventFactory {
 		boardScreen.addView(new LineFeedView(""));
 		boardScreen.addView(new LineFeedView(""));
 		boardScreen.addView(new TextView(screenSeparator));
+
 		TextView v = new TextView("You are now playing :");
 		boardScreen.setUpperMsgView(v);
 		boardScreen.addView(v);
+
 		v = new TextView("");
 		boardScreen.setInfoMsgView(v);
 		boardScreen.addView(v);
+
 		boardScreen.setBoardView(new SimpleBoardView());
 		boardScreen.addView(new LineFeedView(""));
+
 		v = new TextView("Input your move (column index from 0) : ");
 		boardScreen.setInputMoveMsgView(v);
 		boardScreen.addView(v);
+
 		UserInputView input = new UserInputView();
 		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
+		boardScreen.setInputView(input);
 		boardScreen.addView(input);
 
 		return boardScreen;

@@ -48,20 +48,17 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 	public void update(GameReadable gr, GameEvent e) {
 		if (!localPlayer.getId().equals(e.getPlayerToPlay().getId()))
 			return;
+		if (GameEvent.Type.WIN.equals(e.getType())
+				|| GameEvent.Type.DRAW.equals(e.getType())){
+			isFinished = true;
+			boardView.setInputPossible(false);
+			boardView.getInputMoveMsgView().setInstruction("");
+		}
 		lastPosition = gr;
 		board.setGrid(lastPosition.getState());
 		boardView.getInfoMsgView().setInstruction(e.getMsg());
 		boardView.setBoard(board);
 		display();
-		if (GameEvent.Type.WIN.equals(e.getType())
-				|| GameEvent.Type.DRAW.equals(e.getType())){
-			updateEnd(e);
-			return;
-		}
-	}
-
-	private void updateEnd(GameEvent e) {
-		isFinished = true;
 	}
 
 	@Override
