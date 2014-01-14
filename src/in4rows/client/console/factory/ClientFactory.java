@@ -19,6 +19,8 @@ public class ClientFactory implements IPlayerEventFactory {
 
 	IPlayerEventFactory playerEventFactory;
 
+	private String screenSeparator = "*****************************************************************************************";
+
 	public void setPlayerEventFactory(IPlayerEventFactory playerEventFactory) {
 		this.playerEventFactory = playerEventFactory;
 	}
@@ -27,8 +29,7 @@ public class ClientFactory implements IPlayerEventFactory {
 			ActionListener<String> actionListener) {
 
 		BasicViewContainer startingScreen = new BasicViewContainer();
-		startingScreen.addView(new TextView(
-				"*******************************************"));
+		startingScreen.addView(new TextView(screenSeparator));
 		startingScreen.addView(new TextView("Welcome to the in4rows game !"));
 		startingScreen.addView(new LineFeedView(""));
 		startingScreen.addView(new TextView("1. Human vs. Computer ?"));
@@ -49,8 +50,7 @@ public class ClientFactory implements IPlayerEventFactory {
 			ActionListener<String> actionListener) {
 
 		BasicViewContainer startingScreenError = new BasicViewContainer();
-		startingScreenError.addView(new TextView(
-				"*******************************************"));
+		startingScreenError.addView(new TextView(screenSeparator));
 		startingScreenError.addView(new LineFeedView(""));
 		startingScreenError.addView(new TextView(
 				"THE INPUT IS ERRONEOUS PLEASE REENTER..."));
@@ -72,10 +72,10 @@ public class ClientFactory implements IPlayerEventFactory {
 		return startingScreenError;
 	}
 
-	public BasicViewContainer createInputPlayerScreen(ActionListener<String> actionListener) {
+	public BasicViewContainer createInputPlayerScreen(
+			ActionListener<String> actionListener) {
 		BasicViewContainer inputPlayerIdScreen = new BasicViewContainer();
-		inputPlayerIdScreen.addView(new TextView(
-				"*******************************************"));
+		inputPlayerIdScreen.addView(new TextView(screenSeparator));
 		inputPlayerIdScreen.addView(new TextView("Enter your player name : "));
 		UserInputView input = new UserInputView();
 		InputTextAction action = new InputTextAction(actionListener);
@@ -89,8 +89,7 @@ public class ClientFactory implements IPlayerEventFactory {
 			ActionListener<String> actionListener) {
 
 		BasicViewContainer inputPlayerIdScreenError = new BasicViewContainer();
-		inputPlayerIdScreenError.addView(new TextView(
-				"*******************************************"));
+		inputPlayerIdScreenError.addView(new TextView(screenSeparator));
 		inputPlayerIdScreenError.addView(new LineFeedView(""));
 		inputPlayerIdScreenError.addView(new TextView(
 				"PLAYER ALREADY EXIST PLEASE REENTER..."));
@@ -108,16 +107,23 @@ public class ClientFactory implements IPlayerEventFactory {
 	public CompositeBoardView createBoardView(
 			ActionListener<String> actionListener) {
 		CompositeBoardView boardScreen = new CompositeBoardView();
-		boardScreen.addView(new TextView(
-				"*******************************************"));
+		boardScreen.addView(new TextView(screenSeparator));
 		boardScreen.addView(new LineFeedView(""));
+		TextView v = new TextView("You are now playing :");
+		boardScreen.setUpperMsgView(v);
+		boardScreen.addView(v);
+		v = new TextView("");
+		boardScreen.setInfoMsgView(v);
+		boardScreen.addView(v);
 		boardScreen.setBoardView(new SimpleBoardView());
-		
+		v = new TextView("Input your move (column index from 0) : ");
+		boardScreen.setInputMoveMsgView(v);
+		boardScreen.addView(v);
 		UserInputView input = new UserInputView();
 		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
 		boardScreen.addView(input);
-		
+
 		return boardScreen;
 	}
 

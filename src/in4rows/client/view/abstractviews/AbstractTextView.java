@@ -19,5 +19,10 @@ public abstract class AbstractTextView implements IViewInstruction {
 	public String getInstruction() {
 		return info;
 	}
+	
+	@Override
+	public String setInstruction(String msg) {
+		return info = msg;
+	}
 
 }
