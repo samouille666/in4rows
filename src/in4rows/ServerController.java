@@ -1,10 +1,13 @@
 package in4rows;
 
+import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
+import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
 import in4rows.game.ObservableGame;
+import in4rows.model.GameReadable;
 import in4rows.player.Player;
 import in4rows.player.PlayerType;
 import in4rows.player.strategy.GameStrategy;
@@ -14,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ServerController implements IController {
+public class ServerController implements IController, GameStopper {
 
 	private In4RowsFactory factory;
 
@@ -32,7 +35,7 @@ public class ServerController implements IController {
 
 		if (!computerPlayers.containsKey(strategyType))
 			computerPlayers.put(strategyType,
-					factory.createMachinePlayer(strategyType));
+					factory.createMachinePlayer(strategyType, this, this));
 
 		Player machinePlayer = computerPlayers.get(strategyType);
 		ObservableGame g = factory.createGame(p1, machinePlayer);
@@ -40,7 +43,7 @@ public class ServerController implements IController {
 		for (GameObserver o : l)
 			g.attachObs(o);
 		games.put(g.getId(), g);
-		
+
 		g.start();
 	}
 
@@ -63,11 +66,25 @@ public class ServerController implements IController {
 	public void setFactory(In4RowsFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	@Override
-	public void playMove(PlayerEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void playMove(PlayerEvent e) throws ErroneousPlayerEventException {
+		if (e == null || e.getGameId() == null)
+			return;
+		ObservableGame g = games.get(e.getGameId());
+		GameEvent gEvt = g.play(e);
+		if (GameEvent.Type.DRAW.equals(gEvt.getType())
+				|| GameEvent.Type.WIN.equals(gEvt.getType()))
+			stop(g);
+	}
+
+	@Override
+	public void stop(GameReadable g) {
+		ObservableGame og = games.get(g.getId());
+		if (og == null)
+			return;
+		og.end();
+		games.remove(og);
 	}
 
 }

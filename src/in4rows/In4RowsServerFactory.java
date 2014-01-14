@@ -17,13 +17,9 @@ import in4rows.player.ComputerPlayer;
 import in4rows.player.Player;
 import in4rows.player.PlayerTurn;
 import in4rows.player.PlayerType;
-import in4rows.player.strategy.AgressiveStrategy;
-import in4rows.player.strategy.AverageStrategy;
 import in4rows.player.strategy.BasicStrategy;
-import in4rows.player.strategy.ExperimentedStrategy;
 import in4rows.player.strategy.GameStrategy;
 import in4rows.player.strategy.GameStrategy.Type;
-import in4rows.player.strategy.NaiveStrategy;
 
 public class In4RowsServerFactory implements In4RowsFactory,
 		IPlayerEventFactory {
@@ -75,14 +71,21 @@ public class In4RowsServerFactory implements In4RowsFactory,
 	}
 
 	@Override
-	public GameEvent createStartEvent(GameReadable g, Player toPlay,
-			Player opponent) {
+	public GameEvent createStartEvent(GameReadable g) {
 		String msg = "Game " + g.getId() + " started. " + "Player "
-				+ toPlay.getId() + " to play.";
-		return new BasicGameEvent(GameEvent.Type.START, g, null, msg, toPlay,
-				opponent);
+				+ g.playerToPlay().getId() + " to play.";
+		return new BasicGameEvent(GameEvent.Type.START, g, null, msg, g.playerToPlay(),
+				g.playerNotToPlay());
 	}
 
+	@Override
+	public GameEvent createEndEvent(GameReadable g) {
+		String msg = "Game ended.";
+		return new BasicGameEvent(GameEvent.Type.END, g, null, msg, g.playerToPlay(),
+				g.playerNotToPlay());
+	}
+	
+	
 	@Override
 	public GameStrategy createStrategy(Type t) {
 		switch (t) {
@@ -102,8 +105,12 @@ public class In4RowsServerFactory implements In4RowsFactory,
 	}
 
 	@Override
-	public ComputerPlayer createMachinePlayer(Type t) {
-		return new BasicComputerPlayer(String.valueOf(t), createStrategy(t));
+	public ComputerPlayer createMachinePlayer(Type t, IController controller, GameStopper s) {
+		BasicComputerPlayer p = new BasicComputerPlayer(String.valueOf(t), createStrategy(t));
+		p.setFactory(this);
+		p.setController(controller);
+		p.setGameStopper(s);
+		return p;
 	}
 
 	@Override

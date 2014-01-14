@@ -11,6 +11,7 @@ import static in4rows.helper.GridHelper.firstDiskInColFromUp;
 import static in4rows.helper.GridHelper.firstInCol_ModeCol;
 import static in4rows.helper.GridHelper.firstInGame_ModeCol;
 import in4rows.In4RowsServerFactory;
+import in4rows.event.BasicGameEvent;
 import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
 import in4rows.exception.ErroneousPlayerEventException;
@@ -84,16 +85,19 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 						: PlayerTurn.YES);
 	}
 
-	private PlayerInGame playerToPlay() {
+	@Override
+	public PlayerInGame playerToPlay() {
 		return PlayerTurn.YES.equals(p1.getTurn()) ? p1 : p2;
 	}
 
-	private PlayerInGame playerNotToPlay() {
-		return PlayerTurn.NO.equals(p1.getTurn()) ? p1 : p2;
+	@Override
+	public Disk colorToPlay() {
+		return playerToPlay().getColor();
 	}
 
-	private PlayerInGame opponent(Player p) {
-		return p.getId().equals(p1.getId()) ? p2 : p1;
+	@Override
+	public PlayerInGame playerNotToPlay() {
+		return PlayerTurn.NO.equals(p1.getTurn()) ? p1 : p2;
 	}
 
 	@Override
@@ -133,19 +137,17 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		return p2;
 	}
 
-	private boolean checks(PlayerEvent evt)
-			throws ErroneousPlayerEventException {
+	private void checks(PlayerEvent evt) throws ErroneousPlayerEventException {
+		if (evt == null || evt.getGameId() == null || evt.getMove() == null
+				|| evt.getPlayerId() == null || evt.getType() == null)
+			throw new ErroneousPlayerEventException("Not processable move.");
+
 		if (p2 == null)
 			throw new ErroneousPlayerEventException("No player 2 registered !");
 
 		if (!evt.getPlayerId().equals(p1.getId())
 				&& !evt.getPlayerId().equals(p2.getId()))
 			throw new ErroneousPlayerEventException("Unknown player.");
-
-		if (PlayerEvent.Type.END.equals(evt.getType())) {
-			gameStopped = true;
-			return false;
-		}
 
 		if (gameStopped)
 			throw new ErroneousPlayerEventException("Game stopped.");
@@ -162,7 +164,6 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 			throw new ErroneousPlayerEventException("Erroneous move.");
 		}
 
-		return true;
 	}
 
 	@Override
@@ -171,31 +172,33 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 	}
 
 	@Override
-	public void play(PlayerEvent evt) throws ErroneousPlayerEventException {
+	public GameEvent play(PlayerEvent evt) throws ErroneousPlayerEventException {
 
-		if (!checks(evt))
-			return;
+		checks(evt);
 
+		if (PlayerEvent.Type.END.equals(evt.getType())) {
+			gameStopped = true;
+			return null;// TODO
+		}
 		// make it play
 		Move last = evt.getMove();
 		setDisk(last.getCol(), playerToPlay().getColor());
-		// bgo.setChanged();
 
 		if (isWon(last)) {
 			gameStopped = true;
-			// wonGame(playerToPlay());
-			return;
+			return new BasicGameEvent(GameEvent.Type.WIN, this, last, "",
+					playerToPlay(), playerNotToPlay());			
 		}
 
 		if (isDraw()) {
 			gameStopped = true;
-			// drawGame(p1, p2, last);
-			return;
+			return new BasicGameEvent(GameEvent.Type.DRAW, this, last,
+					"Game draw.", playerToPlay(), playerNotToPlay());
 		}
 
 		exchangeTurn(p1, p2);
-		// bgo.notifyObs(f
-		// .createMoveEvent(playerToPlay(), playerNotToPlay(), last));
+		return new BasicGameEvent(GameEvent.Type.MOVE, this, last, "",
+				playerToPlay(), playerNotToPlay());
 	}
 
 	private static void exchangeTurn(PlayerInGame p1, PlayerInGame p2) {
@@ -219,8 +222,12 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 		if (!sizeGame || !enoughPlayers)
 			throw new GameNotProperlyInitializedException(
 					"Game not properly initialized !");
-		return factory.createStartEvent(this, playerToPlay(),
-				playerNotToPlay());
+		return factory.createStartEvent(this);
+	}
+
+	@Override
+	public GameEvent end() {
+		return factory.createEndEvent(this);
 	}
 
 	public void setFactory(In4RowsServerFactory factory) {

@@ -25,4 +25,10 @@ public interface GameReadable {
 	public PlayerInGame getP1();
 	
 	public PlayerInGame getP2();
+	
+	public PlayerInGame playerToPlay();
+
+	public PlayerInGame playerNotToPlay();
+	
+	public Disk colorToPlay();
 }

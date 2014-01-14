@@ -2,6 +2,7 @@ package in4rows.client;
 
 import in4rows.IController;
 import in4rows.event.PlayerEvent;
+import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
@@ -37,15 +38,14 @@ public class In4RowsClientProxyController implements IController {
 			throws ExistingPlayerException {
 		return distantController.createPlayer(p, id);
 	}
+	
+	@Override
+	public void playMove(PlayerEvent e) throws ErroneousPlayerEventException{
+		distantController.playMove(e);		
+	}
 
 	public void setDistantController(IController distantController) {
 		this.distantController = distantController;
-	}
-	
-	@Override
-	public void playMove(PlayerEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

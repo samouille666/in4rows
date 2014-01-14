@@ -73,8 +73,11 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 	}
 
 	@Override
-	public void play(PlayerEvent evt) throws ErroneousPlayerEventException {
-		g.play(evt);
+	public GameEvent play(PlayerEvent evt) throws ErroneousPlayerEventException {
+		GameEvent e = g.play(evt);
+		setChanged();
+		notifyObs(e);
+		return e;
 	}
 
 	@Override
@@ -133,6 +136,30 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 		setChanged();
 		notifyObs(e);
 		return e;
+	}
+
+	@Override
+	public GameEvent end() {
+		GameEvent e = g.end();
+		setChanged();
+		notifyObs(e);
+		observers.clear();
+		return e;
+	}
+
+	@Override
+	public PlayerInGame playerNotToPlay() {
+		return g.playerNotToPlay();
+	}
+
+	@Override
+	public PlayerInGame playerToPlay() {
+		return g.playerToPlay();
+	}
+
+	@Override
+	public Disk colorToPlay() {
+		return g.colorToPlay();
 	}
 
 }

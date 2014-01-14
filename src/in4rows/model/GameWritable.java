@@ -13,8 +13,10 @@ public interface GameWritable extends GameReadable {
 
 	public void setPlayer2(Player p2);
 	
-	public void play(PlayerEvent evt) throws ErroneousPlayerEventException;
+	public GameEvent play(PlayerEvent evt) throws ErroneousPlayerEventException;
 	
 	public GameEvent start() throws GameNotProperlyInitializedException;
+	
+	public GameEvent end();
 
 }

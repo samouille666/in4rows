@@ -7,7 +7,7 @@ import in4rows.player.Player;
 public interface GameEvent {
 
 	public enum Type {
-		START, MOVE, DRAW, WIN, PRECEDING_MOVE_ERROR, OTHERS
+		START, MOVE, DRAW, WIN, END,PRECEDING_MOVE_ERROR, OTHERS
 	}
 
 	public Type getType();

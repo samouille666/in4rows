@@ -6,6 +6,7 @@ import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.graphical.Board;
 import in4rows.client.view.composite.IBoardView;
 import in4rows.event.GameEvent;
+import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
 import in4rows.model.GameReadable;
@@ -45,13 +46,13 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
-		if (!localPlayer.getId().equals(e.getPlayerToPlay().getId()))
+		if (localPlayer.getId().equals(e.getPlayerToPlay().getId()))
 			return;
-		
+
 		if (GameEvent.Type.WIN.equals(e.getType())
 				|| GameEvent.Type.DRAW.equals(e.getType()))
 			updateEnd(e);
-		
+
 		lastPosition = gr;
 		board.setGrid(lastPosition.getState());
 		boardView.setBoard(board);
@@ -97,8 +98,13 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 		this.inputPlayer = inputPlayer;
 		if (isLegalMove()) {
 			int col = Integer.parseInt(this.inputPlayer);
-			controller.playMove(f.createPlayerMoveEvent(lastPosition.getId(),
-					localPlayer.getId(), f.createMove(col)));
+			try {
+				controller.playMove(f.createPlayerMoveEvent(
+						lastPosition.getId(), localPlayer.getId(),
+						f.createMove(col)));
+			} catch (ErroneousPlayerEventException e) {
+				displayError();
+			}
 		} else {
 			displayError();
 		}

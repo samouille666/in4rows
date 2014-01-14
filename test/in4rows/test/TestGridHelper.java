@@ -255,6 +255,24 @@ public class TestGridHelper {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		@Override
+		public PlayerInGame playerNotToPlay() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public PlayerInGame playerToPlay() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		@Override
+		public Disk colorToPlay() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}
 
 }
