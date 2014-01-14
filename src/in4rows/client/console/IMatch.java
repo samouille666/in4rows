@@ -11,5 +11,7 @@ public interface IMatch {
 
 	public void init() throws GameNotProperlyInitializedException;
 	
+	public void play();
+	
 	public void setFactory(ClientFactory f);
 }

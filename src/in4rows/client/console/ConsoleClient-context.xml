@@ -44,6 +44,7 @@
 	<bean id="clientcontroller" class="in4rows.client.In4RowsClientProxyController"
 		scope="singleton">
 		<constructor-arg ref="servercontroller" />
+		<property name="dispatcher" ref="eventdispatcher" />
 	</bean>
 
 	<bean id="consoleclient" class="in4rows.client.console.ConsoleClient">

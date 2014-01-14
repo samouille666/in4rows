@@ -121,9 +121,9 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 
 	private boolean isWon(Move last) {
 		Vertex v = firstDiskInColFromUp(this, last.getCol());
-		boolean vertical = 1 + countUp(this, v) + countDown(this, v) >= 4;
-		boolean horizontal = 1 + countRight(this, v) + countLeft(this, v) >= 4;
-		boolean diagonal = 1 + countDiagRight(this, v) + countDiagLeft(this, v) >= 4;
+		boolean vertical = (1 + countUp(this, v) + countDown(this, v)) >= 4;
+		boolean horizontal = (1 + countRight(this, v) + countLeft(this, v)) >= 4;
+		boolean diagonal = (1 + countDiagRight(this, v) + countDiagLeft(this, v)) >= 4;
 		if (vertical || horizontal || diagonal) {
 			gameWon = true;
 			return isWon();
@@ -170,7 +170,8 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 
 		// move not possible notify error
 		if (firstInCol_ModeCol(this, evt.getMove().getCol()) == null) {
-			throw new ErroneousPlayerEventException("Column is full. Impossible to play !");
+			throw new ErroneousPlayerEventException(
+					"Column is full. Impossible to play !");
 		}
 
 	}
@@ -195,7 +196,7 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 
 		if (isWon(last)) {
 			gameStopped = true;
-			return new BasicGameEvent(GameEvent.Type.WIN, this, last, "",
+			return new BasicGameEvent(GameEvent.Type.WIN, this, last, "Game has been won by " + evt.getPlayerId() + " !!!",
 					playerToPlay(), playerNotToPlay());
 		}
 

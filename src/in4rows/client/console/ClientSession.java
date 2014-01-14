@@ -95,6 +95,7 @@ public class ClientSession implements IClientSession {
 		IMatch m = new ComputerHumanMatch(factory, controller, currentPlayer);
 		try {
 			m.init();
+			m.play();
 		} catch (GameNotProperlyInitializedException e) {
 			e.printStackTrace();
 		}

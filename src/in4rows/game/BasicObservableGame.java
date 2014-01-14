@@ -15,6 +15,7 @@ import in4rows.player.PlayerTurn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class BasicObservableGame implements ObservableGame, Dispatchable,
 		GameRW {
@@ -77,6 +78,10 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 		GameEvent e = g.play(evt);
 		setChanged();
 		notifyObs(e);
+		if (GameEvent.Type.WIN.equals(e.getType())
+				|| GameEvent.Type.DRAW.equals(e.getType()))
+			finishGame();
+
 		return e;
 	}
 
@@ -104,7 +109,7 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 		if (!changed)
 			return;
 
-		List<EventWorker> l = new ArrayList<>();
+		List<Callable<Boolean>> l = new ArrayList<>();
 		for (GameObserver o : observers)
 			l.add(new EventWorker(o, g, e));
 		dispatcher.executeUntilEnd(l);
@@ -143,8 +148,12 @@ public class BasicObservableGame implements ObservableGame, Dispatchable,
 		GameEvent e = g.end();
 		setChanged();
 		notifyObs(e);
-		observers.clear();
+		finishGame();
 		return e;
+	}
+
+	private void finishGame() {
+		observers.clear();
 	}
 
 	@Override
