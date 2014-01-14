@@ -6,13 +6,12 @@ import in4rows.In4RowsServerFactory;
 import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
 import in4rows.exception.ErroneousPlayerEventException;
-import in4rows.game.GameObserver;
 import in4rows.model.Disk;
 import in4rows.model.GameReadable;
 import in4rows.model.Move;
 import in4rows.player.strategy.GameStrategy;
 
-public class BasicComputerPlayer implements ComputerPlayer, GameObserver {
+public class BasicComputerPlayer implements GameObserverComputerPlayer {
 	private GameStopper s;
 	private IController c;
 	private In4RowsServerFactory f;
@@ -53,6 +52,8 @@ public class BasicComputerPlayer implements ComputerPlayer, GameObserver {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
+		if (!getId().equals(gr.playerToPlay().getId()))
+			return;
 		PlayerEvent evt = f.createPlayerMoveEvent(gr.getId(), getId(),
 				strategy.getMove(gr), "Computer play.");
 		try {

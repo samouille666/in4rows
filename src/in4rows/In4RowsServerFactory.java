@@ -14,6 +14,7 @@ import in4rows.model.Move;
 import in4rows.player.BasicComputerPlayer;
 import in4rows.player.BasicPlayer;
 import in4rows.player.ComputerPlayer;
+import in4rows.player.GameObserverComputerPlayer;
 import in4rows.player.Player;
 import in4rows.player.PlayerTurn;
 import in4rows.player.PlayerType;
@@ -102,13 +103,19 @@ public class In4RowsServerFactory implements In4RowsFactory,
 			BasicStrategy s = new BasicStrategy();
 			s.setFactory(this);
 			return s;
-			
+
 		}
 	}
 
 	@Override
 	public ComputerPlayer createMachinePlayer(Type t, IController controller,
 			GameStopper s) {
+		return createObserverMachinePlayer(t, controller, s);
+	}
+
+	@Override
+	public GameObserverComputerPlayer createObserverMachinePlayer(Type t,
+			IController controller, GameStopper s) {
 		BasicComputerPlayer p = new BasicComputerPlayer(String.valueOf(t),
 				createStrategy(t));
 		p.setFactory(this);

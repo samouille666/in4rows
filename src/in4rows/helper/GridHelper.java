@@ -31,10 +31,14 @@ public class GridHelper {
 		return res;
 	}
 
+	/**
+	 * @param g {@link GameReadable}
+	 * @return the first free vertex for placing disk
+	 */
 	public static Vertex firstInGame_ModeCol(GameReadable g) {
 		Vertex first = null;
 		int i = 0;
-		while (i < g.getWidth() && first == null) {
+		while (i < g.getWidth() && first == null ) {
 			first = firstInCol_ModeCol(g, i);
 			i++;
 		}
@@ -48,7 +52,7 @@ public class GridHelper {
 	 */
 	public static Vertex firstInCol_ModeCol(GameReadable g, int col) {
 		int cptRow = g.getHeight() - 1;
-		while (cptRow >= 0 && g.getDisk(cptRow, col) == null)
+		while (cptRow >= 0 && Disk.EMPTY.equals(g.getDisk(cptRow, col)))
 			cptRow--;
 
 		if (cptRow > -2 && cptRow < g.getHeight() - 1)
@@ -64,7 +68,7 @@ public class GridHelper {
 	 */
 	public static Vertex firstDiskInColFromUp(GameReadable g, int col) {
 		int cptRow = g.getHeight() - 1;
-		while (cptRow >= 0 && g.getDisk(cptRow, col) == null)
+		while (cptRow >= 0 && Disk.EMPTY.equals(g.getDisk(cptRow, col)))
 			cptRow--;
 
 		if (cptRow > -1 && cptRow <= g.getHeight() - 1)

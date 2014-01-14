@@ -8,6 +8,7 @@ import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
 import in4rows.game.ObservableGame;
 import in4rows.model.GameReadable;
+import in4rows.player.GameObserverComputerPlayer;
 import in4rows.player.Player;
 import in4rows.player.PlayerType;
 import in4rows.player.strategy.GameStrategy;
@@ -23,7 +24,7 @@ public class ServerController implements IController, GameStopper {
 
 	private Map<String, Player> humanplayers = new HashMap<>();
 	private Map<String, ObservableGame> games = new HashMap<>();
-	private Map<GameStrategy.Type, Player> computerPlayers = new HashMap<>();
+	private Map<GameStrategy.Type, GameObserverComputerPlayer> computerPlayers = new HashMap<>();
 
 	@Override
 	public void openGame(Player p1, Type strategyType, List<GameObserver> l)
@@ -35,11 +36,12 @@ public class ServerController implements IController, GameStopper {
 
 		if (!computerPlayers.containsKey(strategyType))
 			computerPlayers.put(strategyType,
-					factory.createMachinePlayer(strategyType, this, this));
+					factory.createObserverMachinePlayer(strategyType, this, this));
 
-		Player machinePlayer = computerPlayers.get(strategyType);
+		GameObserverComputerPlayer machinePlayer = computerPlayers.get(strategyType);
 		ObservableGame g = factory.createGame(p1, machinePlayer);
 
+		l.add(machinePlayer);
 		for (GameObserver o : l)
 			g.attachObs(o);
 		games.put(g.getId(), g);

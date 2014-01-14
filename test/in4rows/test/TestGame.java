@@ -41,8 +41,13 @@ public class TestGame {
 
 		Assert.assertEquals("height not the same", 5, g.getHeight());
 		Assert.assertEquals("width not the same", 7, g.getWidth());
-		Assert.assertArrayEquals("state not the same", new Disk[5][7],
-				g.getState());
+		Disk[][] tab = new Disk[5][7];
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab[0].length; j++) {
+				tab[i][j] = Disk.EMPTY;
+			}
+		}
+		Assert.assertArrayEquals("state not the same", tab, g.getState());
 	}
 
 	@Test(expected = ErroneousPlayerEventException.class)

@@ -26,6 +26,7 @@
 	<bean id="serverfactory" class="in4rows.In4RowsServerFactory"
 		scope="singleton">
 		<property name="dispatcher" ref="eventdispatcher" />
+		<property ref="playereventfactory" name="playerEventFactory" />
 	</bean>
 
 	<bean id="servercontroller" class="in4rows.ServerController"

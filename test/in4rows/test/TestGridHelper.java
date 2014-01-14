@@ -167,6 +167,7 @@ public class TestGridHelper {
 	public void testGridHelper_08() throws ErroneousPlayerEventException {
 
 		GameWritable g = new BasicGame(p1, Disk.BLACK, PlayerTurn.YES, 7, 5);
+
 		g.setPlayer2(p2);
 
 		PlayerEvent e = f.createPlayerMoveEvent(g, p1, f.createMove(0),
@@ -192,7 +193,16 @@ public class TestGridHelper {
 		private Disk[][] grid;
 
 		public DummyGrid(int row, int col) {
-			grid = new Disk[row][col];
+			initGrid(row, col);
+		}
+		
+		private void initGrid(int height, int width) {
+			grid = new Disk[height][width];
+			for (int i = 0; i < grid.length; i++) {
+				for (int j = 0; j < grid[0].length; j++) {
+					grid[i][j] = Disk.EMPTY;
+				}
+			}
 		}
 
 		@Override

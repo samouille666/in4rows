@@ -3,8 +3,8 @@ package in4rows.client.console;
 import in4rows.IController;
 import in4rows.client.console.actions.ActionListener;
 import in4rows.client.console.factory.ClientFactory;
+import in4rows.client.console.views.IBoardScreenView;
 import in4rows.client.graphical.Board;
-import in4rows.client.view.composite.IBoardView;
 import in4rows.event.GameEvent;
 import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.GameNotProperlyInitializedException;
@@ -19,7 +19,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 	private ClientFactory f;
 	private IController controller;
 
-	private IBoardView boardView;
+	private IBoardScreenView boardView;
 	private Board board;
 
 	private Player localPlayer;
@@ -75,7 +75,8 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 		boardView.display();
 	}
 
-	public void displayError() {
+	public void displayError(String errorMsg) {
+		boardView.getInfoMsgView().setInstruction(errorMsg);
 		boardView.display();
 	}
 
@@ -103,10 +104,10 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 						lastPosition.getId(), localPlayer.getId(),
 						f.createMove(col)));
 			} catch (ErroneousPlayerEventException e) {
-				displayError();
+				displayError("||>>>>>>>>>> Move is not legal. <<<<<<<<<<<<<\n||" + e.getMessage());
 			}
 		} else {
-			displayError();
+			displayError("||>>>>>>>>>> Move is not legal. <<<<<<<<<<<<<\n||Please reenter it...");
 		}
 	}
 
@@ -117,7 +118,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 		} catch (Exception e) {
 			return false;
 		}
-		if (col < 0 || col > lastPosition.getWidth())
+		if (col < 0 || col >= lastPosition.getWidth())
 			return false;
 		return true;
 	}

@@ -36,7 +36,7 @@ public class Board implements IGraphicalComponent {
 	@Override
 	public void draw() {
 		drawUpBorder();
-		for (int i = 0; i < grid.length; i++)
+		for (int i = grid.length - 1; i >= 0; i--)
 			drawMiddleLine(i);
 		drawDownBorder();
 	}

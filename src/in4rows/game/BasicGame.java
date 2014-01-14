@@ -170,7 +170,7 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 
 		// move not possible notify error
 		if (firstInCol_ModeCol(this, evt.getMove().getCol()) == null) {
-			throw new ErroneousPlayerEventException("Erroneous move.");
+			throw new ErroneousPlayerEventException("Column is full. Impossible to play !");
 		}
 
 	}

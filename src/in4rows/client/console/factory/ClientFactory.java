@@ -29,6 +29,7 @@ public class ClientFactory implements IPlayerEventFactory {
 			ActionListener<String> actionListener) {
 
 		BasicViewContainer startingScreen = new BasicViewContainer();
+		startingScreen.addView(new LineFeedView(""));
 		startingScreen.addView(new TextView(screenSeparator));
 		startingScreen.addView(new TextView("Welcome to the in4rows game !"));
 		startingScreen.addView(new LineFeedView(""));
@@ -50,6 +51,7 @@ public class ClientFactory implements IPlayerEventFactory {
 			ActionListener<String> actionListener) {
 
 		BasicViewContainer startingScreenError = new BasicViewContainer();
+		startingScreenError.addView(new LineFeedView(""));
 		startingScreenError.addView(new TextView(screenSeparator));
 		startingScreenError.addView(new LineFeedView(""));
 		startingScreenError.addView(new TextView(
@@ -75,6 +77,7 @@ public class ClientFactory implements IPlayerEventFactory {
 	public BasicViewContainer createInputPlayerScreen(
 			ActionListener<String> actionListener) {
 		BasicViewContainer inputPlayerIdScreen = new BasicViewContainer();
+		inputPlayerIdScreen.addView(new LineFeedView(""));
 		inputPlayerIdScreen.addView(new TextView(screenSeparator));
 		inputPlayerIdScreen.addView(new TextView("Enter your player name : "));
 		UserInputView input = new UserInputView();
@@ -89,6 +92,7 @@ public class ClientFactory implements IPlayerEventFactory {
 			ActionListener<String> actionListener) {
 
 		BasicViewContainer inputPlayerIdScreenError = new BasicViewContainer();
+		inputPlayerIdScreenError.addView(new LineFeedView(""));
 		inputPlayerIdScreenError.addView(new TextView(screenSeparator));
 		inputPlayerIdScreenError.addView(new LineFeedView(""));
 		inputPlayerIdScreenError.addView(new TextView(
@@ -107,8 +111,9 @@ public class ClientFactory implements IPlayerEventFactory {
 	public CompositeBoardView createBoardView(
 			ActionListener<String> actionListener) {
 		CompositeBoardView boardScreen = new CompositeBoardView();
-		boardScreen.addView(new TextView(screenSeparator));
 		boardScreen.addView(new LineFeedView(""));
+		boardScreen.addView(new LineFeedView(""));
+		boardScreen.addView(new TextView(screenSeparator));
 		TextView v = new TextView("You are now playing :");
 		boardScreen.setUpperMsgView(v);
 		boardScreen.addView(v);
@@ -116,6 +121,7 @@ public class ClientFactory implements IPlayerEventFactory {
 		boardScreen.setInfoMsgView(v);
 		boardScreen.addView(v);
 		boardScreen.setBoardView(new SimpleBoardView());
+		boardScreen.addView(new LineFeedView(""));
 		v = new TextView("Input your move (column index from 0) : ");
 		boardScreen.setInputMoveMsgView(v);
 		boardScreen.addView(v);
