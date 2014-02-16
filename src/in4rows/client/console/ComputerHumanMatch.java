@@ -4,7 +4,8 @@ import in4rows.IController;
 import in4rows.client.console.actions.ActionListener;
 import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.console.views.IBoardScreenView;
-import in4rows.client.graphical.Board;
+import in4rows.client.graphical.IUpdatableBoard;
+import in4rows.client.graphical.decorator.IGraphicalComponent;
 import in4rows.event.GameEvent;
 import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.GameNotProperlyInitializedException;
@@ -20,7 +21,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 	private IController controller;
 
 	private IBoardScreenView boardView;
-	private Board board;
+	private IUpdatableBoard board;
 
 	private Player localPlayer;
 	private boolean isFinished = false;
@@ -37,7 +38,8 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 
 	@Override
 	public void init() throws GameNotProperlyInitializedException {
-		this.board = new Board();
+//		this.board = new Board();
+		this.board = f.createBoard();
 		this.boardView = f.createBoardView(new InputMoveActionListener());
 		ArrayList<GameObserver> obs = new ArrayList<>();
 		obs.add(this);
@@ -57,7 +59,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 		lastPosition = gr;
 		board.setGrid(lastPosition.getState());
 		boardView.getInfoMsgView().setInstruction(e.getMsg());
-		boardView.setBoard(board);
+		boardView.setBoard((IGraphicalComponent) board);
 		display();
 	}
 

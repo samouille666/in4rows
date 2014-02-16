@@ -12,7 +12,7 @@ import in4rows.client.graphical.separator.Separator;
 import in4rows.client.graphical.separator.Separator1;
 import in4rows.model.Disk;
 
-public class Board implements IGraphicalComponent {
+public class Board implements IGraphicalComponent, IUpdatableBoard {
 
 	private Disk[][] grid;
 
@@ -91,6 +91,11 @@ public class Board implements IGraphicalComponent {
 		this.grid = grid;
 	}
 
+	@Override
+	public Disk[][] getGrid() {
+		return this.grid;
+	}
+	
 	public void setDiskO(IGraphicalComponent diskO) {
 		this.diskO = diskO;
 	}
