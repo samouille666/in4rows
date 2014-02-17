@@ -59,6 +59,7 @@ public class Board implements IGraphicalComponent, IUpdatableBoard {
 		for (int i = grid.length - 1; i >= 0; i--)
 			drawMiddleLine(i);
 		drawDownBorder();
+		out.println();
 	}
 
 	@Override

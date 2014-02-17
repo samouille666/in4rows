@@ -196,12 +196,14 @@ public class BasicGame implements GameRW, GameReadable, GameWritable {
 
 		if (isWon(last)) {
 			gameStopped = true;
+			exchangeTurn(p1, p2);
 			return new BasicGameEvent(GameEvent.Type.WIN, this, last, "Game has been won by " + evt.getPlayerId() + " !!!",
 					playerToPlay(), playerNotToPlay());
 		}
 
 		if (isDraw()) {
 			gameStopped = true;
+			exchangeTurn(p1, p2);
 			return new BasicGameEvent(GameEvent.Type.DRAW, this, last,
 					"Game draw.", playerToPlay(), playerNotToPlay());
 		}

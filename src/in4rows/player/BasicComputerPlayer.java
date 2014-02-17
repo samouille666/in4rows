@@ -59,7 +59,6 @@ public class BasicComputerPlayer implements GameObserverComputerPlayer {
 		try {
 			c.playMove(evt);
 		} catch (ErroneousPlayerEventException e1) {
-			s.stop(gr);
 		}
 	}
 
