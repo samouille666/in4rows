@@ -11,10 +11,15 @@ import in4rows.client.graphical.disk.DiskX;
 import in4rows.client.graphical.separator.Separator;
 import in4rows.client.graphical.separator.Separator1;
 import in4rows.model.Disk;
+import in4rows.model.GameReadable;
+
+import java.io.PrintStream;
 
 public class Board implements IGraphicalComponent, IUpdatableBoard {
 
 	private Disk[][] grid;
+	
+	private GameReadable g;
 
 	private IGraphicalComponent diskO = new DiskO();
 	private IGraphicalComponent diskX = new DiskX();
@@ -24,6 +29,21 @@ public class Board implements IGraphicalComponent, IUpdatableBoard {
 	private IGraphicalComponent separator = new Separator1(new Separator());
 	private IGraphicalComponent upside = new HorizontalBorder2();
 
+
+	private PrintStream out;
+	
+	@Override
+	public void setOutStream(PrintStream out) {
+		this.out = out;
+		diskEmpty.setOutStream(out);
+		diskO.setOutStream(out);
+		diskX.setOutStream(out);
+		separator.setOutStream(out);
+		side.setOutStream(out);
+		upside.setOutStream(out);
+	}
+
+	
 	public Board() {
 		this(null);
 	}
@@ -32,7 +52,7 @@ public class Board implements IGraphicalComponent, IUpdatableBoard {
 		super();
 		this.grid = grid;
 	}
-
+	
 	@Override
 	public void draw() {
 		drawUpBorder();
@@ -55,7 +75,7 @@ public class Board implements IGraphicalComponent, IUpdatableBoard {
 		}
 		disk(grid[line][grid[0].length - 1]).draw();
 		side.draw();
-		System.out.println();
+		out.println();
 	}
 
 	private IGraphicalComponent disk(Disk d) {
@@ -84,18 +104,20 @@ public class Board implements IGraphicalComponent, IUpdatableBoard {
 		for (int i = 0; i < width; i++) {
 			upside.draw();
 		}
-		System.out.println();
-	}
-
-	public void setGrid(Disk[][] grid) {
-		this.grid = grid;
+		out.println();
 	}
 
 	@Override
-	public Disk[][] getGrid() {
-		return this.grid;
+	public GameReadable getGame() {
+		return g;
 	}
-	
+
+	@Override
+	public void setGame(GameReadable g) {
+		this.g = g;
+		this.grid = g.getState();
+	}
+
 	public void setDiskO(IGraphicalComponent diskO) {
 		this.diskO = diskO;
 	}

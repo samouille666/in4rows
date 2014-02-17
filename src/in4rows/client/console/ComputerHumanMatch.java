@@ -57,7 +57,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 			boardView.getInputMoveMsgView().setInstruction("");
 		}
 		lastPosition = gr;
-		board.setGrid(lastPosition.getState());
+		board.setGame(lastPosition);
 		boardView.getInfoMsgView().setInstruction(e.getMsg());
 		boardView.setBoard((IGraphicalComponent) board);
 		display();

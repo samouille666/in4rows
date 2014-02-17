@@ -1,11 +1,11 @@
 package in4rows.client.graphical;
 
-import in4rows.model.Disk;
+import in4rows.model.GameReadable;
 
 public interface IUpdatableBoard {
 
-	public void setGrid(Disk[][] grid);
+	public void setGame(GameReadable g);
 	
-	public Disk[][] getGrid();
+	public GameReadable getGame();
 
 }

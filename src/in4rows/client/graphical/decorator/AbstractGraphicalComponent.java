@@ -1,9 +1,11 @@
 package in4rows.client.graphical.decorator;
 
+import java.io.PrintStream;
+
 public class AbstractGraphicalComponent implements IGraphicalComponent {
 
 	protected IGraphicalComponent c;
-
+	
 	public AbstractGraphicalComponent(IGraphicalComponent c) {
 		super();
 		this.c = c;
@@ -21,5 +23,10 @@ public class AbstractGraphicalComponent implements IGraphicalComponent {
 	
 	public void setGraphicalComponent(IGraphicalComponent g){
 		c = g;
+	}
+	
+	@Override
+	public void setOutStream(PrintStream out) {
+		c.setOutStream(out);
 	}
 }

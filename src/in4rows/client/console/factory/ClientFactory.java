@@ -12,6 +12,7 @@ import in4rows.client.console.views.UserInputView;
 import in4rows.client.graphical.Board;
 import in4rows.client.graphical.IUpdatableBoard;
 import in4rows.client.graphical.LoggableBoardProxy;
+import in4rows.client.graphical.decorator.IGraphicalComponent;
 import in4rows.event.PlayerEvent;
 import in4rows.model.BasicMove;
 import in4rows.model.GameReadable;
@@ -218,9 +219,11 @@ public class ClientFactory implements IPlayerEventFactory {
 		return playerEventFactory
 				.createPlayerEndEvent(gameId, playerId, m, msg);
 	}
-	
-	public IUpdatableBoard createBoard() {
-		return (IUpdatableBoard) LoggableBoardProxy.newInstance(new Board());
-	}
 
+	public IUpdatableBoard createBoard() {
+		IUpdatableBoard board = (IUpdatableBoard) LoggableBoardProxy
+				.newInstance(new Board());
+		((IGraphicalComponent) board).setOutStream(System.out); 
+		return board;
+	}
 }
