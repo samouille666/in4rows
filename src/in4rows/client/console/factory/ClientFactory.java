@@ -42,6 +42,7 @@ public class ClientFactory implements IPlayerEventFactory {
 		startingScreen.addView(new TextView("1. Human vs. Computer ?"));
 		startingScreen.addView(new TextView("2. Human vs. Human ?"));
 		startingScreen.addView(new TextView("3. Option ?"));
+		startingScreen.addView(new TextView("4. Exit"));		
 		startingScreen.addView(new LineFeedView(""));
 		startingScreen.addView(new TextView(
 				"Input the number of corresponding to your choice:"));
@@ -69,6 +70,7 @@ public class ClientFactory implements IPlayerEventFactory {
 		startingScreenError.addView(new TextView("1. Human vs. Computer ?"));
 		startingScreenError.addView(new TextView("2. Human vs. Human ?"));
 		startingScreenError.addView(new TextView("3. Option ?"));
+		startingScreenError.addView(new TextView("4. Exit"));		
 		startingScreenError.addView(new LineFeedView(""));
 		startingScreenError.addView(new TextView(
 				"Input the number of corresponding to your choice:"));

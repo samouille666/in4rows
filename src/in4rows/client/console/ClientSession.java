@@ -71,28 +71,38 @@ public class ClientSession implements IClientSession {
 
 	@Override
 	public void startApp() {
-		screen1.display();
-		int choice = userChoice1();
-		while (choice < 1 || choice > 3) {
-			screen1Error.display();
-			choice = userChoice1();
-		}
 
-		switch (choice) {
-		case 1:
-			humanVsMachinePlayer = registerPlayer("Type your player name : ");
-			playComputerVsHumanMatch();
-			break;
-		case 2:
-			humanVsHumanPlayer1 = registerPlayer( "Type first player name : ");
-			humanVsHumanPlayer2 = registerPlayer("Type second player name : ");
-			playHumanVsHumanMatch();
-			break;
-		case 3:
-			// optional configuration of keyboard and element visualization
-			break;
-		default:
-			break;
+		boolean sessionNotFinished = true;
+
+		while (sessionNotFinished) {
+			screen1.display();
+			int choice = userChoice1();
+			while (choice < 1 || choice > 4) {
+				screen1Error.display();
+				choice = userChoice1();
+			}
+
+			switch (choice) {
+			case 1:
+				humanVsMachinePlayer = registerPlayer("Type your player name : ");
+				playComputerVsHumanMatch();
+				break;
+			case 2:
+				humanVsHumanPlayer1 = registerPlayer("Type first player name : ");
+				humanVsHumanPlayer2 = registerPlayer("Type second player name : ");
+				playHumanVsHumanMatch();
+				break;
+			case 3:
+				System.err.println("functionality not implemented");
+				sessionNotFinished = false;
+				break;
+			case 4:
+				System.out.println("\n\nExit game....");
+				sessionNotFinished = false;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
