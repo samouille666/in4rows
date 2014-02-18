@@ -16,7 +16,7 @@ import in4rows.player.strategy.GameStrategy;
 
 import java.util.ArrayList;
 
-public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
+public class ComputerHumanMatch implements GameObserver, IMatch {
 	private ClientFactory f;
 	private IController controller;
 
@@ -38,7 +38,7 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 
 	@Override
 	public void init() throws GameNotProperlyInitializedException {
-//		this.board = new Board();
+		// this.board = new Board();
 		this.board = f.createBoard();
 		this.boardView = f.createBoardView(new InputMoveActionListener());
 		ArrayList<GameObserver> obs = new ArrayList<>();
@@ -48,14 +48,15 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
-		if (!localPlayer.getId().equals(e.getPlayerToPlay().getId()))
-			return;
 		if (GameEvent.Type.WIN.equals(e.getType())
-				|| GameEvent.Type.DRAW.equals(e.getType())){
+				|| GameEvent.Type.DRAW.equals(e.getType())) {
 			isFinished = true;
 			boardView.setInputPossible(false);
 			boardView.getInputMoveMsgView().setInstruction("");
+		} else if (!localPlayer.getId().equals(e.getPlayerToPlay().getId())) {
+			return;
 		}
+
 		lastPosition = gr;
 		board.setGame(lastPosition);
 		boardView.getInfoMsgView().setInstruction(e.getMsg());
@@ -84,11 +85,6 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 	}
 
 	@Override
-	public void run() {
-		play();
-	}
-
-	@Override
 	public void setFactory(ClientFactory f) {
 		this.f = f;
 	}
@@ -102,7 +98,8 @@ public class ComputerHumanMatch implements GameObserver, IMatch, Runnable {
 						lastPosition.getId(), localPlayer.getId(),
 						f.createMove(col)));
 			} catch (ErroneousPlayerEventException e) {
-				displayError("||>>>>>>>>>> Move is not legal. <<<<<<<<<<<<<\n||" + e.getMessage());
+				displayError("||>>>>>>>>>> Move is not legal. <<<<<<<<<<<<<\n||"
+						+ e.getMessage());
 			}
 		} else {
 			displayError("||>>>>>>>>>> Move is not legal. <<<<<<<<<<<<<\n||Please reenter it...");

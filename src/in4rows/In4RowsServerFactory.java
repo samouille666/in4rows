@@ -120,7 +120,6 @@ public class In4RowsServerFactory implements In4RowsFactory,
 				createStrategy(t));
 		p.setFactory(this);
 		p.setController(controller);
-		p.setGameStopper(s);
 		return p;
 	}
 

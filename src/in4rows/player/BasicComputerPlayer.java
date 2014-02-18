@@ -1,6 +1,5 @@
 package in4rows.player;
 
-import in4rows.GameStopper;
 import in4rows.IController;
 import in4rows.In4RowsServerFactory;
 import in4rows.event.GameEvent;
@@ -12,7 +11,7 @@ import in4rows.model.Move;
 import in4rows.player.strategy.GameStrategy;
 
 public class BasicComputerPlayer implements GameObserverComputerPlayer {
-	private GameStopper s;
+
 	private IController c;
 	private In4RowsServerFactory f;
 
@@ -52,7 +51,9 @@ public class BasicComputerPlayer implements GameObserverComputerPlayer {
 
 	@Override
 	public void update(GameReadable gr, GameEvent e) {
-		if (!getId().equals(gr.playerToPlay().getId()))
+		if (!getId().equals(gr.playerToPlay().getId())
+				|| GameEvent.Type.WIN.equals(e.getType())
+				|| GameEvent.Type.DRAW.equals(e.getType()))
 			return;
 		PlayerEvent evt = f.createPlayerMoveEvent(gr.getId(), getId(),
 				strategy.getMove(gr), "Computer play.");
@@ -64,10 +65,6 @@ public class BasicComputerPlayer implements GameObserverComputerPlayer {
 
 	public void setController(IController controller) {
 		c = controller;
-	}
-
-	public void setGameStopper(GameStopper s) {
-		this.s = s;
 	}
 
 	public void setFactory(In4RowsServerFactory f) {
