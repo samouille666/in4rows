@@ -56,28 +56,32 @@ public aspect GameTracing {
 	}
 
 	private Double getTimeErasedFromLastMove(String gameId) {
-		Long lastTime = this.mTime.get(gameId);
-		if (lastTime != null) {
-			this.mTime.put(gameId, System.currentTimeMillis() - lastTime);
-		} else {
+		Long startingGameTime = this.mTime.get(gameId);
+		if (startingGameTime == null)
 			this.mTime.put(gameId, System.currentTimeMillis());
-		}
-		BigDecimal d = new BigDecimal(this.mTime.get(gameId));
+		startingGameTime = this.mTime.get(gameId);
 
 		// convert to second
-		return d.divide(new BigDecimal(1000)).doubleValue();
+		return new BigDecimal(System.currentTimeMillis() - startingGameTime)
+				.divide(new BigDecimal(1000)).doubleValue();
 	}
 
 	/**
 	 * The pointcut is define as the call of the interface of the Game that will
-	 * hopefully cut at every possible implementation of this interface.
-	 * Clause of class has been added not to call it many time.
+	 * hopefully cut at every possible implementation of this interface. Clause
+	 * of class has been added not to call it many time.
 	 */
 	pointcut moveJustPlayed() : 
 		within(in4rows.game.BasicObservableGame) 
 		&& call(GameEvent in4rows.model.GameWritable.play(PlayerEvent) 
 				throws ErroneousPlayerEventException);
 
+	/**
+	 * aim to provide place & time to erase the streaming resource
+	 * 
+	 * @param gr
+	 *            a readable game
+	 */
 	pointcut gameTerminated(GameReadable gr) : 
 		call(void in4rows.GameStopper.stop(GameReadable)) && args(gr);
 
