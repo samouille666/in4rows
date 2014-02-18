@@ -6,6 +6,7 @@ import in4rows.client.console.actions.AbstractActionListener;
 import in4rows.client.console.actions.Action;
 import in4rows.client.console.actions.ActionListener;
 import in4rows.client.console.factory.ClientFactory;
+import in4rows.client.console.views.IPlayerRegistrationView;
 import in4rows.client.view.composite.IView;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
@@ -18,13 +19,15 @@ public class ClientSession implements IClientSession {
 
 	private IView screen1 = null;
 	private IView screen1Error = null;
-	private IView registerPLayer = null;
-	private IView registerPLayerError = null;
+	private IPlayerRegistrationView registerPlayer = null;
+	private IView registerPlayerError = null;
 
 	private String screen1UserInput;
 	private String playerName;
 
-	private Player currentPlayer;
+	private Player humanVsMachinePlayer;
+	private Player humanVsHumanPlayer1;
+	private Player humanVsHumanPlayer2;
 
 	public ClientSession(ClientFactory f, IController controller) {
 		setFactory(f);
@@ -35,8 +38,8 @@ public class ClientSession implements IClientSession {
 		screen1Error = factory.createStartingScreenError(l1);
 
 		RegisterUserNameListener l2 = new RegisterUserNameListener(this);
-		registerPLayer = factory.createInputPlayerScreen(l2);
-		registerPLayerError = factory.createInputPlayerScreenError(l2);
+		registerPlayer = factory.createRegisterNewPlayerScreen(l2);
+		registerPlayerError = factory.createInputPlayerScreenError(l2);
 
 	}
 
@@ -77,22 +80,36 @@ public class ClientSession implements IClientSession {
 
 		switch (choice) {
 		case 1:
-			registerPlayer();
-			play();
+			registerPlayer(humanVsMachinePlayer, "Type your player name : ");
+			playComputerVsHumanMatch();
 			break;
 		case 2:
-
+			registerPlayer(humanVsHumanPlayer1, "Type first player name : ");
+			registerPlayer(humanVsHumanPlayer2, "Type second player name : ");
+			playHumanVsHumanMatch();
 			break;
 		case 3:
-
+			// optional configuration of keyboard and element visualization
 			break;
 		default:
 			break;
 		}
 	}
 
-	private void play() {
-		IMatch m = new ComputerHumanMatch(factory, controller, currentPlayer);
+	private void playComputerVsHumanMatch() {
+		IMatch m = new ComputerHumanMatch(factory, controller,
+				humanVsMachinePlayer);
+		try {
+			m.init();
+			m.play();
+		} catch (GameNotProperlyInitializedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void playHumanVsHumanMatch() {
+		IMatch m = new HumanHumanMatch(factory, controller,
+				humanVsHumanPlayer1, humanVsHumanPlayer2);
 		try {
 			m.init();
 			m.play();
@@ -111,7 +128,7 @@ public class ClientSession implements IClientSession {
 		return res;
 	}
 
-	private boolean isPlayerRegister() {
+	private boolean isPlayerRegister(Player toRegister) {
 		Player registerPLayer = null;
 		try {
 			registerPLayer = controller.createPlayer(PlayerType.HUMAN,
@@ -119,14 +136,15 @@ public class ClientSession implements IClientSession {
 		} catch (ExistingPlayerException e) {
 			return false;
 		}
-		currentPlayer = registerPLayer;
+		toRegister = registerPLayer;
 		return true;
 	}
 
-	private void registerPlayer() {
-		registerPLayer.display();
-		while (!isPlayerRegister()) {
-			registerPLayerError.display();
+	private void registerPlayer(Player toRegister, String diplayInformation) {
+		registerPlayer.getSubTitleOfScreen().setInstruction(diplayInformation);
+		registerPlayer.display();
+		while (!isPlayerRegister(toRegister)) {
+			registerPlayerError.display();
 		}
 	}
 

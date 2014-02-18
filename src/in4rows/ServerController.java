@@ -35,10 +35,11 @@ public class ServerController implements IController, GameStopper {
 					"Parameter(s) to open game not consistent.");
 
 		if (!computerPlayers.containsKey(strategyType))
-			computerPlayers.put(strategyType,
-					factory.createObserverMachinePlayer(strategyType, this, this));
+			computerPlayers.put(strategyType, factory
+					.createObserverMachinePlayer(strategyType, this, this));
 
-		GameObserverComputerPlayer machinePlayer = computerPlayers.get(strategyType);
+		GameObserverComputerPlayer machinePlayer = computerPlayers
+				.get(strategyType);
 		ObservableGame g = factory.createGame(p1, machinePlayer);
 
 		l.add(machinePlayer);
@@ -50,10 +51,16 @@ public class ServerController implements IController, GameStopper {
 	}
 
 	@Override
-	public ObservableGame openGame(Player p1, Player p2, List<GameObserver> l)
+	public void openGame(Player p1, Player p2, List<GameObserver> l)
 			throws GameNotProperlyInitializedException {
-		// TODO Auto-generated method stub
-		return null;
+		if (p1 == null || p2 == null || l == null || l.isEmpty())
+			throw new GameNotProperlyInitializedException(
+					"Parameter(s) to open game not consistent.");
+		ObservableGame g = factory.createGame(p1, p2);
+		for (GameObserver o : l)
+			g.attachObs(o);
+		games.put(g.getId(), g);
+		g.start();
 	}
 
 	@Override

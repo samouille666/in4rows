@@ -7,7 +7,6 @@ import in4rows.exception.ErroneousPlayerEventException;
 import in4rows.exception.ExistingPlayerException;
 import in4rows.exception.GameNotProperlyInitializedException;
 import in4rows.game.GameObserver;
-import in4rows.game.ObservableGame;
 import in4rows.player.Player;
 import in4rows.player.PlayerType;
 import in4rows.player.strategy.GameStrategy.Type;
@@ -25,15 +24,15 @@ public class In4RowsClientProxyController implements IController {
 	@Override
 	public void openGame(Player p1, Type machineStrategy, List<GameObserver> l)
 			throws GameNotProperlyInitializedException {
-		dispatcher.executeEventAndTerminate(new OpenGameWorker(p1,
-				machineStrategy, l));
+		dispatcher.executeEventAndTerminate(new OpenHumanVsMachineGameWorker(
+				p1, machineStrategy, l));
 	}
 
 	@Override
-	public ObservableGame openGame(Player p1, Player p2, List<GameObserver> l)
+	public void openGame(Player p1, Player p2, List<GameObserver> l)
 			throws GameNotProperlyInitializedException {
-		// TODO Auto-generated method stub
-		return null;
+		dispatcher.executeEventAndTerminate(new OpenHumanVsHumanGameWorker(p1,
+				p2, l));
 	}
 
 	@Override
@@ -55,12 +54,12 @@ public class In4RowsClientProxyController implements IController {
 		this.dispatcher = dispatcher;
 	}
 
-	private class OpenGameWorker implements Runnable {
+	private class OpenHumanVsMachineGameWorker implements Runnable {
 		private Player p1;
 		private Type machineStrategy;
 		private List<GameObserver> l;
 
-		public OpenGameWorker(Player p1, Type machineStrategy,
+		public OpenHumanVsMachineGameWorker(Player p1, Type machineStrategy,
 				List<GameObserver> l) {
 			super();
 			this.p1 = p1;
@@ -72,6 +71,29 @@ public class In4RowsClientProxyController implements IController {
 		public void run() {
 			try {
 				distantController.openGame(p1, machineStrategy, l);
+			} catch (GameNotProperlyInitializedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private class OpenHumanVsHumanGameWorker implements Runnable {
+		private Player p1;
+		private Player p2;
+		private List<GameObserver> l;
+
+		public OpenHumanVsHumanGameWorker(Player p1, Player p2,
+				List<GameObserver> l) {
+			super();
+			this.p1 = p1;
+			this.p2 = p2;
+			this.l = l;
+		}
+
+		@Override
+		public void run() {
+			try {
+				distantController.openGame(p1, p2, l);
 			} catch (GameNotProperlyInitializedException e) {
 				e.printStackTrace();
 			}

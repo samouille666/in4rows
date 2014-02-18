@@ -5,8 +5,10 @@ import in4rows.client.console.actions.ActionListener;
 import in4rows.client.console.actions.InputTextAction;
 import in4rows.client.console.views.BasicViewContainer;
 import in4rows.client.console.views.CompositeBoardView;
+import in4rows.client.console.views.IPlayerRegistrationView;
 import in4rows.client.console.views.LineFeedView;
 import in4rows.client.console.views.SimpleBoardView;
+import in4rows.client.console.views.SimpleUserRegistrationView;
 import in4rows.client.console.views.TextView;
 import in4rows.client.console.views.UserInputView;
 import in4rows.client.graphical.Board;
@@ -78,18 +80,22 @@ public class ClientFactory implements IPlayerEventFactory {
 		return startingScreenError;
 	}
 
-	public BasicViewContainer createInputPlayerScreen(
+	public IPlayerRegistrationView createRegisterNewPlayerScreen(
 			ActionListener<String> actionListener) {
-		BasicViewContainer inputPlayerIdScreen = new BasicViewContainer();
-		inputPlayerIdScreen.addView(new LineFeedView(""));
-		inputPlayerIdScreen.addView(new TextView(screenSeparator));
-		inputPlayerIdScreen.addView(new TextView("Enter your player name : "));
+		SimpleUserRegistrationView v = new SimpleUserRegistrationView();
+		
+		v.addView(new LineFeedView(""));
+		v.addView(new TextView(screenSeparator));
+		v.setTitleOfScreen(new TextView("Registration of a new player."));
+		v.addView(new LineFeedView(""));
+		v.setTitleOfScreen(new TextView("Type your player name: "));
+		
 		UserInputView input = new UserInputView();
 		InputTextAction action = new InputTextAction(actionListener);
 		input.setAction(action);
-		inputPlayerIdScreen.addView(input);
-
-		return inputPlayerIdScreen;
+		v.setUserNameInputView(input);		
+		
+		return v;
 	}
 
 	public BasicViewContainer createInputPlayerScreenError(
@@ -223,7 +229,7 @@ public class ClientFactory implements IPlayerEventFactory {
 	public IUpdatableBoard createBoard() {
 		IUpdatableBoard board = (IUpdatableBoard) LoggableBoardProxy
 				.newInstance(new Board());
-		((IGraphicalComponent) board).setOutStream(System.out); 
+		((IGraphicalComponent) board).setOutStream(System.out);
 		return board;
 	}
 }
