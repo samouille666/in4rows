@@ -9,7 +9,6 @@ public class ConsoleClient {
 
 	IClientSession session;
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
 				"in4rows/client/console/ConsoleClient-context.xml");
