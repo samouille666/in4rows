@@ -43,7 +43,7 @@ public aspect GameTracing {
 		if (ps != null)
 			return ps;
 
-		String filename = "server-game-" + gameid + ".log";
+		String filename = "log/server-game-" + gameid + ".log";
 
 		try {
 			ps = new PrintStream(new BufferedOutputStream(new FileOutputStream(

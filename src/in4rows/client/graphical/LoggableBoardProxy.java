@@ -51,7 +51,7 @@ public class LoggableBoardProxy implements InvocationHandler {
 			SecurityException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
 
-		String filename = "game-" + g.getId() + ".log";
+		String filename = "log/game-" + g.getId() + ".log";
 
 		Method setOutStream = IGraphicalComponent.class.getDeclaredMethod(
 				"setOutStream", PrintStream.class);
