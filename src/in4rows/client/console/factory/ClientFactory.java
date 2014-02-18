@@ -87,8 +87,7 @@ public class ClientFactory implements IPlayerEventFactory {
 		v.addView(new LineFeedView(""));
 		v.addView(new TextView(screenSeparator));
 		v.setTitleOfScreen(new TextView("Registration of a new player."));
-		v.addView(new LineFeedView(""));
-		v.setTitleOfScreen(new TextView("Type your player name: "));
+		v.setSubTitleOfScreen(new TextView("Type your player name: "));
 		
 		UserInputView input = new UserInputView();
 		InputTextAction action = new InputTextAction(actionListener);

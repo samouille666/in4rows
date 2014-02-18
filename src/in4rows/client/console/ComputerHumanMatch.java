@@ -70,6 +70,11 @@ public class ComputerHumanMatch implements GameObserver, IMatch {
 	}
 
 	@Override
+	public boolean setFinished(boolean finished) {
+		return isFinished = finished;
+	}
+	
+	@Override
 	public void display() {
 		boardView.display();
 	}

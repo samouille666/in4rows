@@ -6,6 +6,8 @@ import in4rows.exception.GameNotProperlyInitializedException;
 public interface IMatch {
 
 	public boolean isFinished();
+	
+	public boolean setFinished(boolean finished);
 
 	public void display();
 

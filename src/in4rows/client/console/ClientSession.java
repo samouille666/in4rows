@@ -80,12 +80,12 @@ public class ClientSession implements IClientSession {
 
 		switch (choice) {
 		case 1:
-			registerPlayer(humanVsMachinePlayer, "Type your player name : ");
+			humanVsMachinePlayer = registerPlayer("Type your player name : ");
 			playComputerVsHumanMatch();
 			break;
 		case 2:
-			registerPlayer(humanVsHumanPlayer1, "Type first player name : ");
-			registerPlayer(humanVsHumanPlayer2, "Type second player name : ");
+			humanVsHumanPlayer1 = registerPlayer( "Type first player name : ");
+			humanVsHumanPlayer2 = registerPlayer("Type second player name : ");
 			playHumanVsHumanMatch();
 			break;
 		case 3:
@@ -104,6 +104,7 @@ public class ClientSession implements IClientSession {
 			m.play();
 		} catch (GameNotProperlyInitializedException e) {
 			e.printStackTrace();
+			m.setFinished(true);
 		}
 	}
 
@@ -115,6 +116,7 @@ public class ClientSession implements IClientSession {
 			m.play();
 		} catch (GameNotProperlyInitializedException e) {
 			e.printStackTrace();
+			m.setFinished(true);
 		}
 	}
 
@@ -128,24 +130,27 @@ public class ClientSession implements IClientSession {
 		return res;
 	}
 
-	private boolean isPlayerRegister(Player toRegister) {
+	private Player isPlayerRegister() {
 		Player registerPLayer = null;
 		try {
 			registerPLayer = controller.createPlayer(PlayerType.HUMAN,
 					getInputPlayer());
 		} catch (ExistingPlayerException e) {
-			return false;
+			return null;
 		}
-		toRegister = registerPLayer;
-		return true;
+		return registerPLayer;
 	}
 
-	private void registerPlayer(Player toRegister, String diplayInformation) {
+	private Player registerPlayer(String diplayInformation) {
 		registerPlayer.getSubTitleOfScreen().setInstruction(diplayInformation);
 		registerPlayer.display();
-		while (!isPlayerRegister(toRegister)) {
+
+		Player registeredPlayer = isPlayerRegister();
+		while (registeredPlayer == null) {
 			registerPlayerError.display();
+			registeredPlayer = isPlayerRegister();
 		}
+		return registeredPlayer;
 	}
 
 	public class InputTextAction extends Action<String> {

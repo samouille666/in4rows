@@ -24,15 +24,15 @@ public class HumanHumanMatch implements GameObserver, IMatch {
 
 	private Player p1;
 	private Player p2;
-	
+
 	private Player toPlay;
-	
+
 	private boolean isFinished = false;
 	private GameReadable lastPosition;
 	private String inputPlayer;
 
-	public HumanHumanMatch(ClientFactory f, IController controller,
-			Player p1, Player p2) {
+	public HumanHumanMatch(ClientFactory f, IController controller, Player p1,
+			Player p2) {
 		super();
 		this.controller = controller;
 		this.p1 = p1;
@@ -50,9 +50,9 @@ public class HumanHumanMatch implements GameObserver, IMatch {
 	}
 
 	@Override
-	public void update(GameReadable gr, GameEvent e) {		
+	public void update(GameReadable gr, GameEvent e) {
 		toPlay = computePlayerToPlay(e);
-		
+
 		if (GameEvent.Type.WIN.equals(e.getType())
 				|| GameEvent.Type.DRAW.equals(e.getType())) {
 			isFinished = true;
@@ -62,20 +62,26 @@ public class HumanHumanMatch implements GameObserver, IMatch {
 
 		lastPosition = gr;
 		board.setGame(lastPosition);
+		boardView.getUpperMsgView().setInstruction("Player " + e.getPlayerToPlay().getId() + " to play : ");
 		boardView.getInfoMsgView().setInstruction(e.getMsg());
 		boardView.setBoard((IGraphicalComponent) board);
 		display();
 	}
-	
+
 	private Player computePlayerToPlay(GameEvent e) {
-		if (p1.getId().equals(e.getPlayerToPlay().getId()) ) 
-			return p1;		
+		if (p1.getId().equals(e.getPlayerToPlay().getId()))
+			return p1;
 		return p2;
 	}
 
 	@Override
 	public boolean isFinished() {
 		return isFinished;
+	}
+
+	@Override
+	public boolean setFinished(boolean finished) {
+		return isFinished = finished;
 	}
 
 	@Override
@@ -103,9 +109,9 @@ public class HumanHumanMatch implements GameObserver, IMatch {
 		if (isLegalMove()) {
 			int col = Integer.parseInt(this.inputPlayer);
 			try {
-				controller.playMove(f.createPlayerMoveEvent(
-						lastPosition.getId(), toPlay.getId(),
-						f.createMove(col)));
+				controller
+						.playMove(f.createPlayerMoveEvent(lastPosition.getId(),
+								toPlay.getId(), f.createMove(col)));
 			} catch (ErroneousPlayerEventException e) {
 				displayError("||>>>>>>>>>> Move is not legal. <<<<<<<<<<<<<\n||"
 						+ e.getMessage());
