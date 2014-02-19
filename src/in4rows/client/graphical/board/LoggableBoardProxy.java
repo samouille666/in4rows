@@ -1,4 +1,4 @@
-package in4rows.client.graphical;
+package in4rows.client.graphical.board;
 
 import in4rows.client.graphical.decorator.IGraphicalComponent;
 import in4rows.model.GameReadable;

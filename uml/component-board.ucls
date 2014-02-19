@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
-  <interface id="1" language="java" name="in4rows.client.graphical.IUpdatableBoard" project="in4rows" 
-    file="/in4rows/src/in4rows/client/graphical/IUpdatableBoard.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="1" language="java" name="in4rows.client.graphical.board.IUpdatableBoard" project="in4rows" 
+    file="/in4rows/src/in4rows/client/graphical/board/IUpdatableBoard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="862" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="2" language="java" name="in4rows.client.graphical.LoggableBoardProxy" project="in4rows" 
-    file="/in4rows/src/in4rows/client/graphical/LoggableBoardProxy.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="in4rows.client.graphical.board.LoggableBoardProxy" project="in4rows" 
+    file="/in4rows/src/in4rows/client/graphical/board/LoggableBoardProxy.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="446" y="222"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="in4rows.client.graphical.Board" project="in4rows" 
-    file="/in4rows/src/in4rows/client/graphical/Board.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="3" language="java" name="in4rows.client.graphical.board.Board" project="in4rows" 
+    file="/in4rows/src/in4rows/client/graphical/board/Board.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="879" y="348"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

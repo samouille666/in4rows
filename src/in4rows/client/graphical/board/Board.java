@@ -1,4 +1,4 @@
-package in4rows.client.graphical;
+package in4rows.client.graphical.board;
 
 import in4rows.client.graphical.border.horiz.HorizontalBorder2;
 import in4rows.client.graphical.border.vert.VerticalBorder;

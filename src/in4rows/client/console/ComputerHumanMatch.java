@@ -4,7 +4,7 @@ import in4rows.IController;
 import in4rows.client.console.actions.ActionListener;
 import in4rows.client.console.factory.ClientFactory;
 import in4rows.client.console.views.IBoardScreenView;
-import in4rows.client.graphical.IUpdatableBoard;
+import in4rows.client.graphical.board.IUpdatableBoard;
 import in4rows.client.graphical.decorator.IGraphicalComponent;
 import in4rows.event.GameEvent;
 import in4rows.exception.ErroneousPlayerEventException;

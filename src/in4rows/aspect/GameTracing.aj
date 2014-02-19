@@ -1,6 +1,6 @@
 package in4rows.aspect;
 
-import in4rows.client.graphical.Board;
+import in4rows.client.graphical.board.Board;
 import in4rows.event.GameEvent;
 import in4rows.event.PlayerEvent;
 import in4rows.exception.ErroneousPlayerEventException;

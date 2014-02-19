@@ -1,6 +1,6 @@
 package in4rows.test;
 
-import in4rows.client.graphical.Board;
+import in4rows.client.graphical.board.Board;
 import in4rows.model.Disk;
 
 import org.junit.Test;
