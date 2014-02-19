@@ -5,6 +5,11 @@ Implementation of the 4 row game in Java.
 This is a little school project that maybe will continue.
 There is a server side program and have to be added a console command line.
 
+Table of content
+	0 - Download
+	1 - Installation
+	2 - 
+
 0 - Download 
 
 The project is freely downloadable under Github at:
