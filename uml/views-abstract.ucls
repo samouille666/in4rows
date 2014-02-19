@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true">  
+<class-diagram version="1.1.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="in4rows.client.view.abstractviews.AbstractUserInputView" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/abstractviews/AbstractUserInputView.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="571" y="552"/>    
+    <position height="-1" width="-1" x="356" y="607"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -13,7 +13,7 @@
   </class>  
   <interface id="2" language="java" name="in4rows.client.view.composite.IBoardView" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/composite/IBoardView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="969" y="338"/>    
+    <position height="-1" width="-1" x="754" y="393"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -22,7 +22,7 @@
   </interface>  
   <interface id="3" language="java" name="in4rows.client.view.composite.IViewInstruction" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/composite/IViewInstruction.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1246" y="336"/>    
+    <position height="-1" width="-1" x="1031" y="391"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,7 +31,7 @@
   </interface>  
   <interface id="4" language="java" name="in4rows.client.view.composite.IViewInput" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/composite/IViewInput.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="646" y="351"/>    
+    <position height="-1" width="-1" x="431" y="406"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -40,7 +40,7 @@
   </interface>  
   <class id="5" language="java" name="in4rows.client.view.composite.CompositeView" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/composite/CompositeView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="451" y="127"/>    
+    <position height="-1" width="-1" x="236" y="182"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
   </class>  
   <interface id="6" language="java" name="in4rows.client.view.composite.IView" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/composite/IView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="950" y="116"/>    
+    <position height="-1" width="-1" x="735" y="171"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
   </interface>  
   <class id="7" language="java" name="in4rows.client.view.abstractviews.AbstractBoardView" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/abstractviews/AbstractBoardView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="966" y="546"/>    
+    <position height="-1" width="-1" x="751" y="601"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -67,7 +67,7 @@
   </class>  
   <class id="8" language="java" name="in4rows.client.view.abstractviews.AbstractTextView" project="in4rows" 
     file="/in4rows/src/in4rows/client/view/abstractviews/AbstractTextView.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1282" y="557"/>    
+    <position height="-1" width="-1" x="1067" y="612"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
