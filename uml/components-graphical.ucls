@@ -3,7 +3,7 @@
   realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" language="java" name="in4rows.client.graphical.disk.DiskEmpty" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/disk/DiskEmpty.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="198" y="314"/>    
+    <position height="-1" width="-1" x="153" y="332"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="in4rows.client.graphical.disk.DiskO" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/disk/DiskO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="193" y="490"/>    
+    <position height="-1" width="-1" x="212" y="522"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="in4rows.client.graphical.disk.DiskX" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/disk/DiskX.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="341" y="674"/>    
+    <position height="-1" width="-1" x="309" y="719"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -31,7 +31,7 @@
   <class id="4" language="java" name="in4rows.client.graphical.decorator.AbstractGraphicalComponent" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/decorator/AbstractGraphicalComponent.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1378" y="125"/>    
+    <position height="-1" width="-1" x="1124" y="92"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -40,7 +40,7 @@
   </class>  
   <interface id="5" language="java" name="in4rows.client.graphical.decorator.IGraphicalComponent" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/decorator/IGraphicalComponent.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="981" y="481"/>    
+    <position height="-1" width="-1" x="677" y="444"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
   </interface>  
   <class id="6" language="java" name="in4rows.client.graphical.decorator.EmptyComponent" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/decorator/EmptyComponent.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="195" y="127"/>    
+    <position height="-1" width="-1" x="154" y="120"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -58,7 +58,7 @@
   </class>  
   <class id="7" language="java" name="in4rows.client.graphical.separator.Separator" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/separator/Separator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="691" y="777"/>    
+    <position height="-1" width="-1" x="622" y="722"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -67,8 +67,8 @@
   </class>  
   <class id="8" language="java" name="in4rows.client.graphical.separator.Separator1" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/separator/Separator1.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="964" y="235"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
+    <position height="167" width="230" x="614" y="123"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -76,7 +76,7 @@
   </class>  
   <class id="9" language="java" name="in4rows.client.graphical.border.vert.VerticalBorder1" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/border/vert/VerticalBorder1.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1440" y="356"/>    
+    <position height="-1" width="-1" x="1159" y="298"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -85,7 +85,7 @@
   </class>  
   <class id="10" language="java" name="in4rows.client.graphical.border.vert.VerticalBorder" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/border/vert/VerticalBorder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="561" y="110"/>    
+    <position height="-1" width="-1" x="415" y="92"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -95,7 +95,7 @@
   <class id="11" language="java" name="in4rows.client.graphical.border.horiz.HorizontalBorder3" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/border/horiz/HorizontalBorder3.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1177" y="782"/>    
+    <position height="-1" width="-1" x="892" y="729"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -104,7 +104,7 @@
   </class>  
   <class id="12" language="java" name="in4rows.client.graphical.border.horiz.HorizontalBorder" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/border/horiz/HorizontalBorder.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1639" y="740"/>    
+    <position height="-1" width="-1" x="1197" y="694"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -114,7 +114,7 @@
   <class id="13" language="java" name="in4rows.client.graphical.border.horiz.HorizontalBorder2" project="in4rows" 
     file="/in4rows/src/in4rows/client/graphical/border/horiz/HorizontalBorder2.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1668" y="536"/>    
+    <position height="-1" width="-1" x="1188" y="486"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -122,71 +122,71 @@
     </display>  
   </class>  
   <realization id="14">    
-    <end type="SOURCE" refId="4"/>    
+    <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="5"/>  
   </realization>  
   <realization id="15">    
-    <end type="SOURCE" refId="7"/>    
+    <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="5"/>  
   </realization>  
   <generalization id="16">    
-    <end type="SOURCE" refId="8"/>    
+    <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="4"/>  
   </generalization>  
   <realization id="17">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="18">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <realization id="19">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="5"/>  
   </realization>  
-  <association id="18">    
+  <realization id="20">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="21">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="4"/>  
+  </generalization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="24">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="25">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="26">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <realization id="27">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="28">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="19" name="c"/>      
-      <multiplicity id="20" minimum="0" maximum="1"/>    
+      <attribute id="29" name="c"/>      
+      <multiplicity id="30" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="21">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="22">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="23">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="24">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="25">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="26">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="27">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <realization id="28">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <generalization id="29">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
-  <generalization id="30">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="4"/>  
-  </generalization>  
   <realization id="31">    
-    <end type="SOURCE" refId="11"/>    
+    <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="5"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

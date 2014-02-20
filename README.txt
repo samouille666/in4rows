@@ -5,17 +5,26 @@ Implementation of the 4 row game in Java.
 This is a little school project that maybe will continue.
 There is a server side program and have to be added a console command line.
 
-Table of content
+Index of terms:
+	ROOT - root of the current project once its installation is done
+
+
+============================================================================
+Table of content:
+
 	0 - Download
 	1 - Installation
-	2 - 
+	2 - Design and patterns
+============================================================================
 
 0 - Download 
+-----------------
 
 The project is freely downloadable under Github at:
 https://github.com/samouille666/in4rows
 
 1 - Installation
+-----------------
 
 	1.1 - Eclipse 
 		Under Eclipse it is sufficient to download the project or copy it in the workspace of Eclipse and create a project of exactly the same name for eclipse to create .project and .classpath automatically.
@@ -35,4 +44,16 @@ https://github.com/samouille666/in4rows
 	
 	If Maven is not used it is possible to add the dependencies the classic way by adding all the jar in the /dep directory as dependencies of the project.
 	
-	
+2 - Design and pattern
+------------------------
+		2.1 - Players (Decorator)		
+			See: ROOT/uml/model-player.png (or uml.pdf)
+			
+		
+		
+		2. - Graphical components
+		
+			The purpose is here to demonstrate that a display in a console may be configurable without much effort from the user except creation of some classes that specifies the correct display of the component considered but not anything such as modifying the whole algorithm.
+			The pattern used has be Decorator (or Wrapper) for the reason that it may provide general behaviour that is after that configurable but does not destroy the basic interface that a graphical component shows to the external world.
+		For details of implementation see:
+		ROOT/uml/
