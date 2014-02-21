@@ -116,5 +116,33 @@ https://github.com/samouille666/in4rows
 				On client side a Dynamic Proxy is used to transparently log the game state on client side.
 				see: ROOT/in4rows/src/in4rows/client/graphical/board/LoggableBoardProxy.java
 				One file for each game played (uniquely identified by UUID) is logged under the ROOT/log directory with no prefix.
+		
+		2.6 - Views (Composite)
+		
+			See: ROOT/uml/views-abstract.png (or uml.pdf)
+			See: ROOT/uml/views-concrete.png (or uml.pdf)		
+			See: ROOT/uml/views-board.png (or uml.pdf)			
+			
+			The abstract views are general class that may be used to display with console or potentially any GUI classes and just aim to give a general framework by mean of Composite pattern to organise much specialise views.
+			The concrete views are tied to a PrintStream object that may be the console or a file (the file possibility is used with Aspect and the Generic Proxy).
+			The Board constitute a more specialized view that needed its proper class for it needed to be updated in some different parts of it while the program running.
+			
+		2.7 - Client
+		
+			See: ROOT/uml/client.png (or uml.pdf)		
+			See: ROOT/uml/client-action.png (or uml.pdf)						
+			
+			The client is the following part of the MVC that is described on server side. The same principle of a single entry point that have the same interface as the server is used. The class that implement the controller behaviour hide an instance of Event dispatcher that is used whenever the call is asynchronous.
+			The client action are an imitation of the Swing like GUI pattern that let us disconnect the GUI classes from the class that process the input user.
+			The ConsoleClient is the main application that is started and give birth to a client session that may have potentially multiple instance of independent ComputerHumanMatch of HumanHumanMatch (treated as an IMatch interface) that hide technical details that differentiate the two type of game.
+		
+		2.8 - Factories
+			
+			From a general point of view the Factory pattern has been used whenever possible.
+			The Spring framework is a lightweight dependency injection container that is used for very fundamental classes that instance must be unique and transversally used in all the project.
+			The file ROOT/in4rows/src/in4rows/client/console/ConsoleClient-context.xml explicitly shows the classes automatically loaded.
+		
+		
+			
 
 		
